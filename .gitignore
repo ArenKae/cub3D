@@ -1,0 +1,34 @@
+## Mlx related
+Makefile.gen
+minilibx/test/mlx-test
+minilibx/obj
+.mlx_outpout.txt
+
+## Editor
+.vscode/*
+*~
+\#*\#
+
+# System files
+.DS_Store
+desktop.ini
+settings.json
+
+# Object files
+obj/
+*.o
+
+# Executables
+libft.a
+*.a
+*.out
+cub3d
+
+# MEMO : delete folder from remote :
+# git rm -r --cached folder_name
+
+# Exctract .tar archive :
+# tar -xf foo.tar
+
+# Create .tar archive :
+# tar -cf file1 folder 1 archive_name.tar
