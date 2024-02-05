@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2023/09/25 16:27:45 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/05 03:51:18 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,7 +277,7 @@ int	main(int ac, char **av)
 	context.player_pos.y = 4;
 	// printf("player x : %d\n", context.player_pos.x);
 	// printf("player y : %d\n", context.player_pos.y);
-	context.double_pos.angle = 90 * 3.141592 / 180;
+	context.double_pos.angle = 1 * 3.141592 / 180;
 	context.value = 0;
 	context.frames = 0;
 	if (ac == 2)
