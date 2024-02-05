@@ -36,30 +36,7 @@ int	destroy_window(t_context *context)
 	exit(0);
 }
 
-void	get_texture(t_context *context, double graycos, double graysin, double gy, double gx)
-{
-	double	ray_cos;
-	double	ray_sin;
-
-	ray_cos = graycos / 2;
-	if (ray_cos < 0)
-		ray_cos = -ray_cos;
-	ray_sin = graysin / 2;
-	if (ray_sin < 0)
-		ray_sin = -ray_sin;
-	fprintf(stderr, "ray_cos : %lf\n", ray_cos);
-	fprintf(stderr, "ray_sin : %lf\n", ray_sin);
-	if (context->map[(int)(gy - ray_sin)][(int)gx] != '1')
-		fprintf(stderr, "north\n");
-	else if (context->map[(int)(gy + ray_sin)][(int)gx] != '1')
-		fprintf(stderr, "south\n");
-	else if (context->map[(int)gy][(int)(gx + ray_cos)] != '1')
-		fprintf(stderr, "east\n");
-	else if (context->map[(int)gy][(int)(gx - ray_cos)] != '1')
-		fprintf(stderr, "west\n");
-}
-
-void get_color(double ray_angle, int flag) // get the color of the wall
+void get_wall_side(double ray_angle, int flag) // get the color of the wall
 {
  if (flag == 0)
  {
@@ -79,17 +56,17 @@ void get_color(double ray_angle, int flag) // get the color of the wall
 
 int wall_hit(double x, double y, t_context *context) // check the wall hit
 {
- int  x_m;
- int  y_m;
+ int  x_map;
+ int  y_map;
 
  if (x <= 1 || y <= 1)
   return (0);
- x_m = floor(x);
- y_m = floor(y);
- if ((y_m > 8 || x_m > 8))
+ x_map = floor(x);
+ y_map = floor(y);
+ if ((y_map > 8 || x_map > 8))
   return (0);
- if (context->map[y_m] && x_m <= (int)strlen(context->map[y_m]))
-  if (context->map[y_m][x_m] == '1')
+ if (context->map[y_map] && x_map <= (int)strlen(context->map[y_map]))
+  if (context->map[y_map][x_map] == '1')
    return (0);
  return (1);
 }
@@ -115,9 +92,9 @@ float get_h_inter(t_context *context, double angle, double *x_impact, double *y_
 	{
 		h_x += x_step;
 		h_y += y_step;
-		printf("h x : %lf\n", h_x);
-		printf("h y : %lf\n\n", h_y);
-		sleep (1);
+		// printf("h x : %lf\n", h_x);
+		// printf("h y : %lf\n\n", h_y);
+		// sleep (1);
 	}
 	*x_impact = h_x;
 	*y_impact = h_y;
@@ -153,9 +130,9 @@ float get_v_inter(t_context *context, double angle, double *x_impact, double *y_
 	{
 		v_x += x_step;
 		v_y += y_step;
-		printf("v x : %lf\n", v_x);
-		printf("v y : %lf\n\n", v_y);
-		sleep (1);
+		// printf("v x : %lf\n", v_x);
+		// printf("v y : %lf\n\n", v_y);
+		// sleep (1);
 	}
 	*x_impact = v_x;
 	*y_impact = v_y;
@@ -205,8 +182,9 @@ void	raycast(t_context *context)
 		}
 		printf("ray angle : %lf\n", ray_angle * 180 / 3.141592);
 		printf("%d\n", flag);
-		get_color(ray_angle, flag);
+		get_wall_side(ray_angle, flag);
 		printf("distance : %lf\n\n\n\n", distance);
+		sleep(1);
 		ray++;
 	}
 }
@@ -262,7 +240,7 @@ int	main(int ac, char **av)
 {
 	(void)av;
 	t_context	context;
-	context.map = malloc(sizeof(char *) * 10);
+	context.map = malloc(sizeof(char *) * 9);
 	context.map[0] = strdup("11111111");
  	context.map[1] = strdup("10000001");
  	context.map[2] = strdup("10000001");
@@ -277,7 +255,7 @@ int	main(int ac, char **av)
 	context.player_pos.y = 4;
 	// printf("player x : %d\n", context.player_pos.x);
 	// printf("player y : %d\n", context.player_pos.y);
-	context.double_pos.angle = 1 * 3.141592 / 180;
+	context.double_pos.angle = 233 * 3.141592 / 180;
 	context.value = 0;
 	context.frames = 0;
 	if (ac == 2)
