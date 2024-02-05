@@ -82,11 +82,11 @@ int wall_hit(double x, double y, t_context *context) // check the wall hit
  int  x_m;
  int  y_m;
 
- if (x < 0 || y < 0)
+ if (x <= 1 || y <= 1)
   return (0);
  x_m = floor(x);
  y_m = floor(y);
- if ((y_m >= 8 || x_m >= 25))
+ if ((y_m > 8 || x_m > 8))
   return (0);
  if (context->map[y_m] && x_m <= (int)strlen(context->map[y_m]))
   if (context->map[y_m][x_m] == '1')
@@ -105,10 +105,8 @@ float get_h_inter(t_context *context, double angle, double *x_impact, double *y_
 	x_step = 1 / tan(angle);
 	h_x = context->player_pos.x;
 	h_y = context->player_pos.y;
-	// if (angle > 0 && angle < 3.141592)
-  	// 	x_step *= -1;
-	// if (angle > 0 && angle < 3.141592)
-	// 	y_step = -1;
+	if (angle > 3.141592)
+  		x_step *= -1;
 	if (angle > 0 && angle < 3.141592)
 		y_step = -1;
 	// printf("h x_step : %lf\n", x_step);
@@ -139,14 +137,16 @@ float get_v_inter(t_context *context, double angle, double *x_impact, double *y_
 	y_step = 1 * tan(angle);
 	v_x = context->player_pos.x;
 	v_y = context->player_pos.y;
-	// if (angle < 4.71239 && angle > 1.5708)
-	// 	x_step = -1;
-	if (angle > 3.141592 && angle < 3.141592 * 2 && y_step < 0)
+	if (angle < 4.71239 && angle > 1.5708)
+		x_step = -1;
+	if (angle > 0 && angle < 3.141592 && y_step > 0)
 	{
 		y_step *= -1;
 	}
-	if (angle > 0 && angle < 3.141592)
+	else if (angle > 3.141592 && y_step < 0)
 		y_step *= -1;
+	// if (angle > 0 && angle < 3.141592)
+	// 	y_step *= -1;
 	// printf("v x_step : %lf\n", x_step);
 	// printf("v y_step : %lf\n", y_step);
 	while (wall_hit(v_x, v_y, context))
@@ -204,8 +204,7 @@ void	raycast(t_context *context)
 			distance = h_inter;
 		}
 		printf("ray angle : %lf\n", ray_angle * 180 / 3.141592);
-		printf("x ray pos : %lf\n", x_impact);
-		printf("y ray pos : %lf\n", y_impact);
+		printf("%d\n", flag);
 		get_color(ray_angle, flag);
 		printf("distance : %lf\n\n\n\n", distance);
 		ray++;
@@ -278,7 +277,7 @@ int	main(int ac, char **av)
 	context.player_pos.y = 4;
 	// printf("player x : %d\n", context.player_pos.x);
 	// printf("player y : %d\n", context.player_pos.y);
-	context.double_pos.angle = 30 * 3.141592 / 180;
+	context.double_pos.angle = 90 * 3.141592 / 180;
 	context.value = 0;
 	context.frames = 0;
 	if (ac == 2)
