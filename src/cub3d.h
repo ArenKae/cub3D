@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2023/09/22 17:35:37 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/06 03:49:25 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # define BUFF_SIZE 512
 # define SQUARE_SIZE 50
+#ifndef M_PI
+# define M_PI 3.14159265358979323846
+#endif
 
 # include "mlx.h"
 # include <unistd.h>
@@ -23,6 +26,7 @@
 # include <stdio.h>
 # include <time.h>
 # include <string.h>
+# include <math.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
 

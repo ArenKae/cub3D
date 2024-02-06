@@ -6,13 +6,11 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/05 03:51:18 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/06 03:49:20 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <math.h>
-
 
 void	*window_init(t_context *context)
 {
