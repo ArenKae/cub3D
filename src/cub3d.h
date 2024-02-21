@@ -41,20 +41,12 @@ typedef struct s_data
 	int		img_height;	
 }		t_data;
 
-typedef struct s_pos
-{
-	double	x;
-	double  y;
-	double x2;
-	double	y2;
-}		t_pos;
-
-typedef	struct s_double
+typedef	struct s_pos
 {
 	double	x;
 	double	y;
 	double	angle;
-}		t_double;
+}		t_pos;
 
 typedef struct s_patrol
 {
@@ -62,10 +54,26 @@ typedef struct s_patrol
 	struct s_patrol	*next;
 }			t_patrol;
 
+typedef	struct s_wall
+{
+	char	side;
+	double	distance;
+	double	ray_angle;
+}			t_wall;
+
+typedef struct s_inter
+{
+	double x;
+	double y;
+	double x_step;
+	double y_step;
+}			t_inter;
+
 typedef struct s_context
 {
 	void	*window;
 	void	*game;
+	void	*img;
 	char	**map;
 	char	*str;
 	int		window_x;
@@ -73,8 +81,9 @@ typedef struct s_context
 	int		value;
 	int		frames;
 	t_pos	player_pos;
-	t_double	double_pos;
+	t_wall	wall;
 	t_data	data[13];
+	t_inter	inter;
 }		t_context;
 
 typedef struct s_read

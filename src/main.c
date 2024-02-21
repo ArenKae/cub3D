@@ -15,7 +15,7 @@
 void	*window_init(t_context *context)
 {
 	context->window = mlx_new_window(context->game,
-			400, 400, "Cub3d");
+			800, 600, "Cub3d");
 	return (context->window);
 }
 
@@ -34,22 +34,97 @@ int	destroy_window(t_context *context)
 	exit(0);
 }
 
-void get_wall_side(double ray_angle, int flag) // get the color of the wall
+void my_mlx_pixel_put(t_context *context, int x, int y, int color) // put the pixel
 {
- if (flag == 0)
- {
-  if (ray_angle > (M_PI / 2) && ray_angle < (3 * M_PI) / 2)
-   fprintf(stderr, "east\n");
-  else
-   fprintf(stderr, "west\n");
- }
- else
- {
-  if (ray_angle > 0 && ray_angle < M_PI)
-   fprintf(stderr, "south\n");
-  else
-   fprintf(stderr, "north\n");
- }
+	if (x < 0) // check the x position
+		return ;
+	else if (x >= 800)
+		return ;
+	if (y < 0) // check the y position
+		return ;
+	else if (y >= 600)
+		return ;
+	mlx_pixel_put(context->img, context->window, x, y, color); // put the pixel
+}
+
+void draw_floor_ceiling(t_context *context, int ray, int t_pix, int b_pix) // draw the floor and the ceiling
+{
+	int  i;
+
+	i = b_pix;
+	while (i < 600)
+	{
+		my_mlx_pixel_put(context, ray, i, 0xB99470FF); // floor
+		i++;
+	}
+	i = 0;
+	while (i < t_pix)
+	{
+		my_mlx_pixel_put(context, ray, i, 0x89CFF3FF); // ceiling
+		i++;
+	}
+}
+
+int get_color(t_context *context)
+{
+	if (context->wall.side == 'W')
+		return (0xB5B5B5FF); // west wall
+	else if (context->wall.side == 'E')
+		return (0xB5B5B5FF); // east wall
+	else if (context->wall.side == 'S')
+		return (0xF5F5F5FF); // south wall
+	else if (context->wall.side == 'N')
+		return (0xF5F5F5FF); // north wall
+	return (0);
+}
+
+void draw_wall(t_context *context, int ray, int t_pix, int b_pix) // draw the wall
+{
+	int color;
+
+	color = get_color(context);
+	while (t_pix < b_pix)
+	{
+		my_mlx_pixel_put(context, ray, t_pix, color);
+		t_pix++;
+	}
+}
+
+void render_wall(t_context *context, int ray) // render the wall
+{
+	double wall_h;
+	double b_pix;
+	double t_pix;
+
+	context->wall.distance *= cos(context->wall.ray_angle - context->player_pos.angle); // fix the fisheye
+	printf("distance = %lf\n", context->wall.distance);
+	wall_h = (1 / context->wall.distance) * ((800/ 2) / tan(75 / 2)); // get the wall height
+	b_pix = (600 / 2) + (wall_h / 2); // get the bottom pixel
+	t_pix = (600 / 2) - (wall_h / 2); // get the top pixel
+	if (b_pix > 600) // check the bottom pixel
+		b_pix = 600;
+	if (t_pix < 0) // check the top pixel
+		t_pix = 0;
+	draw_wall(context, ray, t_pix, b_pix); // draw the wall
+	// draw_floor_ceiling(context, ray, t_pix, b_pix); // draw the floor and the ceiling
+}
+
+void get_wall_side(t_context *context, double ray_angle, int flag) // get the color of the wall
+{
+	if (flag == 0)
+	{
+		if (ray_angle > (M_PI / 2) && ray_angle < (3 * M_PI) / 2)
+			context->wall.side = 'E';
+		else
+			context->wall.side = 'W';
+	}
+	else
+	{
+		if (ray_angle > 0 && ray_angle < M_PI)
+			context->wall.side = 'S';
+		else
+			context->wall.side = 'N';
+	}
 }
 
 int wall_hit(double x, double y, t_context *context) // check the wall hit
@@ -63,119 +138,99 @@ int wall_hit(double x, double y, t_context *context) // check the wall hit
 		return (0);
 	x_map = floor(x);
 	y_map = floor(y);
-	// printf("x = %lf\n", x);
-	// printf("y = %lf\n", y);
-	// printf("x_map = %d\n", x_map);
-	// printf("y_map = %d\n", y_map);
 	if (context->map[y_map] && x_map <= (int)strlen(context->map[y_map]))
 		if (context->map[y_map][x_map] == '1')
 			return (0);
 	return (1);
 }
 
-float get_h_inter(t_context *context, double angle, double *x_impact, double *y_impact)
+void	get_first_h_inter(t_context *context)
 {
-	double h_x;
-	double h_y;
-	double x_step;
-	double y_step;
-
-	y_step = 1;
-	x_step = 1 / tan(angle);
-	h_x = context->player_pos.x;
-	h_y = context->player_pos.y;
-	if (angle > M_PI)
-  		x_step *= -1;
-	if (angle > 0 && angle < M_PI)
-		y_step = -1;
-	// printf("h x_step : %lf\n", x_step);
-	// printf("h y_step : %lf\n", y_step);
-	while (wall_hit(h_x, h_y, context))
-	{
-		h_x += x_step;
-		h_y += y_step;
-		// printf("h x : %lf\n", h_x);
-		// printf("h y : %lf\n\n", h_y);
-		// sleep (1);
-	}
-	*x_impact = h_x;
-	*y_impact = h_y;
-	// printf("h x_impact : %lf\n", h_x);
-	// printf("h y_impact : %lf\n", h_y);
-	return (sqrt(pow(h_x - context->player_pos.x, 2) + pow(h_y - context->player_pos.y, 2)));
-}
-
-void	get_first_v_inter(double v_x, double v_y, double x_step, double y_step, double angle)
-{
-	(void)y_step;
-	(void)v_y;
 	double	x_dif;
 	double	y_dif;
 	double	x_pos;
 	double	y_pos;
-	(void)y_pos;
-	(void)x_pos;
-	(void)angle;
-	// printf("x step = %lf\n", x_step);
-	// printf("y step = %lf\n", y_step);
-	if (x_step <= 0)
+	if (context->inter.y_step <= 0)
 	{
-		// printf("1\n");
-		x_dif = v_x - floor(v_x);
-		x_pos = v_x - x_dif;
+		y_dif = context->inter.y - floor(context->inter.y);
+		y_pos = context->inter.y - y_dif;
 	}
 	else
 	{
-		// printf("0\n");
-		x_dif = ceil(v_x) - v_x;
-		x_pos = v_x + x_dif;
+		y_dif = ceil(context->inter.y) - context->inter.y;
+		y_pos = context->inter.y + y_dif;
 	}
-	// y_dif = x_dif * tan(angle);
-	y_dif = y_step * x_dif;
-	y_pos = v_y + y_dif;
-	// printf("x_dif = %lf\n", x_dif);
-	// printf("y_dif = %lf\n", y_dif);
-	// printf("x inter pos = %lf\n", x_pos);
-	// printf("y inter pos = %lf\n", y_pos);
+	x_dif = context->inter.x_step * y_dif;
+	x_pos = context->inter.x + x_dif;
+	context->inter.x = x_pos;
+	context->inter.y = y_pos;
 }
 
-float get_v_inter(t_context *context, double angle, double *x_impact, double *y_impact)
-{
-	double v_x;
-	double v_y;
-	double x_step;
-	double y_step;
 
-	x_step = 1; 
-	y_step = 1 * tan(angle);
-	v_x = context->player_pos.x;
-	v_y = context->player_pos.y;
-	if (angle < (M_PI * 3 / 2) && angle > (M_PI / 2))
-		x_step = -1;
-	if ((angle > 0 && angle < M_PI && y_step > 0) || ((angle > M_PI && y_step < 0)))
+float get_h_inter(t_context *context, double *x_impact, double *y_impact)
+{
+	context->inter.y_step = 1;
+	context->inter.x_step = 1 / tan(context->wall.ray_angle);
+	context->inter.x = context->player_pos.x;
+	context->inter.y = context->player_pos.y;
+	if (context->wall.ray_angle > M_PI)
+  		context->inter.x_step *= -1;
+	if (context->wall.ray_angle > 0 && context->wall.ray_angle < M_PI)
+		context->inter.y_step = -1;
+	get_first_h_inter(context);
+	while (wall_hit(context->inter.x, context->inter.y, context))
 	{
-		y_step *= -1;
+		context->inter.x += context->inter.x_step;
+		context->inter.y += context->inter.y_step;
 	}
-	get_first_v_inter(v_x, v_y, x_step, y_step, angle);
-	// else if (angle > M_PI && y_step < 0)
-	// 	y_step *= -1;
-	// if (angle > 0 && angle < M_PI)
-	// 	y_step *= -1;
-	// printf("v x_step : %lf\n", x_step);
-	// printf("v y_step : %lf\n", y_step);
-	while (wall_hit(v_x, v_y, context))
+	*x_impact = context->inter.x;
+	*y_impact = context->inter.y;
+	return (sqrt(pow(context->inter.x - context->player_pos.x, 2) + pow(context->inter.y - context->player_pos.y, 2)));
+}
+
+void	get_first_v_inter(t_context *context)
+{
+	double	x_dif;
+	double	y_dif;
+	double	x_pos;
+	double	y_pos;
+	if (context->inter.x_step < 0)
 	{
-		v_x += x_step;
-		v_y += y_step;
-		// printf("v x : %lf\n", v_x);
-		// printf("v y : %lf\n\n", v_y);
-		// sleep (1);
+		x_dif = context->inter.x - floor(context->inter.x);
+		x_pos = context->inter.x - x_dif;
 	}
-	*x_impact = v_x;
-	*y_impact = v_y;
-	// printf("v x_impact : %lf\n", v_x);
-	// printf("v y_impact : %lf\n", v_y);
-	return (sqrt(pow(v_x - context->player_pos.x, 2) + pow(v_y - context->player_pos.y, 2)));
+	else
+	{
+		x_dif = ceil(context->inter.x) - context->inter.x;
+		x_pos = context->inter.x + x_dif;
+	}
+	y_dif = context->inter.y_step * x_dif;
+	y_pos = context->inter.y + y_dif;
+	context->inter.x = x_pos;
+	context->inter.y = y_pos;
+}
+
+float get_v_inter(t_context *context, double *x_impact, double *y_impact)
+{
+	context->inter.x_step = 1; 
+	context->inter.y_step = 1 * tan(context->wall.ray_angle);
+	context->inter.x = context->player_pos.x;
+	context->inter.y = context->player_pos.y;
+	if (context->wall.ray_angle < (M_PI * 3 / 2) && context->wall.ray_angle > (M_PI / 2))
+		context->inter.x_step = -1;
+	if ((context->wall.ray_angle > 0 && context->wall.ray_angle < M_PI && context->inter.y_step > 0) || ((context->wall.ray_angle > M_PI && context->inter.y_step < 0)))
+	{
+		context->inter.y_step *= -1;
+	}
+	get_first_v_inter(context);
+	while (wall_hit(context->inter.x, context->inter.y, context))
+	{
+		context->inter.x += context->inter.x_step;
+		context->inter.y += context->inter.y_step;
+	}
+	*x_impact = context->inter.x;
+	*y_impact = context->inter.y;
+	return (sqrt(pow(context->inter.x - context->player_pos.x, 2) + pow(context->inter.y - context->player_pos.y, 2)));
 }
 
 
@@ -184,7 +239,6 @@ void	raycast(t_context *context)
 	double	h_inter;
 	double	v_inter;
 	int		ray;
-	double	ray_angle;
 	double	distance;
 	int		flag;
 	double	x_impact;
@@ -194,33 +248,27 @@ void	raycast(t_context *context)
 	flag = 0;
 	(void)flag;
 	(void)distance;
-	// ray_angle = context->double_pos.angle - 0.610865;
-	ray_angle = context->double_pos.angle;
-	if (ray_angle > M_PI * 2)
-		ray_angle = 0 + ray_angle;
-	while (ray < 2)
+	(void)h_inter;
+	context->wall.ray_angle = context->player_pos.angle - 0.523599;
+	if (context->wall.ray_angle < 0)
+		context->wall.ray_angle = M_PI * 2 + context->wall.ray_angle;
+	while (ray < 801)
 	{
+		if (context->wall.ray_angle >= M_PI * 2)
+			context->wall.ray_angle = 0;
 		flag = 0;
-		// printf("ray angle : %lf\n", ray_angle * 180 / M_PI);
-		h_inter = get_h_inter(context, ray_angle, &x_impact, &y_impact);
-		v_inter = get_v_inter(context, ray_angle, &x_impact, &y_impact);
-		ray_angle += 0.000636;
-		if (ray_angle >= M_PI * 2)
-			ray_angle = 0;
+		if (context->wall.ray_angle == 0)
+			context->wall.ray_angle = 0.000001;
+		h_inter = get_h_inter(context, &x_impact, &y_impact);
+		v_inter = get_v_inter(context, &x_impact, &y_impact);
+		context->wall.ray_angle += 0.001309;
 		if (v_inter <= h_inter)
-		{
-			distance = v_inter;
-		}
+			context->wall.distance = v_inter;
 		else
 		{
 			flag = 1;
-			distance = h_inter;
+			context->wall.distance = h_inter;
 		}
-		// printf("ray angle : %lf\n", ray_angle * 180 / M_PI);
-		// printf("%d\n", flag);
-		// get_wall_side(ray_angle, flag);
-		// printf("distance : %lf\n\n\n\n", distance);
-		// sleep(1);
 		ray++;
 	}
 }
@@ -229,44 +277,41 @@ int	key_press(int keycode, t_context *context)
 {
 	if (keycode == 119)
 	{
-		context->player_pos.x += (cos(context->double_pos.angle) / 5);
-		context->player_pos.y -= (sin(context->double_pos.angle) / 5);
+		context->player_pos.x += (cos(context->player_pos.angle) / 5);
+		context->player_pos.y -= (sin(context->player_pos.angle) / 5);
 	}
 	if (keycode == 115)
 	{
-		context->player_pos.x -= (cos(context->double_pos.angle) / 5);
-		context->player_pos.y += (sin(context->double_pos.angle) / 5);
+		context->player_pos.x -= (cos(context->player_pos.angle) / 5);
+		context->player_pos.y += (sin(context->player_pos.angle) / 5);
 	}
 	if (keycode == 100)
 	{
-		context->player_pos.x += (sin(context->double_pos.angle) / 5);
-		context->player_pos.y += (cos(context->double_pos.angle) / 5);
+		context->player_pos.x += (sin(context->player_pos.angle) / 5);
+		context->player_pos.y += (cos(context->player_pos.angle) / 5);
 	}
 	if (keycode == 97)
 	{
-		context->player_pos.x -= (sin(context->double_pos.angle) / 5);
-		context->player_pos.y -= (cos(context->double_pos.angle) / 5);
+		context->player_pos.x -= (sin(context->player_pos.angle) / 5);
+		context->player_pos.y -= (cos(context->player_pos.angle) / 5);
 	}
 	if (keycode == 65363)
 	{
-		context->double_pos.angle = context->double_pos.angle - (2.5 * M_PI / 180);
-		if (context->double_pos.angle >= M_PI * 2)
-			context->double_pos.angle = 0;
+		context->player_pos.angle = context->player_pos.angle - (2.5 * M_PI / 180);
+		if (context->player_pos.angle >= M_PI * 2)
+			context->player_pos.angle = 0;
 	}
 	if (keycode == 65361)
 	{
-		context->double_pos.angle = context->double_pos.angle + (2.5 * M_PI / 180);
-		if (context->double_pos.angle <= 0)
-			context->double_pos.angle = M_PI * 2;
+		context->player_pos.angle = context->player_pos.angle + (2.5 * M_PI / 180);
+		if (context->player_pos.angle <= 0)
+			context->player_pos.angle = M_PI * 2;
 	}
-	if (context->double_pos.angle > M_PI * 2)
-		context->double_pos.angle = 2.5 * M_PI / 180;
-	if (context->double_pos.angle < 2.4 * M_PI / 180)
-		context->double_pos.angle = M_PI * 2;
+	if (context->player_pos.angle > M_PI * 2)
+		context->player_pos.angle = 2.5 * M_PI / 180;
+	if (context->player_pos.angle < 2.4 * M_PI / 180)
+		context->player_pos.angle = M_PI * 2;
 	raycast(context);
-	printf("x : %lf\n", context->player_pos.x);
-	printf("y : %lf\n", context->player_pos.y);
-	printf("angle : %lf\n\n\n", context->double_pos.angle * 180 / M_PI);
 	return (0);
 }
 
@@ -293,9 +338,7 @@ int	main(int ac, char **av)
 
 	context.player_pos.x = 4;
 	context.player_pos.y = 4;
-	// printf("player x : %d\n", context.player_pos.x);
-	// printf("player y : %d\n", context.player_pos.y);
-	context.double_pos.angle = 180 * M_PI / 180;
+	context.player_pos.angle = 29 * M_PI / 180;
 	context.value = 0;
 	context.frames = 0;
 	if (ac == 2)
@@ -304,6 +347,7 @@ int	main(int ac, char **av)
 		if (!context.game)
 			return (1);
 		window_init(&context);
+		context.img = mlx_new_image(context.game, 800, 600);
 		// put_sprites(&context);
 		// mlx_hook(context.window, DestroyNotify, KeyReleaseMask,
 		// 	destroy_window, &context);
