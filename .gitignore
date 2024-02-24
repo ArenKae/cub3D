@@ -18,6 +18,7 @@ settings.json
 obj/
 *.o
 src/ *.o
+mlx/obj/
 
 # Executables
 libft.a
