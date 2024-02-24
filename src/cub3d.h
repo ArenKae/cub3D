@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/06 03:49:25 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/24 15:24:20 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,6 @@
 # include <math.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
-
-typedef struct s_data
-{
-	int		*addr;
-	void	*img_ptr;
-	int		bits_per_pixel;
-	int		size_line;
-	int		endian;
-	int		img_width;
-	int		img_height;	
-}		t_data;
 
 typedef	struct s_pos
 {
@@ -69,10 +58,10 @@ typedef struct s_inter
 	double y_step;
 }			t_inter;
 
-typedef struct s_context
+typedef struct s_data
 {
-	void	*window;
-	void	*game;
+	void	*mlx;
+	void	*win;
 	void	*img;
 	char	**map;
 	char	*str;
@@ -82,9 +71,8 @@ typedef struct s_context
 	int		frames;
 	t_pos	player_pos;
 	t_wall	wall;
-	t_data	data[13];
 	t_inter	inter;
-}		t_context;
+}		t_data;
 
 typedef struct s_read
 {
