@@ -1,8 +1,8 @@
 NAME = cub3d
 HEADER 		=	cub3d.h
 CC = gcc
-CFLAGS += -Wall -Werror -Wextra -I minilibx
-SRC = src/main.c
+CFLAGS += -Wall -Werror -Wextra -I minilibx -ggdb3
+SRC = src/main.c src/render.c
 MLX_FLAGS 	= 	-L./minilibx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 INCLUDES = -I/usr/include -Imlx
 
