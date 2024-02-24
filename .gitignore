@@ -17,6 +17,7 @@ settings.json
 # Object files
 obj/
 *.o
+src/ *.o
 
 # Executables
 libft.a
