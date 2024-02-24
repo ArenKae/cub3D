@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/24 15:25:31 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/24 15:50:15 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -352,6 +352,7 @@ int	main(int ac, char **av)
 		// mlx_hook(data.window, DestroyNotify, KeyReleaseMask,
 		// 	destroy_window, &data);
 		hooks_handler(&data);
+		render(&data);
 		//mlx_loop_hook(data.mlx, raycast, &data);
 		// mlx_key_hook(data.window, on_key, &data);
 		// mlx_loop_hook(data.mlx, init_patrol, &data);

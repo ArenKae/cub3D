@@ -6,18 +6,12 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/24 15:24:20 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/24 15:47:32 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
-
-# define BUFF_SIZE 512
-# define SQUARE_SIZE 50
-#ifndef M_PI
-# define M_PI 3.14159265358979323846
-#endif
 
 # include "mlx.h"
 # include <unistd.h>
@@ -30,18 +24,45 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 
+/* ---------------------------------------------------------------------------*
+							MACROS
+ --------------------------------------------------------------------------- */
+
+# define BUFF_SIZE 512
+# define SQUARE_SIZE 50
+#ifndef M_PI
+# define M_PI 3.14159265358979323846
+#endif
+
+enum	textures_index
+{
+	NORTH = 0,
+	SOUTH = 1,
+	EAST = 2,
+	WEST = 3,
+};
+
+/* ---------------------------------------------------------------------------*
+							STRUCTURES
+ --------------------------------------------------------------------------- */
+
+typedef struct s_img
+{
+	void	*ptr;
+	char	*addr;
+	int		pixel_bits;
+	int		size_line;
+	int		endian;
+	int		width;
+	int		height;
+}	t_img;
+
 typedef	struct s_pos
 {
 	double	x;
 	double	y;
 	double	angle;
 }		t_pos;
-
-typedef struct s_patrol
-{
-	t_pos			pat_pos;
-	struct s_patrol	*next;
-}			t_patrol;
 
 typedef	struct s_wall
 {
@@ -58,6 +79,13 @@ typedef struct s_inter
 	double y_step;
 }			t_inter;
 
+typedef struct s_read
+{
+	int				ret;
+	char			buf[BUFF_SIZE];
+	struct s_read	*next;
+}		t_read;
+
 typedef struct s_data
 {
 	void	*mlx;
@@ -72,14 +100,14 @@ typedef struct s_data
 	t_pos	player_pos;
 	t_wall	wall;
 	t_inter	inter;
+	t_img	**text;
 }		t_data;
 
-typedef struct s_read
-{
-	int				ret;
-	char			buf[BUFF_SIZE];
-	struct s_read	*next;
-}		t_read;
+/* ---------------------------------------------------------------------------*
+							FUNCTIONS
+ --------------------------------------------------------------------------- */
 
+void	render(t_data *data);
+void	exit_error(char *msg, int status);
 
 #endif
