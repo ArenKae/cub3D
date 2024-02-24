@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/24 15:47:32 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/24 15:59:47 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,11 @@ typedef struct s_data
 							FUNCTIONS
  --------------------------------------------------------------------------- */
 
+/*	Rendering	*/
 void	render(t_data *data);
+
+/*	Utils	*/ 
 void	exit_error(char *msg, int status);
+int		destroy_window(t_data *data);
 
 #endif

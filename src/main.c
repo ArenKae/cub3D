@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/24 15:50:15 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/24 16:02:52 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,6 @@ void	*window_init(t_data *data)
 	data->win = mlx_new_window(data->mlx,
 			800, 600, "Cub3d");
 	return (data->win);
-}
-
-int	destroy_window(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i <= 11)
-	{
-		//mlx_destroy_image(data->mlx, data->data[i].img_ptr);
-		i++;
-	}
-	mlx_destroy_window(data->mlx, data->win);
-
-	exit(0);
 }
 
 void my_mlx_pixel_put(t_data *data, int x, int y, int color) // put the pixel
@@ -275,6 +260,8 @@ void	raycast(t_data *data)
 
 int	key_press(int keycode, t_data *data)
 {
+	if (keycode == 27 || keycode == 65307)
+		destroy_window(data);
 	if (keycode == 119)
 	{
 		data->player_pos.x += (cos(data->player_pos.angle) / 5);
@@ -352,6 +339,8 @@ int	main(int ac, char **av)
 		// mlx_hook(data.window, DestroyNotify, KeyReleaseMask,
 		// 	destroy_window, &data);
 		hooks_handler(&data);
+		mlx_hook(data.win, DestroyNotify, KeyReleaseMask,
+			destroy_window, &data);
 		render(&data);
 		//mlx_loop_hook(data.mlx, raycast, &data);
 		// mlx_key_hook(data.window, on_key, &data);
