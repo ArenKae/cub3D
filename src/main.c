@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/27 20:52:06 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/27 21:36:28 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void draw_floor_ceiling(t_data *data, int ray, int t_pix, int b_pix) // draw the
 	i = b_pix;
 	while (i < 600)
 	{
-		my_mlx_pixel_put(data, ray, i, 0xB99470FF); // floor
+		my_mlx_pixel_put(data, ray, i, 0); // floor
 		i++;
 	}
 	i = 0;
@@ -239,7 +239,7 @@ void	raycast(t_data *data)
 	data->wall.ray_angle = data->player_pos.angle - 0.523599;
 	if (data->wall.ray_angle < 0)
 		data->wall.ray_angle = M_PI * 2 + data->wall.ray_angle;
-	while (ray < 801)
+	while (ray < 800)
 	{
 		if (data->wall.ray_angle >= M_PI * 2)
 			data->wall.ray_angle = 0;
@@ -336,9 +336,9 @@ int	main(int ac, char **av)
  	data.map[7] = strdup("10000001");
  	data.map[8] = strdup("11111111");
 
-	data.player_pos.x = 2;
-	data.player_pos.y = 2;
-	data.player_pos.angle = M_PI / 180;
+	data.player_pos.x = 5;
+	data.player_pos.y = 5;
+	data.player_pos.angle = 3* M_PI / 180;
 	data.value = 0;
 	data.frames = 0;
 	if (ac == 2)
