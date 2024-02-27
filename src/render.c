@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/27 22:41:06 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/27 22:50:43 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void my_mlx_pixel_put(t_data *data, int x, int y, int color) // put the pixel
 	else if (y >= 600)
 		return ;
 	//mlx_pixel_put(data->mlx, data->win, x, y, color); // put the pixel
-	data->img.addr[y * 800 + x] = color;
+	data->img.addr[y * 4 * 800 + x * 4] = color;
 }
 
 void draw_floor_ceiling(t_data *data, int ray, int t_pix, int b_pix) // draw the floor and the ceiling
