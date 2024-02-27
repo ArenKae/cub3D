@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/24 16:02:52 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/27 19:46:24 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void my_mlx_pixel_put(t_data *data, int x, int y, int color) // put the pixel
 		return ;
 	else if (y >= 600)
 		return ;
-	mlx_pixel_put(data->img, data->win, x, y, color); // put the pixel
+	mlx_pixel_put(data->mlx, data->win, x, y, color); // put the pixel
 }
 
 void draw_floor_ceiling(t_data *data, int ray, int t_pix, int b_pix) // draw the floor and the ceiling
@@ -52,14 +52,15 @@ void draw_floor_ceiling(t_data *data, int ray, int t_pix, int b_pix) // draw the
 
 int get_color(t_data *data)
 {
+	printf("wallside=%c\n", data->wall.side);
 	if (data->wall.side == 'W')
-		return (0xB5B5B5FF); // west wall
+		return (0x00FF3333); // west wall
 	else if (data->wall.side == 'E')
-		return (0xB5B5B5FF); // east wall
+		return (0x00CC0000); // east wall
 	else if (data->wall.side == 'S')
-		return (0xF5F5F5FF); // south wall
+		return (0x00808080); // south wall
 	else if (data->wall.side == 'N')
-		return (0xF5F5F5FF); // north wall
+		return (0x00FF6666); // north wall
 	return (0);
 }
 
@@ -67,12 +68,14 @@ void draw_wall(t_data *data, int ray, int t_pix, int b_pix) // draw the wall
 {
 	int color;
 
+	(void)ray;
 	color = get_color(data);
-	while (t_pix < b_pix)
+	while (t_pix >b_pix)
 	{
 		my_mlx_pixel_put(data, ray, t_pix, color);
-		t_pix++;
+		t_pix--;
 	}
+	printf(">>tpix = %d, bpix = %d\n", t_pix, b_pix);
 }
 
 void render_wall(t_data *data, int ray) // render the wall
@@ -82,7 +85,7 @@ void render_wall(t_data *data, int ray) // render the wall
 	double t_pix;
 
 	data->wall.distance *= cos(data->wall.ray_angle - data->player_pos.angle); // fix the fisheye
-	printf("distance = %lf\n", data->wall.distance);
+	//printf("distance = %lf\n", data->wall.distance);
 	wall_h = (1 / data->wall.distance) * ((800/ 2) / tan(75 / 2)); // get the wall height
 	b_pix = (600 / 2) + (wall_h / 2); // get the bottom pixel
 	t_pix = (600 / 2) - (wall_h / 2); // get the top pixel
@@ -90,8 +93,8 @@ void render_wall(t_data *data, int ray) // render the wall
 		b_pix = 600;
 	if (t_pix < 0) // check the top pixel
 		t_pix = 0;
+	draw_floor_ceiling(data, ray, t_pix, b_pix); // draw the floor and the ceiling
 	draw_wall(data, ray, t_pix, b_pix); // draw the wall
-	// draw_floor_ceiling(data, ray, t_pix, b_pix); // draw the floor and the ceiling
 }
 
 void get_wall_side(t_data *data, double ray_angle, int flag) // get the color of the wall
@@ -243,18 +246,23 @@ void	raycast(t_data *data)
 			data->wall.ray_angle = 0;
 		flag = 0;
 		if (data->wall.ray_angle == 0)
-			data->wall.ray_angle = 0.000001;
+			data->wall.ray_angle = 0.000001; //prevent segfault if angle=0 (no tangent)
 		h_inter = get_h_inter(data, &x_impact, &y_impact);
 		v_inter = get_v_inter(data, &x_impact, &y_impact);
 		data->wall.ray_angle += 0.001309;
 		if (v_inter <= h_inter)
+		{
 			data->wall.distance = v_inter;
+			data->wall.side = (data->wall.ray_angle > 0 && data->wall.ray_angle < M_PI) ? 'W' : 'E';
+		}
 		else
 		{
 			flag = 1;
 			data->wall.distance = h_inter;
+			data->wall.side = (data->wall.ray_angle > M_PI / 2 && data->wall.ray_angle < 3 * M_PI / 2) ? 'S' : 'N';
 		}
 		ray++;
+		render_wall(data, ray);
 	}
 }
 
@@ -262,7 +270,7 @@ int	key_press(int keycode, t_data *data)
 {
 	if (keycode == 27 || keycode == 65307)
 		destroy_window(data);
-	if (keycode == 119)
+	if (keycode == 119 || keycode == 122)
 	{
 		data->player_pos.x += (cos(data->player_pos.angle) / 5);
 		data->player_pos.y -= (sin(data->player_pos.angle) / 5);
@@ -272,23 +280,23 @@ int	key_press(int keycode, t_data *data)
 		data->player_pos.x -= (cos(data->player_pos.angle) / 5);
 		data->player_pos.y += (sin(data->player_pos.angle) / 5);
 	}
-	if (keycode == 100)
+	if (keycode == 97 || keycode == 113)
 	{
 		data->player_pos.x += (sin(data->player_pos.angle) / 5);
 		data->player_pos.y += (cos(data->player_pos.angle) / 5);
 	}
-	if (keycode == 97)
+	if (keycode == 100)
 	{
 		data->player_pos.x -= (sin(data->player_pos.angle) / 5);
 		data->player_pos.y -= (cos(data->player_pos.angle) / 5);
 	}
-	if (keycode == 65363)
+	if (keycode == 65361)
 	{
 		data->player_pos.angle = data->player_pos.angle - (2.5 * M_PI / 180);
 		if (data->player_pos.angle >= M_PI * 2)
 			data->player_pos.angle = 0;
 	}
-	if (keycode == 65361)
+	if (keycode == 65363)
 	{
 		data->player_pos.angle = data->player_pos.angle + (2.5 * M_PI / 180);
 		if (data->player_pos.angle <= 0)
@@ -341,7 +349,7 @@ int	main(int ac, char **av)
 		hooks_handler(&data);
 		mlx_hook(data.win, DestroyNotify, KeyReleaseMask,
 			destroy_window, &data);
-		render(&data);
+		//render(&data);
 		//mlx_loop_hook(data.mlx, raycast, &data);
 		// mlx_key_hook(data.window, on_key, &data);
 		// mlx_loop_hook(data.mlx, init_patrol, &data);
