@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/27 22:50:43 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/27 23:36:09 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,20 @@ void my_mlx_pixel_put(t_data *data, int x, int y, int color) // put the pixel
 	else if (y >= 600)
 		return ;
 	//mlx_pixel_put(data->mlx, data->win, x, y, color); // put the pixel
-	data->img.addr[y * 4 * 800 + x * 4] = color;
+	if (data->img.endian == 1)
+	{
+		data->img.addr[y * 4 * 800 + x * 4 + 0] = (color >> 24);
+		data->img.addr[y * 4 * 800 + x * 4 + 1] = (color >> 16) & 0xFF;
+		data->img.addr[y * 4 * 800 + x * 4 + 2] = (color >> 8) & 0xFF;
+		data->img.addr[y * 4 * 800 + x * 4 + 4] = (color) & 0xFF;
+	}
+	else if (data->img.endian == 0)
+	{
+		data->img.addr[y * 4 * 800 + x * 4 + 0] = (color) & 0xFF;
+		data->img.addr[y * 4 * 800 + x * 4 + 1] = (color >> 8) & 0xFF;
+		data->img.addr[y * 4 * 800 + x * 4 + 2] = (color >> 16) & 0xFF;
+		data->img.addr[y * 4 * 800 + x * 4 + 4] = (color >> 24);
+	}
 }
 
 void draw_floor_ceiling(t_data *data, int ray, int t_pix, int b_pix) // draw the floor and the ceiling
