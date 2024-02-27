@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/27 19:46:24 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/27 20:30:43 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,13 +253,19 @@ void	raycast(t_data *data)
 		if (v_inter <= h_inter)
 		{
 			data->wall.distance = v_inter;
-			data->wall.side = (data->wall.ray_angle > 0 && data->wall.ray_angle < M_PI) ? 'W' : 'E';
+			if (data->wall.ray_angle > 0 && data->wall.ray_angle < M_PI)
+				data->wall.side = 'W';
+			else
+				data->wall.side = 'E';
 		}
 		else
 		{
 			flag = 1;
 			data->wall.distance = h_inter;
-			data->wall.side = (data->wall.ray_angle > M_PI / 2 && data->wall.ray_angle < 3 * M_PI / 2) ? 'S' : 'N';
+			if (data->wall.ray_angle > M_PI / 2 && data->wall.ray_angle < 3 * M_PI / 2)
+				data->wall.side = 'S';
+			else
+				data->wall.side = 'N';
 		}
 		ray++;
 		render_wall(data, ray);
@@ -331,9 +337,9 @@ int	main(int ac, char **av)
  	data.map[7] = strdup("10000001");
  	data.map[8] = strdup("11111111");
 
-	data.player_pos.x = 4;
-	data.player_pos.y = 4;
-	data.player_pos.angle = 29 * M_PI / 180;
+	data.player_pos.x = 2;
+	data.player_pos.y = 2;
+	data.player_pos.angle = M_PI / 180;
 	data.value = 0;
 	data.frames = 0;
 	if (ac == 2)
