@@ -6,73 +6,85 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/24 15:48:59 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/27 22:11:14 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_texture_data(t_data *data)
+void my_mlx_pixel_put(t_data *data, int x, int y, int color) // put the pixel
 {
-	int	i;
-	
-	i = -1;
-	data->text = malloc(sizeof(t_img *) * 4 + sizeof(t_img) * 4);
-	if (!data->text)
-		return (exit_error("malloc", EXIT_FAILURE));
-	t_img *img_array = (t_img *)(data->text + 4);
-	while(++i < 4)
+	if (x < 0) // check the x position
+		return ;
+	else if (x >= 800)
+		return ;
+	if (y < 0) // check the y position
+		return ;
+	else if (y >= 600)
+		return ;
+	mlx_pixel_put(data->mlx, data->win, x, y, color); // put the pixel
+}
+
+void draw_floor_ceiling(t_data *data, int ray, int t_pix, int b_pix) // draw the floor and the ceiling
+{
+	int  i;
+
+	i = b_pix;
+	while (i < 600)
 	{
-		data->text[i] = &img_array[i];
-		data->text[i]->addr = NULL;
-		data->text[i]->addr = NULL;
-		data->text[i]->pixel_bits = 0;
-		data->text[i]->size_line = 0;
-		data->text[i]->endian = 0;
+		my_mlx_pixel_put(data, ray, i, 0); // floor
+		i++;
 	}
-}
-
-char	**malloc_textures_index(char **index)
-{
-	index = malloc(sizeof(char *) * 4);
-	if (!index)
-		return (NULL);
-	index[NORTH] = "textures/north.xpm\0";
-	index[SOUTH] = "textures/south.xpm\0";
-	index[EAST] = "textures/east.xpm\0";
-	index[WEST] = "textures/west.xpm\0";
-	index[4] = NULL;
-	return (index);
-}
-
-void	create_textures(t_data *data)
-{
-	int		i;
-	char	**index;
-	
-	i = -1;
-	index = NULL;
-	init_texture_data(data);
-	index = malloc_textures_index(index);
-	if (index == NULL)
-		return (exit_error("malloc", EXIT_FAILURE));
-	while (++i < 4)
-	{
-		data->text[i]->ptr = mlx_xpm_file_to_image(data->mlx, index[i],
-			&data->text[i]->width, &data->text[i]->height);
-		if (data->text[i]->ptr == NULL)
-			return (exit_error("malloc", EXIT_FAILURE));
-		data->text[i]->addr = mlx_get_data_addr(data->text[i]->ptr,
-			&data->text[i]->pixel_bits, &data->text[i]->size_line, &data->text[i]->endian);
-	}
-	free(index);
-}
-
-void	render(t_data *data)
-{
-	int	i;
-	
 	i = 0;
-	create_textures(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->text[i]->ptr, 50, 50);
+	while (i < t_pix)
+	{
+		my_mlx_pixel_put(data, ray, i, 0x89CFF3FF); // ceiling
+		i++;
+	}
+}
+
+int get_color(t_data *data)
+{
+	if (data->wall.side == 'W')
+		return (0x00FF3333); // west wall
+	else if (data->wall.side == 'E')
+		return (0x00CC0000); // east wall
+	else if (data->wall.side == 'S')
+		return (0x00FF0000); // south wall
+	else if (data->wall.side == 'N')
+		return (0x00FF6666); // north wall
+	return (0);
+}
+
+void draw_wall(t_data *data, int ray, int t_pix, int b_pix) // draw the wall
+{
+	int color;
+
+	(void)ray;
+	color = get_color(data);
+	while (t_pix >b_pix)
+	{
+		my_mlx_pixel_put(data, ray, t_pix, color);
+		t_pix--;
+	}
+	//printf(">>tpix = %d, bpix = %d\n", t_pix, b_pix);
+}
+
+void render_wall(t_data *data, int ray) // render the wall
+{
+	double wall_h;
+	double b_pix;
+	double t_pix;
+
+	data->wall.distance *= cos(data->wall.ray_angle - data->player_pos.angle); // fix the fisheye
+	//printf("distance = %lf\n", data->wall.distance);
+	wall_h = (1 / data->wall.distance) * ((800/ 2) / tan(75 / 2)); // get the wall height
+	b_pix = (600 / 2) + (wall_h / 2); // get the bottom pixel
+	t_pix = (600 / 2) - (wall_h / 2); // get the top pixel
+	if (b_pix > 600) // check the bottom pixel
+		b_pix = 600;
+	if (t_pix < 0) // check the top pixel
+		t_pix = 0;
+	draw_floor_ceiling(data, ray, t_pix, b_pix); // draw the floor and the ceiling
+	draw_wall(data, ray, t_pix, b_pix); // draw the wall
 }

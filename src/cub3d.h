@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/24 15:59:47 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/27 22:12:04 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,9 @@ typedef struct s_data
  --------------------------------------------------------------------------- */
 
 /*	Rendering	*/
+void 	render_wall(t_data *data, int ray);
+
+/*	Textures	*/
 void	render(t_data *data);
 
 /*	Utils	*/ 
