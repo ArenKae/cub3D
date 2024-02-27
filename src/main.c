@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/27 20:49:17 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/27 20:52:06 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void draw_floor_ceiling(t_data *data, int ray, int t_pix, int b_pix) // draw the
 
 int get_color(t_data *data)
 {
-	printf("wallside=%c\n", data->wall.side);
 	if (data->wall.side == 'W')
 		return (0x00FF3333); // west wall
 	else if (data->wall.side == 'E')
@@ -75,7 +74,7 @@ void draw_wall(t_data *data, int ray, int t_pix, int b_pix) // draw the wall
 		my_mlx_pixel_put(data, ray, t_pix, color);
 		t_pix--;
 	}
-	printf(">>tpix = %d, bpix = %d\n", t_pix, b_pix);
+	//printf(">>tpix = %d, bpix = %d\n", t_pix, b_pix);
 }
 
 void render_wall(t_data *data, int ray) // render the wall
