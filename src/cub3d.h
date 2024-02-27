@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/27 22:19:31 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/27 22:38:33 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ typedef struct s_data
 {
 	void	*mlx;
 	void	*win;
-	void	*img;
 	char	**map;
 	char	*str;
 	int		window_x;
@@ -101,6 +100,7 @@ typedef struct s_data
 	t_wall	wall;
 	t_inter	inter;
 	t_img	**text;
+	t_img	img;
 }		t_data;
 
 /* ---------------------------------------------------------------------------*

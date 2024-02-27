@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/27 22:19:06 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/27 22:39:34 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ int	main(int ac, char **av)
 		if (!data.mlx)
 			return (1);
 		window_init(&data);
-		data.img = mlx_new_image(data.mlx, 800, 600);
+		data.img.ptr = mlx_new_image(data.mlx, 800, 600);
+		data.img.addr = mlx_get_data_addr(data.img.ptr, &data.img.pixel_bits, &data.img.size_line, &data.img.endian);
 		// put_sprites(&data);
 		// mlx_hook(data.window, DestroyNotify, KeyReleaseMask,
 		// 	destroy_window, &data);

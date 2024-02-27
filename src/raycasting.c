@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/27 22:19:10 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/27 22:43:58 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,4 +179,5 @@ void	raycast(t_data *data)
 		ray++;
 		render_wall(data, ray);
 	}
+	mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
 }
