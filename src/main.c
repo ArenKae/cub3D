@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/27 20:30:43 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/27 20:49:17 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int get_color(t_data *data)
 	else if (data->wall.side == 'E')
 		return (0x00CC0000); // east wall
 	else if (data->wall.side == 'S')
-		return (0x00808080); // south wall
+		return (0x00FF0000); // south wall
 	else if (data->wall.side == 'N')
 		return (0x00FF6666); // north wall
 	return (0);
@@ -253,7 +253,7 @@ void	raycast(t_data *data)
 		if (v_inter <= h_inter)
 		{
 			data->wall.distance = v_inter;
-			if (data->wall.ray_angle > 0 && data->wall.ray_angle < M_PI)
+			if(data->wall.ray_angle > M_PI / 2 && data->wall.ray_angle < 3 * M_PI / 2)
 				data->wall.side = 'W';
 			else
 				data->wall.side = 'E';
@@ -262,7 +262,7 @@ void	raycast(t_data *data)
 		{
 			flag = 1;
 			data->wall.distance = h_inter;
-			if (data->wall.ray_angle > M_PI / 2 && data->wall.ray_angle < 3 * M_PI / 2)
+			if(data->wall.ray_angle > 0 && data->wall.ray_angle < M_PI)
 				data->wall.side = 'S';
 			else
 				data->wall.side = 'N';
