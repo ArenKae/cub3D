@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/28 22:39:21 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/28 22:50:12 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void draw_floor_ceiling(t_data *data, int ray, int t_pix, int b_pix) // draw the
 	i = b_pix;
 	while (i < 600)
 	{
-		pixel_put(data, ray, i, 0); // floor
+		pixel_put(data, ray, i, 0xB99470FF); // floor
 		i++;
 	}
 	i = 0;
@@ -60,13 +60,13 @@ void draw_floor_ceiling(t_data *data, int ray, int t_pix, int b_pix) // draw the
 int get_color(t_data *data)
 {
 	if (data->wall.side == 'W')
-		return (0x00FF3333); // west wall
+		return (0x00FF3333); // west wall - light red
 	else if (data->wall.side == 'E')
-		return (0x00CC0000); // east wall
+		return (0x00CC0000); // east wall - dark red
 	else if (data->wall.side == 'S')
-		return (0x00FF0000); // south wall
+		return (0xAE3018); // south wall - orange
 	else if (data->wall.side == 'N')
-		return (0x00FF6666); // north wall
+		return (0x00FF6666); // north wall - vibrant red
 	return (0);
 }
 
