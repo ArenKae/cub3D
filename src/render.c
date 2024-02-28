@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/28 22:37:19 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/28 22:39:21 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void draw_wall(t_data *data, int ray, int t_pix, int b_pix) // draw the wall
 	//printf(">>tpix = %d, bpix = %d\n", t_pix, b_pix);
 }
 
-void render_wall(t_data *data, int ray) // render the wall
+void render(t_data *data, int ray) // render the wall
 {
 	double wall_h;
 	double b_pix;

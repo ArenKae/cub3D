@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/27 22:43:58 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/28 22:45:56 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,16 +142,12 @@ void	raycast(t_data *data)
 	double	h_inter;
 	double	v_inter;
 	int		ray;
-	double	distance;
 	int		flag;
 	double	x_impact;
 	double	y_impact;
 
 	ray = 0;
 	flag = 0;
-	(void)flag;
-	(void)distance;
-	(void)h_inter;
 	data->wall.ray_angle = data->player_pos.angle - 0.523599;
 	if (data->wall.ray_angle < 0)
 		data->wall.ray_angle = M_PI * 2 + data->wall.ray_angle;
@@ -177,7 +173,7 @@ void	raycast(t_data *data)
 			get_wall_side(data, data->wall.ray_angle, flag);
 		}
 		ray++;
-		render_wall(data, ray);
+		render(data, ray);
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/27 22:38:33 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/28 22:39:51 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,10 @@ typedef struct s_data
 void	raycast(t_data *data);
 
 /*	Rendering	*/
-void 	render_wall(t_data *data, int ray);
+void 	render(t_data *data, int ray);
 
 /*	Textures	*/
-void	render(t_data *data);
+void	render_texture(t_data *data);
 
 /*	Utils	*/ 
 void	exit_error(char *msg, int status);

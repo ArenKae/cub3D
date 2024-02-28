@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/28 22:27:59 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/28 22:39:42 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	create_textures(t_data *data)
 	free(index);
 }
 
-void	render(t_data *data)
+void	render_texture(t_data *data)
 {
 	int	i;
 	
