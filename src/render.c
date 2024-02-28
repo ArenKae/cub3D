@@ -6,13 +6,13 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/28 22:29:17 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/28 22:37:19 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void my_mlx_pixel_put(t_data *data, int x, int y, int color) // put the pixel
+void pixel_put(t_data *data, int x, int y, int color) // put the pixel
 {
 	if (x < 0) // check the x position
 		return ;
@@ -46,13 +46,13 @@ void draw_floor_ceiling(t_data *data, int ray, int t_pix, int b_pix) // draw the
 	i = b_pix;
 	while (i < 600)
 	{
-		my_mlx_pixel_put(data, ray, i, 0); // floor
+		pixel_put(data, ray, i, 0); // floor
 		i++;
 	}
 	i = 0;
 	while (i < t_pix)
 	{
-		my_mlx_pixel_put(data, ray, i, 0x89CFF3FF); // ceiling
+		pixel_put(data, ray, i, 0x89CFF3FF); // ceiling
 		i++;
 	}
 }
@@ -77,7 +77,7 @@ void draw_wall(t_data *data, int ray, int t_pix, int b_pix) // draw the wall
 	color = get_color(data);
 	while (t_pix >b_pix)
 	{
-		my_mlx_pixel_put(data, ray, t_pix, color);
+		pixel_put(data, ray, t_pix, color);
 		t_pix--;
 	}
 	//printf(">>tpix = %d, bpix = %d\n", t_pix, b_pix);
