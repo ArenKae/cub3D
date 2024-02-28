@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/27 23:36:09 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/28 22:29:17 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void draw_wall(t_data *data, int ray, int t_pix, int b_pix) // draw the wall
 {
 	int color;
 
-	(void)ray;
 	color = get_color(data);
 	while (t_pix >b_pix)
 	{

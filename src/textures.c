@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/27 22:06:48 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/28 22:27:59 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 void	init_texture_data(t_data *data)
 {
 	int	i;
+	t_img *img_array;
 	
 	i = -1;
 	data->text = malloc(sizeof(t_img *) * 4 + sizeof(t_img) * 4);
 	if (!data->text)
 		return (exit_error("malloc", EXIT_FAILURE));
-	t_img *img_array = (t_img *)(data->text + 4);
+	img_array = (t_img *)(data->text + 4);
 	while(++i < 4)
 	{
 		data->text[i] = &img_array[i];
@@ -29,6 +30,8 @@ void	init_texture_data(t_data *data)
 		data->text[i]->pixel_bits = 0;
 		data->text[i]->size_line = 0;
 		data->text[i]->endian = 0;
+		data->text[i]->width = 0;
+		data->text[i]->height = 0;
 	}
 }
 
@@ -73,6 +76,8 @@ void	render(t_data *data)
 	int	i;
 	
 	i = 0;
+	(void)i;
 	create_textures(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->text[i]->ptr, 50, 50);
+	//printf("w=%d, h=%d\n", data->text[0]->width, data->text[0]->height);
+	//mlx_put_image_to_window(data->mlx, data->win, data->text[i]->ptr, 50, 50);
 }
