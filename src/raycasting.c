@@ -153,6 +153,8 @@ void	raycast(t_data *data)
 	int		flag;
 	double	x_impact;
 	double	y_impact;
+	double	x2_impact;
+	double	y2_impact;
 
 	ray = 0;
 	flag = 0;
@@ -165,21 +167,21 @@ void	raycast(t_data *data)
 	{
 		// if (data->wall.ray_angle >= M_PI * 2)
 		// 	data->wall.ray_angle = 0;
-		printf("ray angle = %lf\n", data->wall.ray_angle * 180 / M_PI);
+		//printf("ray angle = %lf\n", data->wall.ray_angle * 180 / M_PI);
 		flag = 0;
 		if (data->wall.ray_angle == 0)
 			data->wall.ray_angle = 0.000001; //prevent segfault if angle=0 (no tangent)
 		if (data->wall.ray_angle < 0)
 			data->wall.ray_angle += M_PI * 2;
 		h_inter = get_h_inter(data, &x_impact, &y_impact);
-		v_inter = get_v_inter(data, &x_impact, &y_impact);
+		v_inter = get_v_inter(data, &x2_impact, &y2_impact);
 		data->wall.ray_angle -= 0.001309;
 		if (v_inter <= h_inter)
 		{
 			data->wall.distance = v_inter;
 			get_wall_side(data, data->wall.ray_angle, flag);
-			data->hit_pos = y_impact;
-			// printf("y_impact = %lf\n", y_impact);
+			data->hit_pos = y2_impact;
+			// printf("y_impact = %lf\n", y2_impact);
 		}
 		else
 		{

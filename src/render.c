@@ -132,8 +132,8 @@ void render(t_data *data, int ray) // render the wall
 	b_pix = (600 / 2) - (data->wall_h / 2); // get the top pixel
 	data->wall.t_pix = t_pix;
 	data->wall.b_pix = b_pix;
-	printf("t_pix = %d\n", data->wall.t_pix);
-	printf("b_pix = %d\n", data->wall.b_pix);
+	//printf("t_pix = %d\n", data->wall.t_pix);
+	//printf("b_pix = %d\n", data->wall.b_pix);
 	if (b_pix > 600) // check the bottom pixel
 		b_pix = 600;
 	if (t_pix < 0) // check the top pixel
