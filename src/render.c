@@ -15,13 +15,18 @@
 void wall_pixel_put(t_data *data, int x, int y)
 {
 	int tmp;
+	int	height;
 	int	tmp_h;
 	int	tmp_v;
 
+	height = data->wall_h * - 1;
 	tmp = floor(data->hit_pos);
 	data->hit_pos = data->hit_pos - tmp;
-	tmp_h = data->wall_h / 63;
+	tmp_h = height / 63;
 	tmp_v = data->hit_pos * 63;
+	// printf("data->hit_pos = %d\n", tmp_v);
+	// printf("y = %d\n", y);
+	// printf("height = %d\n", height);
 	data->img.addr[y * 4 * 800 + x * 4 + 0] = data->text[0]->addr[y/tmp_h * 4 + tmp_v * 4 + 0];
 	data->img.addr[y * 4 * 800 + x * 4 + 1] = data->text[0]->addr[y/tmp_h * 4 + tmp_v * 4 + 1];
 	data->img.addr[y * 4 * 800 + x * 4 + 2] = data->text[0]->addr[y/tmp_h * 4 + tmp_v * 4 + 2];
@@ -82,10 +87,10 @@ void draw_wall(t_data *data, int ray, int t_pix, int b_pix) // draw the wall
 
 	(void)pixel;
 	//pixel = get_color(data);
-	while (t_pix >b_pix)
+	while (t_pix < b_pix)
 	{
 		pixel_put(data, ray, t_pix, -1);
-		t_pix--;
+		t_pix++;
 	}
 	//printf(">>tpix = %d, bpix = %d\n", t_pix, b_pix);
 }
@@ -94,14 +99,14 @@ void draw_floor_ceiling(t_data *data, int ray, int t_pix, int b_pix) // draw the
 {
 	int  i;
 
-	i = b_pix;
+	i = t_pix;
 	while (i < 600)
 	{
 		pixel_put(data, ray, i, 0xB99470FF); // floor
 		i++;
 	}
 	i = 0;
-	while (i < t_pix)
+	while (i < b_pix)
 	{
 		pixel_put(data, ray, i, 0x89CFF3FF); // ceiling
 		i++;
@@ -110,18 +115,21 @@ void draw_floor_ceiling(t_data *data, int ray, int t_pix, int b_pix) // draw the
 
 void render(t_data *data, int ray) // render the wall
 {
+	(void)ray;
 	double b_pix;
 	double t_pix;
 
 	data->wall.distance *= cos(data->wall.ray_angle - data->player_pos.angle); // fix the fisheye
 	//printf("distance = %lf\n", data->wall.distance);
 	data->wall_h = (1 / data->wall.distance) * ((800/ 2) / tan(75 / 2)); // get the wall height
-	b_pix = (600 / 2) + (data->wall_h / 2); // get the bottom pixel
-	t_pix = (600 / 2) - (data->wall_h / 2); // get the top pixel
+	t_pix = (600 / 2) + (data->wall_h / 2); // get the bottom pixel
+	b_pix = (600 / 2) - (data->wall_h / 2); // get the top pixel
 	if (b_pix > 600) // check the bottom pixel
 		b_pix = 600;
 	if (t_pix < 0) // check the top pixel
 		t_pix = 0;
+	// printf("t_pix = %lf\n", t_pix);
+	// printf("b_pix = %lf\n", b_pix);
 	draw_floor_ceiling(data, ray, t_pix, b_pix); // draw the floor and the ceiling
 	draw_wall(data, ray, t_pix, b_pix); // draw the wall
 }
