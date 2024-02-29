@@ -17,14 +17,20 @@ void wall_pixel_put(t_data *data, int x, int y)
 	int tmp;
 	double	height;
 	double	tmp_h;
+	double	hit_pos2;
 	int	tmp_v;
 	int	temp;
 
 	height = data->wall_h * - 1;
 	tmp = floor(data->hit_pos);
-	data->hit_pos = data->hit_pos - tmp;
+	hit_pos2 = data->hit_pos;
+	hit_pos2 = hit_pos2 - tmp;
 	tmp_h = height / 63;
-	tmp_v = data->hit_pos * 63;
+	if (data->wall.side == 'W' || data->wall.side == 'S')
+		hit_pos2 = 1 - hit_pos2;
+	tmp_v = hit_pos2 * 63;
+	// if (data->wall.side == 'W')
+	// 	data->hit_pos = 1 - data->hit_pos;
 	// printf("data->hit_pos = %d\n", tmp_v);
 	// printf("y = %d\n", y);
 	// printf("height = %d\n", height);
@@ -33,6 +39,7 @@ void wall_pixel_put(t_data *data, int x, int y)
 	// printf("tmp_h = %lf\n", tmp_h);
 	// printf("temp = %d\n", temp);
 	// printf("tmp_v = %d\n", tmp_v);
+	// printf("wall side = %c\n", data->wall.side);
 	data->img.addr[y * 4 * 800 + x * 4 + 0] = data->text[0]->addr[temp * 4 * 63 + tmp_v * 4 + 0];
 	data->img.addr[y * 4 * 800 + x * 4 + 1] = data->text[0]->addr[temp * 4 * 63 + tmp_v * 4 + 1];
 	data->img.addr[y * 4 * 800 + x * 4 + 2] = data->text[0]->addr[temp * 4 * 63 + tmp_v * 4 + 2];
