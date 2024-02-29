@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/28 22:44:24 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/29 02:48:26 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,23 @@ int	key_press(int keycode, t_data *data)
 		data->player_pos.x -= (cos(data->player_pos.angle) / 5);
 		data->player_pos.y += (sin(data->player_pos.angle) / 5);
 	}
-	if (keycode == 97 || keycode == 113)
+	if (keycode == 100)
 	{
 		data->player_pos.x += (sin(data->player_pos.angle) / 5);
 		data->player_pos.y += (cos(data->player_pos.angle) / 5);
 	}
-	if (keycode == 100)
+	if (keycode == 97 || keycode == 113)
 	{
 		data->player_pos.x -= (sin(data->player_pos.angle) / 5);
 		data->player_pos.y -= (cos(data->player_pos.angle) / 5);
 	}
-	if (keycode == 65361)
+	if (keycode == 65363)
 	{
 		data->player_pos.angle = data->player_pos.angle - (2.5 * M_PI / 180);
 		if (data->player_pos.angle >= M_PI * 2)
 			data->player_pos.angle = 0;
 	}
-	if (keycode == 65363)
+	if (keycode == 65361)
 	{
 		data->player_pos.angle = data->player_pos.angle + (2.5 * M_PI / 180);
 		if (data->player_pos.angle <= 0)
@@ -76,19 +76,20 @@ int	main(int ac, char **av)
 	data.map = malloc(sizeof(char *) * 9);
 	data.map[0] = strdup("11111111");
  	data.map[1] = strdup("10000001");
- 	data.map[2] = strdup("10000001");
- 	data.map[3] = strdup("10000001");
- 	data.map[4] = strdup("10011001");
+ 	data.map[2] = strdup("10100001");
+ 	data.map[3] = strdup("10000111");
+ 	data.map[4] = strdup("10000001");
  	data.map[5] = strdup("10000001");
- 	data.map[6] = strdup("10000001");
+ 	data.map[6] = strdup("11100111");
  	data.map[7] = strdup("10000001");
  	data.map[8] = strdup("11111111");
 
 	data.player_pos.x = 5;
 	data.player_pos.y = 5;
-	data.player_pos.angle = 3* M_PI / 180;
+	data.player_pos.angle = M_PI / 180;
 	data.value = 0;
 	data.frames = 0;
+	data.i = 0;
 	if (ac == 2)
 	{
 		data.mlx = mlx_init();
@@ -98,8 +99,8 @@ int	main(int ac, char **av)
 		data.img.ptr = mlx_new_image(data.mlx, 800, 600);
 		data.img.addr = mlx_get_data_addr(data.img.ptr, &data.img.pixel_bits,
 			&data.img.size_line, &data.img.endian);
+		render_texture(&data);
 		hooks_handler(&data);
-		//render_texture(&data);
 		mlx_hook(data.win, DestroyNotify, KeyReleaseMask,
 			destroy_window, &data);
 		//mlx_loop_hook(data.mlx, raycast, &data);

@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/28 22:39:51 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/29 03:58:42 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ typedef struct s_data
 	int		window_y;
 	int		value;
 	int		frames;
+	int		i;
+	double	wall_h;
+	double	hit_pos;
 	t_pos	player_pos;
 	t_wall	wall;
 	t_inter	inter;

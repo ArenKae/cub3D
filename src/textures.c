@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/28 22:39:42 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/29 03:24:49 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	init_texture_data(t_data *data)
 
 char	**malloc_textures_index(char **index)
 {
-	index = malloc(sizeof(char *) * 4);
+	index = malloc(sizeof(char *) * 5);
 	if (!index)
 		return (NULL);
 	index[NORTH] = "textures/north.xpm\0";

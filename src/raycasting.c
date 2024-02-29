@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/28 22:45:56 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/29 03:59:47 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,27 @@ void get_wall_side(t_data *data, double ray_angle, int flag) // get the color of
 
 int wall_hit(double x, double y, t_data *data) // check the wall hit
 {
-	int  x_map;
-	int  y_map;
+    int  x_map;
+    int  y_map;
+    int  x2_map;
+    int  y2_map;
 
-	if (x <= 1 || y <= 1)
-		return (0);
-	if (x > 8 || y > 8)
-		return (0);
-	x_map = floor(x);
-	y_map = floor(y);
-	if (data->map[y_map] && x_map <= (int)strlen(data->map[y_map]))
-		if (data->map[y_map][x_map] == '1')
-			return (0);
-	return (1);
+    if (x <= 1 || y <= 1)
+        return (0);
+    if (x > 8 || y > 8)
+        return (0);
+    x_map = floor(x);
+    y_map = floor(y);
+    x2_map = floor(x - 0.000001);
+    y2_map = floor(y - 0.000001);
+    if (data->map[y_map] && x_map <= (int)strlen(data->map[y_map]))
+    {
+        if (data->map[y_map][x_map] == '1')
+            return (0);
+        else if (data->map[y2_map][x2_map] == '1')
+            return (0);
+    }
+    return (1);
 }
 
 void	get_first_h_inter(t_data *data)
@@ -148,32 +156,39 @@ void	raycast(t_data *data)
 
 	ray = 0;
 	flag = 0;
-	data->wall.ray_angle = data->player_pos.angle - 0.523599;
-	if (data->wall.ray_angle < 0)
-		data->wall.ray_angle = M_PI * 2 + data->wall.ray_angle;
+	data->wall.ray_angle = data->player_pos.angle + 0.523599;
+	// if (data->wall.ray_angle < 0)
+	// 	data->wall.ray_angle = M_PI * 2 + data->wall.ray_angle;
+	if (data->wall.ray_angle >= M_PI * 2)
+		data->wall.ray_angle -= M_PI * 2;
 	while (ray < 800)
 	{
-		if (data->wall.ray_angle >= M_PI * 2)
-			data->wall.ray_angle = 0;
+		// if (data->wall.ray_angle >= M_PI * 2)
+		// 	data->wall.ray_angle = 0;
 		flag = 0;
 		if (data->wall.ray_angle == 0)
 			data->wall.ray_angle = 0.000001; //prevent segfault if angle=0 (no tangent)
+		if (data->wall.ray_angle < 0)
+			data->wall.ray_angle += M_PI * 2;
 		h_inter = get_h_inter(data, &x_impact, &y_impact);
 		v_inter = get_v_inter(data, &x_impact, &y_impact);
-		data->wall.ray_angle += 0.001309;
+		data->wall.ray_angle -= 0.001309;
 		if (v_inter <= h_inter)
 		{
 			data->wall.distance = v_inter;
 			get_wall_side(data, data->wall.ray_angle, flag);
+			data->hit_pos = x_impact;
 		}
 		else
 		{
 			flag = 1;
 			data->wall.distance = h_inter;
 			get_wall_side(data, data->wall.ray_angle, flag);
+			data->hit_pos = y_impact;
 		}
 		ray++;
 		render(data, ray);
 	}
+	//printf("w=%d | h=%d\n", data->text[0]->width, data->text[0]->height);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
 }
