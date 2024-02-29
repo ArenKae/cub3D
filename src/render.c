@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/29 04:21:18 by acosi            ###   ########.fr       */
+/*   Updated: 2024/02/29 05:23:28 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void wall_pixel_put(t_data *data, int x, int y)
 	int	height;
 	int	tmp_h;
 	int	tmp_v;
+	int frame_index;
+	int	text_index;
 
 	height = data->wall_h * - 1;
 	tmp = floor(data->hit_pos);
@@ -27,10 +29,12 @@ void wall_pixel_put(t_data *data, int x, int y)
 	// printf("data->hit_pos = %d\n", tmp_v);
 	// printf("y = %d\n", y);
 	// printf("height = %d\n", height);
-	data->img.addr[y * 4 * 800 + x * 4 + 0] = data->text[0]->addr[y/tmp_h * 4 + tmp_v * 4 + 0];
-	data->img.addr[y * 4 * 800 + x * 4 + 1] = data->text[0]->addr[y/tmp_h * 4 + tmp_v * 4 + 1];
-	data->img.addr[y * 4 * 800 + x * 4 + 2] = data->text[0]->addr[y/tmp_h * 4 + tmp_v * 4 + 2];
-	data->img.addr[y * 4 * 800 + x * 4 + 3] = data->text[0]->addr[y/tmp_h * 4 + tmp_v * 4 + 3];
+	frame_index = y * 4 * 800 + x * 4;
+	text_index = y/tmp_h * 4 + tmp_v * 4;
+	data->img.addr[frame_index + 0] = data->text[0]->addr[text_index + 0];
+	data->img.addr[frame_index + 1] = data->text[0]->addr[text_index + 1];
+	data->img.addr[frame_index + 2] = data->text[0]->addr[text_index + 2];
+	data->img.addr[frame_index + 3] = data->text[0]->addr[text_index + 3];
 	data->i += 4;
 	if (!data->text[0]->addr[data->i])
 		data->i = 0;
