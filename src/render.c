@@ -15,11 +15,10 @@
 void wall_pixel_put(t_data *data, int x, int y)
 {
 	int tmp;
-	int	height;
-	int	tmp_h;
+	double	height;
+	double	tmp_h;
 	int	tmp_v;
-	int frame_index;
-	int	text_index;
+	int	temp;
 
 	height = data->wall_h * - 1;
 	tmp = floor(data->hit_pos);
@@ -29,12 +28,15 @@ void wall_pixel_put(t_data *data, int x, int y)
 	// printf("data->hit_pos = %d\n", tmp_v);
 	// printf("y = %d\n", y);
 	// printf("height = %d\n", height);
-	frame_index = y * 4 * 800 + x * 4;
-	text_index = y/tmp_h * 4 + tmp_v * 4;
-	data->img.addr[frame_index + 0] = data->text[0]->addr[text_index + 0];
-	data->img.addr[frame_index + 1] = data->text[0]->addr[text_index + 1];
-	data->img.addr[frame_index + 2] = data->text[0]->addr[text_index + 2];
-	data->img.addr[frame_index + 3] = data->text[0]->addr[text_index + 3];
+	temp = (y - data->wall.t_pix) / tmp_h;
+	// printf("height = %lf\n", height);
+	// printf("tmp_h = %lf\n", tmp_h);
+	// printf("temp = %d\n", temp);
+	// printf("tmp_v = %d\n", tmp_v);
+	data->img.addr[y * 4 * 800 + x * 4 + 0] = data->text[0]->addr[temp * 4 * 63 + tmp_v * 4 + 0];
+	data->img.addr[y * 4 * 800 + x * 4 + 1] = data->text[0]->addr[temp * 4 * 63 + tmp_v * 4 + 1];
+	data->img.addr[y * 4 * 800 + x * 4 + 2] = data->text[0]->addr[temp * 4 * 63 + tmp_v * 4 + 2];
+	data->img.addr[y * 4 * 800 + x * 4 + 3] = data->text[0]->addr[temp * 4 * 63 + tmp_v * 4 + 3];
 	data->i += 4;
 	if (!data->text[0]->addr[data->i])
 		data->i = 0;
@@ -128,6 +130,10 @@ void render(t_data *data, int ray) // render the wall
 	data->wall_h = (1 / data->wall.distance) * ((800/ 2) / tan(75 / 2)); // get the wall height
 	t_pix = (600 / 2) + (data->wall_h / 2); // get the bottom pixel
 	b_pix = (600 / 2) - (data->wall_h / 2); // get the top pixel
+	data->wall.t_pix = t_pix;
+	data->wall.b_pix = b_pix;
+	printf("t_pix = %d\n", data->wall.t_pix);
+	printf("b_pix = %d\n", data->wall.b_pix);
 	if (b_pix > 600) // check the bottom pixel
 		b_pix = 600;
 	if (t_pix < 0) // check the top pixel

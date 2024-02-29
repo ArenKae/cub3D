@@ -69,6 +69,8 @@ typedef	struct s_wall
 	char	side;
 	double	distance;
 	double	ray_angle;
+	int		t_pix;
+	int		b_pix;
 }			t_wall;
 
 typedef struct s_inter

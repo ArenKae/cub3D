@@ -76,10 +76,10 @@ int	main(int ac, char **av)
 	data.map = malloc(sizeof(char *) * 9);
 	data.map[0] = strdup("11111111");
  	data.map[1] = strdup("10000001");
- 	data.map[2] = strdup("10000011");
+ 	data.map[2] = strdup("10000001");
  	data.map[3] = strdup("10000001");
- 	data.map[4] = strdup("10000001");
- 	data.map[5] = strdup("10000001");
+ 	data.map[4] = strdup("10000111");
+ 	data.map[5] = strdup("10010001");
  	data.map[6] = strdup("10000001");
  	data.map[7] = strdup("10000001");
  	data.map[8] = strdup("11111111");
