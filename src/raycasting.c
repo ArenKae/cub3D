@@ -38,9 +38,9 @@ int hit(double x, double y, t_data *data) // check the wall hit
     int  y2_map;
 
     if (x <= 1 || y <= 1)
-        return (0);
+        return (1);
     if (x > 8 || y > 8)
-        return (0);
+        return (1);
     x_map = floor(x);
     y_map = floor(y);
     x2_map = floor(x - 0.000001);
@@ -48,11 +48,11 @@ int hit(double x, double y, t_data *data) // check the wall hit
     if (data->map[y_map] && x_map <= (int)strlen(data->map[y_map]))
     {
         if (data->map[y_map][x_map] == '1')
-            return (0);
+            return (1);
         else if (data->map[y2_map][x2_map] == '1')
-            return (0);
+            return (1);
     }
-    return (1);
+    return (0);
 }
 
 void	get_first_h_inter(t_data *data)
@@ -89,7 +89,7 @@ float get_h_inter(t_data *data, double *x_impact, double *y_impact)
 	if (data->wall.ray_angle > 0 && data->wall.ray_angle < M_PI)
 		data->inter.y_step = -1;
 	get_first_h_inter(data);
-	while (hit(data->inter.x, data->inter.y, data))
+	while (!hit(data->inter.x, data->inter.y, data))
 	{
 		data->inter.x += data->inter.x_step;
 		data->inter.y += data->inter.y_step;
@@ -134,7 +134,7 @@ float get_v_inter(t_data *data, double *x_impact, double *y_impact)
 		data->inter.y_step *= -1;
 	}
 	get_first_v_inter(data);
-	while (hit(data->inter.x, data->inter.y, data))
+	while (!hit(data->inter.x, data->inter.y, data))
 	{
 		data->inter.x += data->inter.x_step;
 		data->inter.y += data->inter.y_step;
