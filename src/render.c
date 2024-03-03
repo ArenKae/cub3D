@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void wall_pixel_put(t_data *data, int x, int y)
+void put_wall_pixel(t_data *data, int x, int y)
 {
 	int tmp;
 	double	height;
@@ -39,11 +39,11 @@ void wall_pixel_put(t_data *data, int x, int y)
 		data->i = 0;
 }
 
-void pixel_put(t_data *data, int x, int y, int pixel) // put the pixel
+void put_pixel(t_data *data, int x, int y, int pixel) // put the pixel
 {
 	if (pixel == -1)
 	{
-		wall_pixel_put(data, x, y);
+		put_wall_pixel(data, x, y);
 		return ;
 	}
 	if (data->img.endian == 1)
@@ -75,7 +75,7 @@ int get_color(t_data *data)
 	return (0);
 }
 
-void draw_wall(t_data *data, int ray, int top, int bot) // draw the wall
+void put_wall(t_data *data, int ray, int top, int bot) // draw the wall
 {
 	int pixel;
 
@@ -83,26 +83,26 @@ void draw_wall(t_data *data, int ray, int top, int bot) // draw the wall
 	//pixel = get_color(data);
 	while (top < bot)
 	{
-		pixel_put(data, ray, top, -1);
+		put_pixel(data, ray, top, -1);
 		top++;
 	}
 	//printf(">>tpix = %d, bpix = %d\n", t_pix, b_pix);
 }
 
-void draw_floor_ceiling(t_data *data, int ray, int top, int bot) // draw the floor and the ceiling
+void put_floor_and_ceil(t_data *data, int ray, int top, int bot) // draw the floor and the ceiling
 {
 	int i;
 
 	i = 0;
 	while (i < top)
 	{
-		pixel_put(data, ray, i, 0xB99470FF); // ceiling
+		put_pixel(data, ray, i, 0xB99470FF); // ceiling
 		i++;
 	}
 	i = bot;
 	while (i < 600)
 	{
-		pixel_put(data, ray, i, 0x89CFF3FF); // floor
+		put_pixel(data, ray, i, 0x89CFF3FF); // floor
 		i++;
 	}
 }
@@ -118,11 +118,11 @@ void render(t_data *data, int ray) // render the wall
 	bot = 300 + (data->wall_h / 2); // get the top pixel
 	data->wall.top = top;
 	data->wall.bot = bot;
-	if (top < 0) // check the bottom pixel
+	if (top < 0)
 		top = 0;
-	if (bot > 600) // check the top pixel
+	if (bot > 600)
 		bot = 600;
-	draw_floor_ceiling(data, ray, top, bot); // draw the floor and the ceiling
-	draw_wall(data, ray, top, bot); // draw the wall
+	put_floor_and_ceil(data, ray, top, bot);
+	put_wall(data, ray, top, bot);
 }
 
