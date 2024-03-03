@@ -84,9 +84,9 @@ int	main(int ac, char **av)
  	data.map[7] = strdup("10000001");
  	data.map[8] = strdup("11111111");
 
-	data.player_pos.x = 5;
-	data.player_pos.y = 5;
-	data.player_pos.angle = 1 * M_PI / 180;
+	data.player_pos.x = 3;
+	data.player_pos.y = 2;
+	data.player_pos.angle = 90 * M_PI / 180;
 	data.value = 0;
 	data.frames = 0;
 	data.i = 0;

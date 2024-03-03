@@ -21,7 +21,7 @@ void wall_pixel_put(t_data *data, int x, int y)
 	int	tmp_v;
 	int	temp;
 
-	height = data->wall_h * - 1;
+	height = data->wall_h;
 	tmp = floor(data->hit_pos);
 	hit_pos2 = data->hit_pos;
 	hit_pos2 = hit_pos2 - tmp;
@@ -29,17 +29,7 @@ void wall_pixel_put(t_data *data, int x, int y)
 	if (data->wall.side == 'W' || data->wall.side == 'S')
 		hit_pos2 = 1 - hit_pos2;
 	tmp_v = hit_pos2 * 63;
-	// if (data->wall.side == 'W')
-	// 	data->hit_pos = 1 - data->hit_pos;
-	// printf("data->hit_pos = %d\n", tmp_v);
-	// printf("y = %d\n", y);
-	// printf("height = %d\n", height);
-	temp = (y - data->wall.t_pix) / tmp_h;
-	// printf("height = %lf\n", height);
-	// printf("tmp_h = %lf\n", tmp_h);
-	// printf("temp = %d\n", temp);
-	// printf("tmp_v = %d\n", tmp_v);
-	// printf("wall side = %c\n", data->wall.side);
+	temp = (y - data->wall.top) / tmp_h;
 	data->img.addr[y * 4 * 800 + x * 4 + 0] = data->text[0]->addr[temp * 4 * 63 + tmp_v * 4 + 0];
 	data->img.addr[y * 4 * 800 + x * 4 + 1] = data->text[0]->addr[temp * 4 * 63 + tmp_v * 4 + 1];
 	data->img.addr[y * 4 * 800 + x * 4 + 2] = data->text[0]->addr[temp * 4 * 63 + tmp_v * 4 + 2];
@@ -51,15 +41,6 @@ void wall_pixel_put(t_data *data, int x, int y)
 
 void pixel_put(t_data *data, int x, int y, int pixel) // put the pixel
 {
-	if (x < 0) // check the x position
-		return ;
-	else if (x >= 800)
-		return ;
-	if (y < 0) // check the y position
-		return ;
-	else if (y >= 600)
-		return ;
-	//mlx_pixel_put(data->mlx, data->win, x, y, pixel); // put the pixel
 	if (pixel == -1)
 	{
 		wall_pixel_put(data, x, y);
@@ -94,60 +75,54 @@ int get_color(t_data *data)
 	return (0);
 }
 
-void draw_wall(t_data *data, int ray, int t_pix, int b_pix) // draw the wall
+void draw_wall(t_data *data, int ray, int top, int bot) // draw the wall
 {
 	int pixel;
 
 	(void)pixel;
 	//pixel = get_color(data);
-	while (t_pix < b_pix)
+	while (top < bot)
 	{
-		pixel_put(data, ray, t_pix, -1);
-		t_pix++;
+		pixel_put(data, ray, top, -1);
+		top++;
 	}
 	//printf(">>tpix = %d, bpix = %d\n", t_pix, b_pix);
 }
 
-void draw_floor_ceiling(t_data *data, int ray, int t_pix, int b_pix) // draw the floor and the ceiling
+void draw_floor_ceiling(t_data *data, int ray, int top, int bot) // draw the floor and the ceiling
 {
-	int  i;
+	int i;
 
-	i = t_pix;
-	while (i < 600)
+	i = 0;
+	while (i < top)
 	{
-		pixel_put(data, ray, i, 0xB99470FF); // floor
+		pixel_put(data, ray, i, 0xB99470FF); // ceiling
 		i++;
 	}
-	i = 0;
-	while (i < b_pix)
+	i = bot;
+	while (i < 600)
 	{
-		pixel_put(data, ray, i, 0x89CFF3FF); // ceiling
+		pixel_put(data, ray, i, 0x89CFF3FF); // floor
 		i++;
 	}
 }
 
 void render(t_data *data, int ray) // render the wall
 {
-	(void)ray;
-	double b_pix;
-	double t_pix;
+	double	top;
+	double	bot;
 
-	data->wall.distance *= cos(data->wall.ray_angle - data->player_pos.angle); // fix the fisheye
-	//printf("distance = %lf\n", data->wall.distance);
-	data->wall_h = (1 / data->wall.distance) * ((800/ 2) / tan(75 / 2)); // get the wall height
-	t_pix = (600 / 2) + (data->wall_h / 2); // get the bottom pixel
-	b_pix = (600 / 2) - (data->wall_h / 2); // get the top pixel
-	data->wall.t_pix = t_pix;
-	data->wall.b_pix = b_pix;
-	//printf("t_pix = %d\n", data->wall.t_pix);
-	//printf("b_pix = %d\n", data->wall.b_pix);
-	if (b_pix > 600) // check the bottom pixel
-		b_pix = 600;
-	if (t_pix < 0) // check the top pixel
-		t_pix = 0;
-	// printf("t_pix = %lf\n", t_pix);
-	// printf("b_pix = %lf\n", b_pix);
-	draw_floor_ceiling(data, ray, t_pix, b_pix); // draw the floor and the ceiling
-	draw_wall(data, ray, t_pix, b_pix); // draw the wall
+	data->wall_h = ((600 / data->wall.distance) * 1.2) / 
+		(cos(data->wall.ray_angle - data->player_pos.angle));
+	top = 300 - (data->wall_h / 2); // get the bottom pixel
+	bot = 300 + (data->wall_h / 2); // get the top pixel
+	data->wall.top = top;
+	data->wall.bot = bot;
+	if (top < 0) // check the bottom pixel
+		top = 0;
+	if (bot > 600) // check the top pixel
+		bot = 600;
+	draw_floor_ceiling(data, ray, top, bot); // draw the floor and the ceiling
+	draw_wall(data, ray, top, bot); // draw the wall
 }
 

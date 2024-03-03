@@ -30,7 +30,7 @@ void get_wall_side(t_data *data, double ray_angle, int flag) // get the color of
 	}
 }
 
-int wall_hit(double x, double y, t_data *data) // check the wall hit
+int hit(double x, double y, t_data *data) // check the wall hit
 {
     int  x_map;
     int  y_map;
@@ -89,7 +89,7 @@ float get_h_inter(t_data *data, double *x_impact, double *y_impact)
 	if (data->wall.ray_angle > 0 && data->wall.ray_angle < M_PI)
 		data->inter.y_step = -1;
 	get_first_h_inter(data);
-	while (wall_hit(data->inter.x, data->inter.y, data))
+	while (hit(data->inter.x, data->inter.y, data))
 	{
 		data->inter.x += data->inter.x_step;
 		data->inter.y += data->inter.y_step;
@@ -134,7 +134,7 @@ float get_v_inter(t_data *data, double *x_impact, double *y_impact)
 		data->inter.y_step *= -1;
 	}
 	get_first_v_inter(data);
-	while (wall_hit(data->inter.x, data->inter.y, data))
+	while (hit(data->inter.x, data->inter.y, data))
 	{
 		data->inter.x += data->inter.x_step;
 		data->inter.y += data->inter.y_step;
@@ -159,15 +159,10 @@ void	raycast(t_data *data)
 	ray = 0;
 	flag = 0;
 	data->wall.ray_angle = data->player_pos.angle + 0.523599;
-	// if (data->wall.ray_angle < 0)
-	// 	data->wall.ray_angle = M_PI * 2 + data->wall.ray_angle;
 	if (data->wall.ray_angle >= M_PI * 2)
 		data->wall.ray_angle -= M_PI * 2;
 	while (ray < 800)
 	{
-		// if (data->wall.ray_angle >= M_PI * 2)
-		// 	data->wall.ray_angle = 0;
-		//printf("ray angle = %lf\n", data->wall.ray_angle * 180 / M_PI);
 		flag = 0;
 		if (data->wall.ray_angle == 0)
 			data->wall.ray_angle = 0.000001; //prevent segfault if angle=0 (no tangent)
@@ -181,7 +176,6 @@ void	raycast(t_data *data)
 			data->wall.distance = v_inter;
 			get_wall_side(data, data->wall.ray_angle, flag);
 			data->hit_pos = y2_impact;
-			// printf("y_impact = %lf\n", y2_impact);
 		}
 		else
 		{
@@ -189,12 +183,9 @@ void	raycast(t_data *data)
 			data->wall.distance = h_inter;
 			get_wall_side(data, data->wall.ray_angle, flag);
 			data->hit_pos = x_impact;
-			// printf("x_impact = %lf\n", x_impact);
 		}
 		ray++;
-		// usleep (1000000);
 		render(data, ray);
 	}
-	//printf("w=%d | h=%d\n", data->text[0]->width, data->text[0]->height);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
 }
