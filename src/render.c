@@ -25,15 +25,15 @@ void put_wall_pixel(t_data *data, int x, int y)
 	tmp = floor(data->hit_pos);
 	hit_pos2 = data->hit_pos;
 	hit_pos2 = hit_pos2 - tmp;
-	tmp_h = height / 63;
+	tmp_h = height / (data->text[0]->width);
 	if (data->wall.side == 'W' || data->wall.side == 'S')
 		hit_pos2 = 1 - hit_pos2;
-	tmp_v = hit_pos2 * 63;
+	tmp_v = hit_pos2 * (data->text[0]->width);
 	temp = (y - data->wall.top) / tmp_h;
-	data->img.addr[y * 4 * 800 + x * 4 + 0] = data->text[0]->addr[temp * 4 * 63 + tmp_v * 4 + 0];
-	data->img.addr[y * 4 * 800 + x * 4 + 1] = data->text[0]->addr[temp * 4 * 63 + tmp_v * 4 + 1];
-	data->img.addr[y * 4 * 800 + x * 4 + 2] = data->text[0]->addr[temp * 4 * 63 + tmp_v * 4 + 2];
-	data->img.addr[y * 4 * 800 + x * 4 + 3] = data->text[0]->addr[temp * 4 * 63 + tmp_v * 4 + 3];
+	data->img.addr[y * 4 * 800 + x * 4 + 0] = data->text[0]->addr[temp * 4 * (data->text[0]->width) + tmp_v * 4 + 0];
+	data->img.addr[y * 4 * 800 + x * 4 + 1] = data->text[0]->addr[temp * 4 * (data->text[0]->width) + tmp_v * 4 + 1];
+	data->img.addr[y * 4 * 800 + x * 4 + 2] = data->text[0]->addr[temp * 4 * (data->text[0]->width) + tmp_v * 4 + 2];
+	data->img.addr[y * 4 * 800 + x * 4 + 3] = data->text[0]->addr[temp * 4 * (data->text[0]->width) + tmp_v * 4 + 3];
 	data->i += 4;
 	if (!data->text[0]->addr[data->i])
 		data->i = 0;
