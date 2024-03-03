@@ -9,11 +9,12 @@ INCLUDES = -I/usr/include -Imlx
 OBJ = $(SRC:.c=.o)
 
 %.o			:	%.c $(HEADER)
-				$(CC) $(CFLAGS) $< -c -o $@ $(INCLUDES)
 
 all: libmlx $(NAME)
 
 $(NAME): $(OBJ)
+	$(MAKE) -C ./src/libft
+	$(CC) $(CFLAGS) $< -c -o $@ src/libft/libft.a $(INCLUDES)
 	$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) -o $(NAME)
 
 libmlx:
