@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/04 22:16:24 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/04 22:18:02 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,8 +201,8 @@ void	raycast(t_data *data)
 	ray_inter = 0.001091;
 	ray = -1;
 	flag = 0;
-	// data->wall.ray_angle = data->player_pos.angle + 0.523599;
-	// data->wall.ray_angle = data->player_pos.angle + 0.566532;
+	if (floor(data->player_pos.x) == data->player_pos.x) //prevent vertical distorsion for round x values
+		data->player_pos.x -= 0.000001;
 	data->wall.ray_angle = data->player_pos.angle + 0.516600;
 	if (data->wall.ray_angle >= M_PI * 2)
 		data->wall.ray_angle -= M_PI * 2;
@@ -234,11 +234,7 @@ void	raycast(t_data *data)
 			data->hit_pos = x_impact;
 		}
 		ray++;
-		// sleep(1);
 		render(data, ray);
-		//ray++;
-		// sleep(1);
-		
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
 }
