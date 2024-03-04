@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:19:21 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/04 05:00:36 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/04 22:56:50 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	store_info(t_data *data, char *line)
 	// if (data->fileinfo.C)
 	// 	printf("%s", data->fileinfo.C);
 	// printf("\n");
-	
 }
 
 int	missing_info(t_data *data)
@@ -107,6 +106,7 @@ void	init_map(t_data *data, char *filename)
 {
 	int	fd;
 
+	printf("%s\n", filename);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (exit_error("open", EXIT_FAILURE));
