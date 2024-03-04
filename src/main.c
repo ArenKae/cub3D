@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/03 22:05:07 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/04 22:04:45 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,9 @@ int	main(int ac, char **av)
  	data.map[7] = strdup("10000001");
  	data.map[8] = strdup("11111111");
 
-	data.player_pos.x = 4;
+	data.player_pos.x = 5;
 	data.player_pos.y = 4;
-	data.player_pos.angle = 90 * M_PI / 180;
+	data.player_pos.angle = M_PI / 180;
 	data.value = 0;
 	data.frames = 0;
 	data.i = 0;
