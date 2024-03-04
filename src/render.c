@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/04 22:32:46 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/04 23:01:44 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,13 @@ void put_pixel(t_data *data, int x, int y, int pixel) // put the pixel
 	}
 }
 
-void put_wall(t_data *data, int ray, int top, int bot) // draw the wall
+void draw_wall(t_data *data, int ray, int top, int bot) // draw the wall
 {
-	int pixel;
-
-	(void)pixel;
-	//pixel = get_color(data);
 	while (top < bot)
 	{
 		put_pixel(data, ray, top, -1);
 		top++;
 	}
-	//printf(">>tpix = %d, bpix = %d\n", t_pix, b_pix);
 }
 
 void put_floor_and_ceil(t_data *data, int ray, int top, int bot) // draw the floor and the ceiling
@@ -109,5 +104,5 @@ void render(t_data *data, int ray) // render the wall
 	if (bot > WIN_H)
 		bot = WIN_H;
 	put_floor_and_ceil(data, ray, top, bot);
-	put_wall(data, ray, top, bot);
+	draw_wall(data, ray, top, bot);
 }
