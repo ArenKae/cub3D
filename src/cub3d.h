@@ -24,13 +24,15 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include "./libft/libft.h"
+# include "./libft/get_next_line.h"
 
 /* ---------------------------------------------------------------------------*
 							MACROS
  --------------------------------------------------------------------------- */
 
 # define BUFF_SIZE 512
-# define SQUARE_SIZE 50
+# define WIN_H 600
+# define WIN_L 800
 #ifndef M_PI
 # define M_PI 3.14159265358979323846
 #endif
@@ -102,6 +104,8 @@ typedef struct s_data
 	int		i;
 	double	wall_h;
 	double	hit_pos;
+	int		move;
+	int		rotate;
 	t_pos	player_pos;
 	t_wall	wall;
 	t_inter	inter;
@@ -115,6 +119,7 @@ typedef struct s_data
 
 /*	Raycasting	*/
 void	raycast(t_data *data);
+int	game(t_data *data);
 
 /*	Rendering	*/
 void 	render(t_data *data, int ray);

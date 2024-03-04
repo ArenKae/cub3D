@@ -14,9 +14,8 @@ all: libmlx $(NAME)
 
 $(NAME): $(OBJ)
 	$(MAKE) -C ./src/libft
-	$(CC) $(CFLAGS) $< -c -o $@ src/libft/libft.a $(INCLUDES)
-	$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) -o $(NAME)
-
+	$(CC) $(CFLAGS) $(OBJ) -o $@ $(MLX_FLAGS) src/libft/libft.a
+	
 libmlx:
 	$(MAKE) -C ./minilibx/
 

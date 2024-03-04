@@ -12,6 +12,50 @@
 
 #include "cub3d.h"
 
+void	player_movement(t_data *data)
+{
+	if (data->move == 1)
+	{
+		data->player_pos.x += (cos(data->player_pos.angle) / 30);
+		data->player_pos.y -= (sin(data->player_pos.angle) / 30);
+	}
+	else if (data->move == 2)
+	{
+		data->player_pos.x -= (cos(data->player_pos.angle) / 30);
+		data->player_pos.y += (sin(data->player_pos.angle) / 30);
+	}
+	else if (data->move == 3)
+	{
+		data->player_pos.x += (sin(data->player_pos.angle) / 30);
+		data->player_pos.y += (cos(data->player_pos.angle) / 30);
+	}
+	else if (data->move == 4)
+	{
+		data->player_pos.x -= (sin(data->player_pos.angle) / 30);
+		data->player_pos.y -= (cos(data->player_pos.angle) / 30);
+	}
+}
+
+void	player_rotation(t_data *data)
+{
+	if (data->rotate == 1)
+	{
+		data->player_pos.angle = data->player_pos.angle - (1 * M_PI / 180);
+		if (data->player_pos.angle >= M_PI * 2)
+			data->player_pos.angle = 0;
+	}
+	if (data->rotate == 2)
+	{
+		data->player_pos.angle = data->player_pos.angle + (1 * M_PI / 180);
+		if (data->player_pos.angle <= 0)
+			data->player_pos.angle = M_PI * 2;
+	}
+	if (data->player_pos.angle > M_PI * 2)
+		data->player_pos.angle = 2.5 * M_PI / 180;
+	if (data->player_pos.angle < 2.4 * M_PI / 180)
+		data->player_pos.angle = M_PI * 2;
+}
+
 void get_wall_side(t_data *data, double ray_angle, int flag) // get the color of the wall
 {
 	if (flag == 0)
@@ -78,7 +122,7 @@ void	get_first_h_inter(t_data *data)
 }
 
 
-float get_h_inter(t_data *data, double *x_impact, double *y_impact)
+float get_h_inter(t_data *data, double *x_impact)
 {
 	data->inter.y_step = 1;
 	data->inter.x_step = 1 / tan(data->wall.ray_angle);
@@ -95,7 +139,6 @@ float get_h_inter(t_data *data, double *x_impact, double *y_impact)
 		data->inter.y += data->inter.y_step;
 	}
 	*x_impact = data->inter.x;
-	*y_impact = data->inter.y;
 	return (sqrt(pow(data->inter.x - data->player_pos.x, 2) + pow(data->inter.y - data->player_pos.y, 2)));
 }
 
@@ -121,7 +164,7 @@ void	get_first_v_inter(t_data *data)
 	data->inter.y = y_pos;
 }
 
-float get_v_inter(t_data *data, double *x_impact, double *y_impact)
+float get_v_inter(t_data *data, double *y_impact)
 {
 	data->inter.x_step = 1; 
 	data->inter.y_step = 1 * tan(data->wall.ray_angle);
@@ -139,7 +182,6 @@ float get_v_inter(t_data *data, double *x_impact, double *y_impact)
 		data->inter.x += data->inter.x_step;
 		data->inter.y += data->inter.y_step;
 	}
-	*x_impact = data->inter.x;
 	*y_impact = data->inter.y;
 	return (sqrt(pow(data->inter.x - data->player_pos.x, 2) + pow(data->inter.y - data->player_pos.y, 2)));
 }
@@ -153,39 +195,59 @@ void	raycast(t_data *data)
 	int		flag;
 	double	x_impact;
 	double	y_impact;
-	double	x2_impact;
-	double	y2_impact;
 
+
+	double ray_inter;
+	ray_inter = 0.001091;
 	ray = 0;
 	flag = 0;
-	data->wall.ray_angle = data->player_pos.angle + 0.523599;
+	// data->wall.ray_angle = data->player_pos.angle + 0.523599;
+	// data->wall.ray_angle = data->player_pos.angle + 0.566532;
+	data->wall.ray_angle = data->player_pos.angle + 0.516600;
+	// data->wall.ray_angle = data->player_pos.angle + 0.436332;
 	if (data->wall.ray_angle >= M_PI * 2)
 		data->wall.ray_angle -= M_PI * 2;
-	while (ray < 800)
+	while (ray < WIN_L)
 	{
 		flag = 0;
+		if (ray < 300)
+			ray_inter += 0.000001;
+		else if (ray > 500)
+			ray_inter -= 0.000001;
+		data->wall.ray_angle -= ray_inter;
 		if (data->wall.ray_angle == 0)
 			data->wall.ray_angle = 0.000001; //prevent segfault if angle=0 (no tangent)
 		if (data->wall.ray_angle < 0)
 			data->wall.ray_angle += M_PI * 2;
-		h_inter = get_h_inter(data, &x_impact, &y_impact);
-		v_inter = get_v_inter(data, &x2_impact, &y2_impact);
-		data->wall.ray_angle -= 0.001309;
+		h_inter = get_h_inter(data, &x_impact);
+		v_inter = get_v_inter(data, &y_impact);
+		// data->wall.ray_angle -= 0.001091;
+		// data->wall.ray_angle -= ray_inter;
 		if (v_inter <= h_inter)
 		{
 			data->wall.distance = v_inter;
 			get_wall_side(data, data->wall.ray_angle, flag);
-			data->hit_pos = y2_impact;
+			data->hit_pos = y_impact;
 		}
 		else
 		{
 			flag = 1;
 			data->wall.distance = h_inter;
 			get_wall_side(data, data->wall.ray_angle, flag);
+			// printf("interval = %lf\n", data->hit_pos - x_impact);
 			data->hit_pos = x_impact;
 		}
 		ray++;
+		// sleep(1);
 		render(data, ray);
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);
+}
+
+int	game(t_data *data)
+{
+	player_movement(data);
+	player_rotation(data);
+	raycast(data);
+	return (1);
 }
