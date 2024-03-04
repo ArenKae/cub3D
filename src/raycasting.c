@@ -199,15 +199,12 @@ void	raycast(t_data *data)
 
 	double ray_inter;
 	ray_inter = 0.001091;
-	ray = 0;
+	ray = -1;
 	flag = 0;
-	// data->wall.ray_angle = data->player_pos.angle + 0.523599;
-	// data->wall.ray_angle = data->player_pos.angle + 0.566532;
 	data->wall.ray_angle = data->player_pos.angle + 0.516600;
-	// data->wall.ray_angle = data->player_pos.angle + 0.436332;
 	if (data->wall.ray_angle >= M_PI * 2)
 		data->wall.ray_angle -= M_PI * 2;
-	while (ray < WIN_L)
+	while (++ray < WIN_L)
 	{
 		flag = 0;
 		if (ray < 300)
@@ -221,8 +218,6 @@ void	raycast(t_data *data)
 			data->wall.ray_angle += M_PI * 2;
 		h_inter = get_h_inter(data, &x_impact);
 		v_inter = get_v_inter(data, &y_impact);
-		// data->wall.ray_angle -= 0.001091;
-		// data->wall.ray_angle -= ray_inter;
 		if (v_inter <= h_inter)
 		{
 			data->wall.distance = v_inter;
@@ -234,11 +229,8 @@ void	raycast(t_data *data)
 			flag = 1;
 			data->wall.distance = h_inter;
 			get_wall_side(data, data->wall.ray_angle, flag);
-			// printf("interval = %lf\n", data->hit_pos - x_impact);
 			data->hit_pos = x_impact;
 		}
-		ray++;
-		// sleep(1);
 		render(data, ray);
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img.ptr, 0, 0);

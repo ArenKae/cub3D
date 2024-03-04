@@ -24,6 +24,8 @@ void put_wall_pixel(t_data *data, int x, int y)
 
 	i = int_ft_strchr("NSEW", (int)data->wall.side);
 	height = data->wall_h;
+	// printf("%lf\n", height);
+	// sleep (1);
 	tmp = floor(data->hit_pos);
 	hit_pos2 = data->hit_pos;
 	hit_pos2 = hit_pos2 - tmp;
