@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/03 22:04:55 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/04 22:30:58 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ enum	textures_index
 	SOUTH = 1,
 	EAST = 2,
 	WEST = 3,
+};
+
+enum	error_msg
+{
+	INVALID_FILE = 1
 };
 
 /* ---------------------------------------------------------------------------*
@@ -84,12 +89,15 @@ typedef struct s_inter
 	double y_step;
 }			t_inter;
 
-typedef struct s_read
+typedef struct s_info
 {
-	int				ret;
-	char			buf[BUFF_SIZE];
-	struct s_read	*next;
-}		t_read;
+	char	*NO;
+	char	*SO;
+	char	*EA;
+	char	*WE;
+	char	*F;
+	char	*C;
+}	t_info;
 
 typedef struct s_data
 {
@@ -101,7 +109,6 @@ typedef struct s_data
 	int		window_y;
 	int		value;
 	int		frames;
-	int		i;
 	double	wall_h;
 	double	hit_pos;
 	int		move;
@@ -111,11 +118,16 @@ typedef struct s_data
 	t_inter	inter;
 	t_img	**text;
 	t_img	img;
+	t_info	fileinfo;
 }		t_data;
 
 /* ---------------------------------------------------------------------------*
 							FUNCTIONS
  --------------------------------------------------------------------------- */
+
+/*	Parsing & Map checking	*/
+int		check_map_name(char *filename);
+void	init_map(t_data *data, char *filename);
 
 /*	Raycasting	*/
 void	raycast(t_data *data);
@@ -130,5 +142,6 @@ void	render_texture(t_data *data);
 /*	Utils	*/ 
 void	exit_error(char *msg, int status);
 int		destroy_window(t_data *data);
+void	print_error(int msg);
 
 #endif

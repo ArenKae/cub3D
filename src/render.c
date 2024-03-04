@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/29 05:23:28 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/04 22:32:46 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void put_wall_pixel(t_data *data, int x, int y)
 
 	i = int_ft_strchr("NSEW", (int)data->wall.side);
 	height = data->wall_h;
-	// printf("%lf\n", height);
-	// sleep (1);
 	tmp = floor(data->hit_pos);
 	hit_pos2 = data->hit_pos;
 	hit_pos2 = hit_pos2 - tmp;
@@ -62,7 +60,6 @@ void put_pixel(t_data *data, int x, int y, int pixel) // put the pixel
 		data->img.addr[y * 4 * WIN_L + x * 4 + 4] = (pixel >> 24);
 	}
 }
-
 
 void put_wall(t_data *data, int ray, int top, int bot) // draw the wall
 {
@@ -114,4 +111,3 @@ void render(t_data *data, int ray) // render the wall
 	put_floor_and_ceil(data, ray, top, bot);
 	put_wall(data, ray, top, bot);
 }
-

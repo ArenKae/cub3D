@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/02/29 03:24:49 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/04 22:39:26 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ void	init_texture_data(t_data *data)
 	}
 }
 
-char	**malloc_textures_index(char **index)
+char	**malloc_textures_index(t_data *data, char **index)
 {
 	index = malloc(sizeof(char *) * 5);
 	if (!index)
 		return (NULL);
-	index[NORTH] = "textures/north.xpm\0";
-	index[SOUTH] = "textures/south.xpm\0";
-	index[EAST] = "textures/east.xpm\0";
-	index[WEST] = "textures/west.xpm\0";
+	index[NORTH] = ft_strdup(data->fileinfo.NO + 4);
+	index[SOUTH] = ft_strdup(data->fileinfo.SO + 4);
+	index[EAST] = ft_strdup(data->fileinfo.EA + 4);
+	index[WEST] = ft_strdup(data->fileinfo.WE + 4);
 	index[4] = NULL;
 	return (index);
 }
@@ -56,7 +56,7 @@ void	create_textures(t_data *data)
 	i = -1;
 	index = NULL;
 	init_texture_data(data);
-	index = malloc_textures_index(index);
+	index = malloc_textures_index(data, index);
 	if (index == NULL)
 		return (exit_error("malloc", EXIT_FAILURE));
 	while (++i < 4)

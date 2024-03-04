@@ -2,7 +2,7 @@ NAME = cub3d
 HEADER 		=	cub3d.h
 CC = gcc
 CFLAGS += -Wall -Werror -Wextra -I minilibx -ggdb3
-SRC = src/main.c src/render.c src/utils_1.c src/utils_memory.c src/textures.c src/raycasting.c
+SRC = src/main.c src/render.c src/utils_1.c src/utils_memory.c src/textures.c src/raycasting.c src/map_creation.c
 MLX_FLAGS 	= 	-L./minilibx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 INCLUDES = -I/usr/include -Imlx
 
@@ -20,6 +20,7 @@ libmlx:
 	$(MAKE) -C ./minilibx/
 
 clean:
+	$(MAKE) -C ./src/libft fclean
 	rm -f $(OBJ)
 	make clean -C minilibx
 

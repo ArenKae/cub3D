@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/04 22:04:45 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/04 22:31:44 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,15 @@ void	hooks_handler(t_data *data)
 	// raycast(data);
 }
 
+void	init_structures(t_data *data)
+{
+	data->fileinfo.NO = NULL;
+	data->fileinfo.SO = NULL;
+	data->fileinfo.EA = NULL;
+	data->fileinfo.WE = NULL;
+	data->fileinfo.F = NULL;
+	data->fileinfo.C = NULL;
+}
 
 int	main(int ac, char **av)
 {
@@ -130,9 +139,11 @@ int	main(int ac, char **av)
 	data.player_pos.angle = M_PI / 180;
 	data.value = 0;
 	data.frames = 0;
-	data.i = 0;
 	if (ac == 2)
 	{
+		//check_map_name(av[1]);
+		init_structures(&data);
+		init_map(&data, av[1]);
 		data.mlx = mlx_init();
 		if (!data.mlx)
 			return (1);
