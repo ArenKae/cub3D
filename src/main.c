@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/05 23:24:12 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/06 00:02:23 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,8 @@ int	main(int ac, char **av)
 {
 	(void)av;
 	t_data	data;
-	data.player_pos.x = 5;
-	data.player_pos.y = 4;
+	data.player_pos.x = 2;
+	data.player_pos.y = 2;
 	data.player_pos.angle = M_PI / 180;
 	data.value = 0;
 	data.frames = 0;
