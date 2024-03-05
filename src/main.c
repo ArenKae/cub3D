@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/04 22:31:44 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/05 01:40:25 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,10 @@ void	init_structures(t_data *data)
 	data->fileinfo.WE = NULL;
 	data->fileinfo.F = NULL;
 	data->fileinfo.C = NULL;
+	data->fileinfo.F_hex = 0;
+	data->fileinfo.C_hex = 0;
+	data->move = 0;
+	data->rotate = 0;
 }
 
 int	main(int ac, char **av)

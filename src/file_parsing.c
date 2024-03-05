@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_creation.c                                     :+:      :+:    :+:   */
+/*   file_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:19:21 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/04 22:56:50 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/05 01:35:36 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,22 @@ int	read_texture(t_data *data, int fd)
 		store_info(data, line);
 		free(line);
 	}
+	
+	
 	return (0);
+}
+
+void	convert_colors(t_data *data)
+{
+	char	**F;
+	char	**C;
+	
+
+	F = ft_split(data->fileinfo.F + 1, ',');
+	C = ft_split(data->fileinfo.C + 1, ',');
+	if (rgb_to_hexa(&data->fileinfo.F_hex, ft_atoi(F[0]), ft_atoi(F[1]), ft_atoi(F[2]))
+		|| rgb_to_hexa(&data->fileinfo.C_hex, ft_atoi(C[0]), ft_atoi(C[1]), ft_atoi(C[2])))
+		print_error(WRONG_COLORS);
 }
 
 void	init_map(t_data *data, char *filename)
@@ -111,4 +126,5 @@ void	init_map(t_data *data, char *filename)
 	if (fd < 0)
 		return (exit_error("open", EXIT_FAILURE));
 	read_texture(data, fd);
+	convert_colors(data);
 }

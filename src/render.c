@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/04 23:01:44 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/05 01:36:12 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ void put_floor_and_ceil(t_data *data, int ray, int top, int bot) // draw the flo
 	i = 0;
 	while (i < top)
 	{
-		put_pixel(data, ray, i, 0xB99470FF); // ceiling
+		put_pixel(data, ray, i, data->fileinfo.C_hex); // ceiling
 		i++;
 	}
 	i = bot;
 	while (i < WIN_H)
 	{
-		put_pixel(data, ray, i, 0x89CFF3FF); // floor
+		put_pixel(data, ray, i, data->fileinfo.F_hex); // floor
 		i++;
 	}
 }

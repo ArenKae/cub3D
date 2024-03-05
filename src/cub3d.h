@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/04 22:30:58 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/05 01:40:06 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ enum	textures_index
 
 enum	error_msg
 {
-	INVALID_FILE = 1
+	INVALID_FILE = 1,
+	WRONG_COLORS = 3,
 };
 
 /* ---------------------------------------------------------------------------*
@@ -97,6 +98,8 @@ typedef struct s_info
 	char	*WE;
 	char	*F;
 	char	*C;
+	int		F_hex;
+	int		C_hex;
 }	t_info;
 
 typedef struct s_data
@@ -140,6 +143,7 @@ void 	render(t_data *data, int ray);
 void	render_texture(t_data *data);
 
 /*	Utils	*/ 
+int		rgb_to_hexa(int *color, int r, int g, int b);
 void	exit_error(char *msg, int status);
 int		destroy_window(t_data *data);
 void	print_error(int msg);
