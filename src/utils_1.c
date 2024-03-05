@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:40:48 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/05 03:45:04 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/05 22:30:03 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ void	print_error(int msg)
 {
 	if (msg == INVALID_FILE)
 		ft_putstr_fd("Error\nInvalid file.\n", 2);
-	if (msg == WRONG_COLORS)
-		ft_putstr_fd("Error\nInvalid colors.\n", 2);
+	if (msg == INVALID_TEXTURES)
+		ft_putstr_fd("Error\nInvalid texture.\n", 2);
+	if (msg == INVALID_COLORS)
+		ft_putstr_fd("Error\nInvalid color.\n", 2);
 	exit (EXIT_FAILURE);
 }
 

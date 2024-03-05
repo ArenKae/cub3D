@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/05 03:44:16 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/05 22:33:47 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ enum	textures_index
 
 enum	error_msg
 {
+	INVALID_NAME = 0,
 	INVALID_FILE = 1,
-	WRONG_COLORS = 3,
+	INVALID_TEXTURES = 2,
+	INVALID_COLORS = 3,
 };
 
 /* ---------------------------------------------------------------------------*

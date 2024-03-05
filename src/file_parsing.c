@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:19:21 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/05 03:44:48 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/05 22:29:16 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,16 +149,16 @@ void	convert_colors(t_data *data)
 	char	**C;
 	
 	if (check_comma(data->fileinfo.F + 1) || check_comma(data->fileinfo.C + 1))
-		print_error(WRONG_COLORS);
+		print_error(INVALID_COLORS);
 	F = ft_split(data->fileinfo.F + 1, ',');
 	C = ft_split(data->fileinfo.C + 1, ',');
 	if (!F || !C || F[3] != NULL || C[3] != NULL)
-		print_error(WRONG_COLORS);
+		print_error(INVALID_COLORS);
 	if (check_rgb(F) || check_rgb(C))
-		print_error(WRONG_COLORS);
+		print_error(INVALID_COLORS);
 	if (rgb_to_hexa(&data->fileinfo.F_hex, ft_atoi(F[0]), ft_atoi(F[1]), ft_atoi(F[2]))
 		|| rgb_to_hexa(&data->fileinfo.C_hex, ft_atoi(C[0]), ft_atoi(C[1]), ft_atoi(C[2])))
-		print_error(WRONG_COLORS);
+		print_error(INVALID_COLORS);
 }
 
 void	get_map_size(t_data *data)
