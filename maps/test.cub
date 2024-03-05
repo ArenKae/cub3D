@@ -8,9 +8,9 @@ SO ./textures/south.xpm
 
 
 	F 220,100,0
-C 225,30,0
+C 225,30,07
 
-
-
-
-
+check plusieurs virgules d'affilé ou virgule à la fin
+111111111
+100000001
+111111111

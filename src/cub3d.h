@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/05 01:40:06 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/05 03:44:16 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,5 +147,6 @@ int		rgb_to_hexa(int *color, int r, int g, int b);
 void	exit_error(char *msg, int status);
 int		destroy_window(t_data *data);
 void	print_error(int msg);
+int		char_isdigit(char c);
 
 #endif
