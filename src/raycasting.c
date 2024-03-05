@@ -51,9 +51,13 @@ void	player_rotation(t_data *data)
 			data->player_pos.angle = M_PI * 2;
 	}
 	if (data->player_pos.angle > M_PI * 2)
-		data->player_pos.angle = 2.5 * M_PI / 180;
-	if (data->player_pos.angle < 2.4 * M_PI / 180)
+	{
+		data->player_pos.angle = 1.5 * M_PI / 180;
+	}
+	if (data->player_pos.angle < 1.4 * M_PI / 180)
+	{
 		data->player_pos.angle = M_PI * 2;
+	}
 }
 
 void get_wall_side(t_data *data, double ray_angle, int flag) // get the color of the wall
@@ -83,7 +87,7 @@ int hit(double x, double y, t_data *data) // check the wall hit
 
     if (x <= 1 || y <= 1)
         return (1);
-    if (x > 8 || y > 8)
+    if (x > data->map_lenght || y > data->map_height)
         return (1);
     x_map = floor(x);
     y_map = floor(y);
@@ -214,8 +218,8 @@ void	raycast(t_data *data)
 		else if (ray > 500)
 			ray_inter -= 0.000001;
 		data->wall.ray_angle -= ray_inter;
-		if (data->wall.ray_angle == 0)
-			data->wall.ray_angle = 0.000001; //prevent segfault if angle=0 (no tangent)
+		// if (data->wall.ray_angle == 0)
+		// 	data->wall.ray_angle = 0.000001; //prevent segfault if angle=0 (no tangent)
 		if (data->wall.ray_angle < 0)
 			data->wall.ray_angle += M_PI * 2;
 		h_inter = get_h_inter(data, &x_impact);
@@ -240,8 +244,15 @@ void	raycast(t_data *data)
 
 int	game(t_data *data)
 {
-	player_movement(data);
-	player_rotation(data);
-	raycast(data);
+	data->clock += 1;
+	// player_movement(data);
+	// player_rotation(data);
+	if (data->clock == 500)
+	{
+		player_movement(data);
+		player_rotation(data);
+		raycast(data);
+		data->clock = 0;
+	}
 	return (1);
 }

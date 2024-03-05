@@ -79,13 +79,27 @@ int	missing_info(t_data *data)
 int	read_texture(t_data *data, int fd)
 {
 	char	*line;
-	
+	t_file	*tmp;
+
 	while (missing_info(data))
 	{
 		line = get_next_line(fd);
 		store_info(data, line);
 		free(line);
 	}
+	data->file = malloc(sizeof(t_file));
+	tmp = data->file;
+	line = get_next_line(fd);
+	while (line)
+	{
+		data->file->line = line;
+		data->file->next = malloc(sizeof(t_file));
+		data->file = data->file->next;
+		line = get_next_line(fd);
+	}
+	data->file->next = NULL;
+	data->file = tmp;
+
 	return (0);
 }
 
@@ -151,9 +165,97 @@ void	init_map(t_data *data, char *filename)
 {
 	int	fd;
 
+	printf("%s\n", filename);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (exit_error("open", EXIT_FAILURE));
 	read_texture(data, fd);
-	convert_colors(data);
+}
+
+
+void	get_map_size(t_data *data)
+{
+	t_file *tmp;
+	int	i;
+	int	j;
+	int	len;
+
+	i = 0;
+	j = 0;
+	len = 0;
+	tmp = data->file;
+	while (data->file->next)
+	{
+		if (data->file->line[0] != '\n')
+		{
+			if ((int)ft_strlen(data->file->line) > len)
+				len = (ft_strlen(data->file->line) - 1);
+			i++;
+		}
+		data->file = data->file->next;
+	}
+	data->map = malloc(sizeof(char *) * (i + 1));
+	while (j < i)
+	{
+		data->map[j] = malloc(sizeof(char) * (len + 1));
+		j++;
+	}
+	data->map_lenght = len;
+	data->map_height = i;
+	data->file = tmp;
+}
+
+void	fill_map(t_data *data)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	while (data->file->next)
+	{
+		if (data->file->line[0] != '\n')
+		{
+			i = 0;
+			while (data->file->line[i] && data->file->line[i] != '\n')
+			{
+				data->map[j][i] = data->file->line[i];
+				i++;
+			}
+			data->map[j][i] = '\0';
+			j++;
+		}
+		data->file = data->file->next;
+	}
+	data->map[j] = NULL;
+}
+
+void	print_map(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->map[i])
+	{
+		ft_putstr_fd(data->map[i], 1);
+		ft_putchar_fd('\n', 1);
+		i++;
+	}
+	fprintf(stderr, "je suis la\n");
+}
+
+
+void	init_map(t_data *data, char *filename)
+{
+	int	fd;
+
+	printf("%s\n", filename);
+	fd = open(filename, O_RDWR);
+	if (fd < 0)
+		return (exit_error("open", EXIT_FAILURE));
+	read_texture(data, fd);
+	get_map_size(data);
+	fill_map(data);
+	fprintf(stderr, "map len : %d\n", data->map_lenght);
+	fprintf(stderr, "map hei : %d\n", data->map_height);
+	print_map(data);
 }

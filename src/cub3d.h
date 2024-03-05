@@ -102,6 +102,13 @@ typedef struct s_info
 	int		C_hex;
 }	t_info;
 
+typedef	struct s_file
+{
+	char			*line;
+	struct s_file	*next;
+}		t_file;
+
+
 typedef struct s_data
 {
 	void	*mlx;
@@ -116,7 +123,11 @@ typedef struct s_data
 	double	hit_pos;
 	int		move;
 	int		rotate;
+	int		map_height;
+	int		map_lenght;
+	int		clock;
 	t_pos	player_pos;
+	t_file	*file;
 	t_wall	wall;
 	t_inter	inter;
 	t_img	**text;

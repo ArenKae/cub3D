@@ -127,22 +127,12 @@ int	main(int ac, char **av)
 {
 	(void)av;
 	t_data	data;
-	data.map = malloc(sizeof(char *) * 9);
-	data.map[0] = strdup("11111111");
- 	data.map[1] = strdup("10000001");
- 	data.map[2] = strdup("10000001");
- 	data.map[3] = strdup("10000001");
- 	data.map[4] = strdup("10000001");
- 	data.map[5] = strdup("10000001");
- 	data.map[6] = strdup("10000001");
- 	data.map[7] = strdup("10000001");
- 	data.map[8] = strdup("11111111");
-
 	data.player_pos.x = 5;
 	data.player_pos.y = 4;
 	data.player_pos.angle = M_PI / 180;
 	data.value = 0;
 	data.frames = 0;
+	data.clock = 0;
 	if (ac == 2)
 	{
 		//check_map_name(av[1]);
