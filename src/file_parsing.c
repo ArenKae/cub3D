@@ -161,18 +161,6 @@ void	convert_colors(t_data *data)
 		print_error(WRONG_COLORS);
 }
 
-void	init_map(t_data *data, char *filename)
-{
-	int	fd;
-
-	printf("%s\n", filename);
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		return (exit_error("open", EXIT_FAILURE));
-	read_texture(data, fd);
-}
-
-
 void	get_map_size(t_data *data)
 {
 	t_file *tmp;
@@ -249,13 +237,11 @@ void	init_map(t_data *data, char *filename)
 	int	fd;
 
 	printf("%s\n", filename);
-	fd = open(filename, O_RDWR);
+	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (exit_error("open", EXIT_FAILURE));
 	read_texture(data, fd);
 	get_map_size(data);
 	fill_map(data);
-	fprintf(stderr, "map len : %d\n", data->map_lenght);
-	fprintf(stderr, "map hei : %d\n", data->map_height);
-	print_map(data);
+	convert_colors(data);
 }
