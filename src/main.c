@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/05 01:40:25 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/05 23:24:12 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int	main(int ac, char **av)
 	data.clock = 0;
 	if (ac == 2)
 	{
-		//check_map_name(av[1]);
+		check_map_name(av[1]);
 		init_structures(&data);
 		init_map(&data, av[1]);
 		data.mlx = mlx_init();

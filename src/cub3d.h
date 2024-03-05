@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/05 22:33:47 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/05 23:24:02 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 #ifndef M_PI
 # define M_PI 3.14159265358979323846
 #endif
+
+# define RED "\e[31m"
 
 enum	textures_index
 {
@@ -144,6 +146,7 @@ typedef struct s_data
 /*	Parsing & Map checking	*/
 int		check_map_name(char *filename);
 void	init_map(t_data *data, char *filename);
+int		check_map_name(char *s1);
 
 /*	Raycasting	*/
 void	raycast(t_data *data);

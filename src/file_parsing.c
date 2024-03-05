@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:19:21 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/05 22:29:16 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/05 23:31:00 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,7 +236,6 @@ void	init_map(t_data *data, char *filename)
 {
 	int	fd;
 
-	printf("%s\n", filename);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (exit_error("open", EXIT_FAILURE));
