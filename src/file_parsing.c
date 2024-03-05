@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:19:21 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/05 01:35:36 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/05 01:47:30 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ void	convert_colors(t_data *data)
 	char	**F;
 	char	**C;
 	
-
 	F = ft_split(data->fileinfo.F + 1, ',');
 	C = ft_split(data->fileinfo.C + 1, ',');
 	if (rgb_to_hexa(&data->fileinfo.F_hex, ft_atoi(F[0]), ft_atoi(F[1]), ft_atoi(F[2]))
