@@ -271,7 +271,7 @@ void	get_map_size(t_data *data)
 
 void	get_player_pos(t_data *data, int y, int x)
 {
-	data->parse.pos_flag++;
+	data->parse.pos_flag += 1;
 	data->player_pos.x = x + 0.5;
 	data->player_pos.y = y + 0.5;
 	data->player_pos.angle = (int_ft_strchr("ENWS", data->map[y][x]) * 1.5708);
@@ -331,8 +331,9 @@ void	init_map(t_data *data, char *filename)
 		printf("error\n");
 	get_map_size(data);
 	fill_map(data);
+	printf("pos flag : %d\n", data->parse.pos_flag);
 	print_map(data);
-	if (!check_map(data))
+	if (!check_map_init(data))
 		printf("invalid map!\n");
 	convert_colors(data);
 }

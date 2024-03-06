@@ -176,15 +176,17 @@ int check_map(t_data *data)
     if (!init_check_closed(data, cpy_map))
         return (0);
     // print_cpy_map(cpy_map);
-
     return (1);
 }
 
 int check_map_init(t_data *data)
 {
     if (data->parse.pos_flag != 1)
+    {
+        printf("error\n");
         return (0);
-    if (check_map)
+    }
+    if (check_map(data))
         return (1);
     return (0);
 }
