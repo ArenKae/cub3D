@@ -179,3 +179,12 @@ int check_map(t_data *data)
 
     return (1);
 }
+
+int check_map_init(t_data *data)
+{
+    if (data->parse.pos_flag != 1)
+        return (0);
+    if (check_map)
+        return (1);
+    return (0);
+}

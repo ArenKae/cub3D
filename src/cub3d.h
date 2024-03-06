@@ -119,6 +119,7 @@ typedef	struct s_file
 typedef	struct	s_parse
 {
 	int	map_flag;
+	int	pos_flag;
 	int		N;
 	int		S;
 	int		E;

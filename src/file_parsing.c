@@ -269,6 +269,14 @@ void	get_map_size(t_data *data)
 	data->file = tmp;
 }
 
+void	get_player_pos(t_data *data, int y, int x)
+{
+	data->parse.pos_flag++;
+	data->player_pos.x = x + 0.5;
+	data->player_pos.y = y + 0.5;
+	data->player_pos.angle = (int_ft_strchr("ENWS", data->map[y][x]) * 1.5708);
+}
+
 void	fill_map(t_data *data)
 {
 	int	i;
@@ -283,6 +291,12 @@ void	fill_map(t_data *data)
 			while (data->file->line[i] && data->file->line[i] != '\n')
 			{
 				data->map[j][i] = data->file->line[i];
+				if (data->map[j][i] == 'N' || data->map[j][i] == 'S' || 
+					data->map[j][i] == 'E' || data->map[j][i] == 'W')
+				{
+					get_player_pos(data, j, i);
+					data->map[j][i] = '0';
+				}
 				i++;
 			}
 			data->map[j][i] = '\0';
