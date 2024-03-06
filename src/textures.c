@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/06 01:01:34 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/06 02:26:46 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ void	create_textures(t_data *data)
 		data->text[i]->ptr = mlx_xpm_file_to_image(data->mlx, index[i],
 			&data->text[i]->width, &data->text[i]->height);
 		if (data->text[i]->ptr == NULL)
-			return (exit_error("malloc", EXIT_FAILURE));
+		{
+			free(index);
+			print_error(data, INVALID_TEXTURES);
+		}
 		data->text[i]->addr = mlx_get_data_addr(data->text[i]->ptr,
 			&data->text[i]->pixel_bits, &data->text[i]->size_line, &data->text[i]->endian);
 	}

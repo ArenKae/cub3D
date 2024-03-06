@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:19:21 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/06 01:33:47 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/06 02:27:56 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	store_info(t_data *data, char *line)
 	else if (tmp[0] == 'C')
 		data->fileinfo.C = ft_strdup(tmp);
 	else
-		print_error(INVALID_FILE);
+		print_error(data, INVALID_FILE);
 	free(tmp);
 }
 
@@ -100,7 +100,7 @@ int	read_texture(t_data *data, int fd)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			print_error(INVALID_FILE);
+			print_error(data, INVALID_FILE);
 		store_info(data, line);
 		free(line);
 	}
@@ -171,16 +171,16 @@ void	convert_colors(t_data *data)
 	char	**C;
 	
 	if (check_comma(data->fileinfo.F + 1) || check_comma(data->fileinfo.C + 1))
-		print_error(INVALID_COLORS);
+		print_error(data, INVALID_COLORS);
 	F = ft_split(data->fileinfo.F + 1, ',');
 	C = ft_split(data->fileinfo.C + 1, ',');
 	if (!F || !C || F[3] != NULL || C[3] != NULL)
-		print_error(INVALID_COLORS);
+		print_error(data, INVALID_COLORS);
 	if (check_rgb(F) || check_rgb(C))
-		print_error(INVALID_COLORS);
+		print_error(data, INVALID_COLORS);
 	if (rgb_to_hexa(&data->fileinfo.F_hex, ft_atoi(F[0]), ft_atoi(F[1]), ft_atoi(F[2]))
 		|| rgb_to_hexa(&data->fileinfo.C_hex, ft_atoi(C[0]), ft_atoi(C[1]), ft_atoi(C[2])))
-		print_error(INVALID_COLORS);
+		print_error(data, INVALID_COLORS);
 }
 
 void	get_map_size(t_data *data)
@@ -250,7 +250,6 @@ void	print_map(t_data *data)
 		ft_putchar_fd('\n', 1);
 		i++;
 	}
-	fprintf(stderr, "je suis la\n");
 }
 
 void	init_map(t_data *data, char *filename)

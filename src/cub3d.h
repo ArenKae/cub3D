@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/06 00:54:52 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/06 02:37:33 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,10 +153,9 @@ typedef struct s_data
  --------------------------------------------------------------------------- */
 
 /*	Parsing & Map checking	*/
-int		check_map_name(char *filename);
+int		check_map_name(t_data *data, char *filename);
 int		check_map(t_data *data);
 void	init_map(t_data *data, char *filename);
-int		check_map_name(char *s1);
 
 /*	Raycasting	*/
 void	raycast(t_data *data);
@@ -172,7 +171,7 @@ void	render_texture(t_data *data);
 int		rgb_to_hexa(int *color, int r, int g, int b);
 void	exit_error(char *msg, int status);
 int		destroy_window(t_data *data);
-void	print_error(int msg);
+void	print_error(t_data * data, int msg);
 int		char_isdigit(char c);
 
 #endif

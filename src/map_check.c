@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 22:30:32 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/05 23:28:54 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/06 02:38:04 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 	the program is a valid.cub file.
 */
 
-int	check_map_name(char *s1)
+int	check_map_name(t_data *data, char *map)
 {
 	size_t	i;
 	size_t	j;
@@ -26,17 +26,17 @@ int	check_map_name(char *s1)
 	i = 0;
 	j = 0;
 	s2 = ".cub";
-	while (s1[i])
+	while (map[i])
 	{
-		while (s1[i] == s2[j])
+		while (map[i] == s2[j])
 		{
 			j++;
 			i++;
-			if (s2[j] == '\0' && i == ft_strlen(s1))
+			if (s2[j] == '\0' && i == ft_strlen(map))
 				return (EXIT_SUCCESS);
 		}
 		i++;
 	}
-	print_error(INVALID_NAME);
+	print_error(data, INVALID_NAME);
 	return (EXIT_FAILURE);
 }

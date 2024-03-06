@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:40:48 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/05 23:23:44 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/06 02:29:14 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	exit_error(char	*msg, int status)
 	exit(status);
 }
 
-void	print_error(int msg)
+void	print_error(t_data *data, int msg)
 {
 	if (msg == INVALID_NAME)
 		ft_putstr_fd(RED "Error\nInvalid file name.\n", 2);
@@ -31,6 +31,7 @@ void	print_error(int msg)
 	if (msg == INVALID_COLORS)
 		ft_putstr_fd(RED "Error\nInvalid color.\n", 2);
 	exit (EXIT_FAILURE);
+	(void)data;
 }
 
 int	rgb_to_hexa(int *hex, int r, int g, int b)
