@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:19:21 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/06 02:27:56 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/06 03:14:55 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,55 @@ void	check_format_path(char *path, char *side, int *SIDE)
 	}
 }
 
+void	malloc_info_2(t_data *data, char *tmp, char c)
+{
+	if (c == 'F')
+	{
+		data->fileinfo.F = ft_strdup(tmp);
+		data->parse.F++;
+	}
+	if (c == 'C')
+	{
+		data->fileinfo.C = ft_strdup(tmp);
+		data->parse.C++;
+	}
+}
+
+void	malloc_info(t_data *data, char *tmp, char c)
+{
+	if (c == 'N')
+	{
+		data->fileinfo.NO = ft_strdup(tmp);
+		data->parse.N++;
+	}
+	if (c == 'S')
+	{
+		data->fileinfo.SO = ft_strdup(tmp);
+		data->parse.S++;
+	}
+	if (c == 'E')
+	{
+		data->fileinfo.EA = ft_strdup(tmp);
+		data->parse.E++;
+	}
+	if (c == 'W')
+	{
+		data->fileinfo.WE = ft_strdup(tmp);
+		data->parse.W++;
+	}
+	else
+	malloc_info_2(data, tmp, c);
+}
+
+int	multiple_infos(t_data *data)
+{
+	if (data->parse.N > 1 || data->parse.S > 1 || 
+		data->parse.E > 1 || data->parse.W > 1 || 
+		data->parse.F > 1 || data->parse.C > 1)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
 void	store_info(t_data *data, char *line)
 {
 	char	*tmp;
@@ -67,20 +116,25 @@ void	store_info(t_data *data, char *line)
 	check_format_path(tmp, "EA", &data->fileinfo.E);
 	check_format_path(tmp, "WE", &data->fileinfo.W);
 	if (tmp[0] == 'N' && tmp[1] == 'O')
-		data->fileinfo.NO = ft_strdup(tmp);
+		malloc_info(data, tmp, 'N');
 	else if (tmp[0] == 'S' && tmp[1] == 'O')
-		data->fileinfo.SO = ft_strdup(tmp);
+		malloc_info(data, tmp, 'S');
 	else if (tmp[0] == 'E' && tmp[1] == 'A')
-		data->fileinfo.EA = ft_strdup(tmp);
+		malloc_info(data, tmp, 'E');
 	else if (tmp[0] == 'W' && tmp[1] == 'E')
-		data->fileinfo.WE = ft_strdup(tmp);
+		malloc_info(data, tmp, 'W');
 	else if (tmp[0] == 'F')
-		data->fileinfo.F = ft_strdup(tmp);
+		malloc_info(data, tmp, 'F');
 	else if (tmp[0] == 'C')
-		data->fileinfo.C = ft_strdup(tmp);
+		malloc_info(data, tmp, 'C');
 	else
+	{
+		free(tmp);
 		print_error(data, INVALID_FILE);
+	}
 	free(tmp);
+	if (multiple_infos(data))
+		print_error(data, INVALID_FILE);
 }
 
 int	missing_info(t_data *data)

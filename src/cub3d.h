@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/06 02:37:33 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/06 02:44:13 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,12 @@ typedef	struct s_file
 typedef	struct	s_parse
 {
 	int	map_flag;
+	int		N;
+	int		S;
+	int		E;
+	int		W;
+	int		F;
+	int		C;
 }		t_parse;
 
 typedef struct s_data

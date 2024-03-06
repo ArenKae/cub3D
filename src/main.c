@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/06 02:36:56 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/06 02:58:24 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,17 +119,27 @@ void	init_structures(t_data *data)
 	data->fileinfo.C = NULL;
 	data->fileinfo.F_hex = 0;
 	data->fileinfo.C_hex = 0;
+	data->fileinfo.N = 0;
+	data->fileinfo.S = 0;
+	data->fileinfo.E = 0;
+	data->fileinfo.W = 0;
 	data->move = 0;
 	data->rotate = 0;
 	data->parse.map_flag = 0;
+	data->parse.N = 0;
+	data->parse.S = 0;
+	data->parse.E = 0;
+	data->parse.W = 0;
+	data->parse.F = 0;
+	data->parse.C = 0;
 }
 
 int	main(int ac, char **av)
 {
 	(void)av;
 	t_data	data;
-	data.player_pos.x = 2;
-	data.player_pos.y = 2;
+	data.player_pos.x = 4;
+	data.player_pos.y = 4;
 	data.player_pos.angle = M_PI / 180;
 	data.value = 0;
 	data.frames = 0;
