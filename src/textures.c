@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/04 22:39:26 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/06 01:01:34 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ char	**malloc_textures_index(t_data *data, char **index)
 	index = malloc(sizeof(char *) * 5);
 	if (!index)
 		return (NULL);
-	index[NORTH] = ft_strdup(data->fileinfo.NO + 4);
-	index[SOUTH] = ft_strdup(data->fileinfo.SO + 4);
-	index[EAST] = ft_strdup(data->fileinfo.EA + 4);
-	index[WEST] = ft_strdup(data->fileinfo.WE + 4);
+	index[NORTH] = ft_strdup(data->fileinfo.NO + data->fileinfo.N);
+	index[SOUTH] = ft_strdup(data->fileinfo.SO + data->fileinfo.S);
+	index[EAST] = ft_strdup(data->fileinfo.EA + data->fileinfo.E);
+	index[WEST] = ft_strdup(data->fileinfo.WE + data->fileinfo.W);
 	index[4] = NULL;
 	return (index);
 }

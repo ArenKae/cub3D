@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:19:21 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/05 23:31:00 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/06 00:56:30 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,17 @@ char	*trim_spaces(const char* line)
     return str;
 }
 
+void	check_format_path(char *path, char *side, int *SIDE)
+{
+	if (path[0] == side[0] && path[1] == side[1])
+	{
+		if (path[2] == '.' && path[3] == '/')
+			*SIDE = 4;
+		else
+			*SIDE = 2;
+	}
+}
+
 void	store_info(t_data *data, char *line)
 {
 	char	*tmp;
@@ -51,6 +62,10 @@ void	store_info(t_data *data, char *line)
 	if (line == NULL || trim_spaces(line)[0] == '\n' || trim_spaces(line)[0] == '\0')
 		return ;
 	tmp = trim_spaces(line);
+	check_format_path(tmp, "NO", &data->fileinfo.N);
+	check_format_path(tmp, "SO", &data->fileinfo.S);
+	check_format_path(tmp, "EA", &data->fileinfo.E);
+	check_format_path(tmp, "WE", &data->fileinfo.W);
 	if (tmp[0] == 'N' && tmp[1] == 'O')
 		data->fileinfo.NO = ft_strdup(tmp);
 	else if (tmp[0] == 'S' && tmp[1] == 'O')
@@ -230,7 +245,6 @@ void	print_map(t_data *data)
 	}
 	fprintf(stderr, "je suis la\n");
 }
-
 
 void	init_map(t_data *data, char *filename)
 {

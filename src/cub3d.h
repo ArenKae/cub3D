@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/05 23:24:02 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/06 00:54:52 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,10 @@ typedef struct s_info
 	char	*C;
 	int		F_hex;
 	int		C_hex;
+	int		N;
+	int		S;
+	int		E;
+	int		W;
 }	t_info;
 
 typedef	struct s_file
