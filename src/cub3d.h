@@ -149,6 +149,7 @@ typedef struct s_data
 
 /*	Parsing & Map checking	*/
 int		check_map_name(char *filename);
+int		check_map(t_data *data);
 void	init_map(t_data *data, char *filename);
 int		check_map_name(char *s1);
 

@@ -258,5 +258,7 @@ void	init_map(t_data *data, char *filename)
 	read_texture(data, fd);
 	get_map_size(data);
 	fill_map(data);
+	if (!check_map(data))
+		printf("invalid map!\n");
 	convert_colors(data);
 }
