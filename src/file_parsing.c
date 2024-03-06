@@ -110,13 +110,18 @@ int	read_texture(t_data *data, int fd)
 	while (line)
 	{
 		data->file->line = line;
+		if (line && line[0] != '\n' && data->parse.map_flag == 0)
+			data->parse.map_flag = 1;
+		else if (line && line[0] == '\n' && data->parse.map_flag == 1)
+			data->parse.map_flag = 2;
+		line = get_next_line(fd);
 		data->file->next = malloc(sizeof(t_file));
 		data->file = data->file->next;
-		line = get_next_line(fd);
 	}
 	data->file->next = NULL;
 	data->file = tmp;
-
+	if (data->parse.map_flag == 1)
+		return (1);
 	return (0);
 }
 
@@ -255,9 +260,11 @@ void	init_map(t_data *data, char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (exit_error("open", EXIT_FAILURE));
-	read_texture(data, fd);
+	if (!read_texture(data, fd))
+		printf("error\n");
 	get_map_size(data);
 	fill_map(data);
+	print_map(data);
 	if (!check_map(data))
 		printf("invalid map!\n");
 	convert_colors(data);

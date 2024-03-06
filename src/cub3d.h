@@ -116,6 +116,10 @@ typedef	struct s_file
 	struct s_file	*next;
 }		t_file;
 
+typedef	struct	s_parse
+{
+	int	map_flag;
+}		t_parse;
 
 typedef struct s_data
 {
@@ -140,6 +144,7 @@ typedef struct s_data
 	t_inter	inter;
 	t_img	**text;
 	t_img	img;
+	t_parse	parse;
 	t_info	fileinfo;
 }		t_data;
 

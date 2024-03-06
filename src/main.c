@@ -121,6 +121,7 @@ void	init_structures(t_data *data)
 	data->fileinfo.C_hex = 0;
 	data->move = 0;
 	data->rotate = 0;
+	data->parse.map_flag = 0;
 }
 
 int	main(int ac, char **av)

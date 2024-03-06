@@ -40,13 +40,13 @@ void	player_rotation(t_data *data)
 {
 	if (data->rotate == 1)
 	{
-		data->player_pos.angle = data->player_pos.angle - (1 * M_PI / 180);
+		data->player_pos.angle = data->player_pos.angle - (2 * M_PI / 180);
 		if (data->player_pos.angle >= M_PI * 2)
 			data->player_pos.angle = 0;
 	}
 	if (data->rotate == 2)
 	{
-		data->player_pos.angle = data->player_pos.angle + (1 * M_PI / 180);
+		data->player_pos.angle = data->player_pos.angle + (2 * M_PI / 180);
 		if (data->player_pos.angle <= 0)
 			data->player_pos.angle = M_PI * 2;
 	}
@@ -93,9 +93,9 @@ int hit(double x, double y, t_data *data) // check the wall hit
     y_map = floor(y);
     x2_map = floor(x - 0.000001);
     y2_map = floor(y - 0.000001);
-    if (data->map[y_map][x_map] == '1')
+    if (data->map[y_map][x_map] == '1' || data->map[y_map][x_map] == '\0')
         return (1);
-    else if (data->map[y2_map][x2_map] == '1')
+    else if (data->map[y2_map][x2_map] == '1' || data->map[y2_map][x2_map] == '\0')
         return (1);
     return (0);
 }
