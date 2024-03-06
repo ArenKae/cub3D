@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:19:21 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/06 00:56:30 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/06 01:33:47 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ int	read_texture(t_data *data, int fd)
 	while (missing_info(data))
 	{
 		line = get_next_line(fd);
+		if (!line)
+			print_error(INVALID_FILE);
 		store_info(data, line);
 		free(line);
 	}
