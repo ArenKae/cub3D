@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 16:04:27 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 16:23:48 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,10 +133,6 @@ typedef struct s_data
 	void	*win;
 	char	**map;
 	char	*str;
-	int		window_x;
-	int		window_y;
-	int		value;
-	int		frames;
 	double	wall_h;
 	double	hit_pos;
 	int		move;
@@ -172,6 +168,9 @@ void	render(t_data *data, int ray);
 
 /*	Textures	*/
 void	render_texture(t_data *data);
+
+/*	Keys and hook	*/
+void	hooks_handler(t_data *data);
 
 /*	Utils	*/
 
