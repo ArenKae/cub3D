@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 16:33:00 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 18:15:08 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 22:51:23 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	print_error(t_data *data, int msg)
 		ft_putstr_fd(RED "Error\nInvalid color.\n"STOP, 2);
 	if (msg == INVALID_MAP)
 		ft_putstr_fd(RED "Error\nInvalid map.\n"STOP, 2);
+	if (msg == OPEN_ERROR)
+		ft_putstr_fd(RED "Error\nCould not open file.\n"STOP, 2);
 	if (msg != INVALID_NAME)
 		free_all(data);
 	exit (EXIT_FAILURE);
