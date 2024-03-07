@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:19:21 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 01:43:12 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 02:06:28 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int	read_texture(t_data *data, int fd)
 	line = get_next_line(fd);
 	while (line)
 	{
-		data->file->line = line;
+		data->file->line = ft_strdup(line);
 		if (line && line[0] != '\n' && data->parse.map_flag == 0)
 			data->parse.map_flag = 1;
 		else if (line && line[0] == '\n' && data->parse.map_flag == 1)
@@ -241,6 +241,8 @@ void	convert_colors(t_data *data)
 	if (rgb_to_hexa(&data->fileinfo.F_hex, ft_atoi(F[0]), ft_atoi(F[1]), ft_atoi(F[2]))
 		|| rgb_to_hexa(&data->fileinfo.C_hex, ft_atoi(C[0]), ft_atoi(C[1]), ft_atoi(C[2])))
 		free_and_error(data, F, C);
+	free_tab(C);
+	free_tab(F);
 }
 
 void	get_map_size(t_data *data)
@@ -256,7 +258,7 @@ void	get_map_size(t_data *data)
 	tmp = data->file;
 	while (data->file->next)
 	{
-		if (data->file->line[0] != '\n')
+		if (data->file->line[0] && data->file->line[0] != '\n')
 		{
 			if ((int)ft_strlen(data->file->line) > len)
 				len = (ft_strlen(data->file->line) - 1);
@@ -367,6 +369,6 @@ void	init_map(t_data *data, char *filename)
 	fill_map(data);
 	free_list(data);
 	if (!check_map_init(data))
-		printf("invalid map!\n");
+		print_error(data, INVALID_MAP);
 	convert_colors(data);
 }

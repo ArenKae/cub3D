@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 01:02:55 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 01:03:53 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 01:46:48 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,8 @@ int check_map(t_data *data)
 int check_map_init(t_data *data)
 {
     if (data->parse.pos_flag != 1)
-    {
-        printf("error\n");
         return (0);
-    }
     if (check_map(data))
         return (1);
-    printf("map error\n");
     return (0);
 }

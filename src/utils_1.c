@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:40:48 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 01:27:04 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 01:50:03 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	print_error(t_data *data, int msg)
 		ft_putstr_fd(RED "Error\nInvalid texture.\n"STOP, 2);
 	if (msg == INVALID_COLORS)
 		ft_putstr_fd(RED "Error\nInvalid color.\n"STOP, 2);
+	if (msg == INVALID_MAP)
+		ft_putstr_fd(RED "Error\nInvalid map.\n"STOP, 2);
 	free_all(data);
 	exit (EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 01:29:08 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 02:22:19 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ enum	error_msg
 	INVALID_FILE = 1,
 	INVALID_TEXTURES = 2,
 	INVALID_COLORS = 3,
+	INVALID_MAP = 4,
 };
 
 /* ---------------------------------------------------------------------------*
@@ -150,7 +151,7 @@ typedef struct s_data
 	t_file	*file;
 	t_wall	wall;
 	t_inter	inter;
-	t_img	**text;
+	t_img	*text;
 	t_img	img;
 	t_parse	parse;
 	t_info	fileinfo;

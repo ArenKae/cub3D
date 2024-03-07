@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 01:19:26 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 02:27:37 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,20 @@
 void	init_texture_data(t_data *data)
 {
 	int	i;
-	t_img *img_array;
 	
 	i = -1;
-	data->text = malloc(sizeof(t_img *) * 4 + sizeof(t_img) * 4);
+	data->text = malloc(sizeof(t_img) * 4);
 	if (!data->text)
 		return (exit_error("malloc", EXIT_FAILURE));
-	img_array = (t_img *)(data->text + 4);
 	while(++i < 4)
 	{
-		data->text[i] = &img_array[i];
-		data->text[i]->addr = NULL;
-		data->text[i]->addr = NULL;
-		data->text[i]->pixel_bits = 0;
-		data->text[i]->size_line = 0;
-		data->text[i]->endian = 0;
-		data->text[i]->width = 0;
-		data->text[i]->height = 0;
+		data->text[i].ptr = NULL;
+		data->text[i].addr = NULL;
+		data->text[i].pixel_bits = 0;
+		data->text[i].size_line = 0;
+		data->text[i].endian = 0;
+		data->text[i].width = 0;
+		data->text[i].height = 0;
 	}
 }
 
@@ -61,15 +58,15 @@ void	create_textures(t_data *data)
 		return (exit_error("malloc", EXIT_FAILURE));
 	while (++i < 4)
 	{
-		data->text[i]->ptr = mlx_xpm_file_to_image(data->mlx, index[i],
-			&data->text[i]->width, &data->text[i]->height);
-		if (data->text[i]->ptr == NULL)
+		data->text[i].ptr = mlx_xpm_file_to_image(data->mlx, index[i],
+			&data->text[i].width, &data->text[i].height);
+		if (data->text[i].ptr == NULL)
 		{
 			free_tab(index);
 			print_error(data, INVALID_TEXTURES);
 		}
-		data->text[i]->addr = mlx_get_data_addr(data->text[i]->ptr,
-			&data->text[i]->pixel_bits, &data->text[i]->size_line, &data->text[i]->endian);
+		data->text[i].addr = mlx_get_data_addr(data->text[i].ptr,
+			&data->text[i].pixel_bits, &data->text[i].size_line, &data->text[i].endian);
 	}
 	free_tab(index);
 }

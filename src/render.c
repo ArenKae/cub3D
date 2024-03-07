@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/05 01:36:12 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 02:25:10 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ void put_wall_pixel(t_data *data, int x, int y)
 	tmp = floor(data->hit_pos);
 	hit_pos2 = data->hit_pos;
 	hit_pos2 = hit_pos2 - tmp;
-	tmp_h = height / (data->text[i]->height);
+	tmp_h = height / (data->text[i].height);
 	if (data->wall.side == 'W' || data->wall.side == 'S')
 		hit_pos2 = 1 - hit_pos2;
-	tmp_v = hit_pos2 * (data->text[i]->width);
+	tmp_v = hit_pos2 * (data->text[i].width);
 	temp = (y - data->wall.top) / tmp_h;
-	data->img.addr[y * 4 * WIN_L + x * 4 + 0] = data->text[i]->addr[temp * 4 * (data->text[i]->width) + tmp_v * 4 + 0];
-	data->img.addr[y * 4 * WIN_L + x * 4 + 1] = data->text[i]->addr[temp * 4 * (data->text[i]->width) + tmp_v * 4 + 1];
-	data->img.addr[y * 4 * WIN_L + x * 4 + 2] = data->text[i]->addr[temp * 4 * (data->text[i]->width) + tmp_v * 4 + 2];
-	data->img.addr[y * 4 * WIN_L + x * 4 + 3] = data->text[i]->addr[temp * 4 * (data->text[i]->width) + tmp_v * 4 + 3];
+	data->img.addr[y * 4 * WIN_L + x * 4 + 0] = data->text[i].addr[temp * 4 * (data->text[i].width) + tmp_v * 4 + 0];
+	data->img.addr[y * 4 * WIN_L + x * 4 + 1] = data->text[i].addr[temp * 4 * (data->text[i].width) + tmp_v * 4 + 1];
+	data->img.addr[y * 4 * WIN_L + x * 4 + 2] = data->text[i].addr[temp * 4 * (data->text[i].width) + tmp_v * 4 + 2];
+	data->img.addr[y * 4 * WIN_L + x * 4 + 3] = data->text[i].addr[temp * 4 * (data->text[i].width) + tmp_v * 4 + 3];
 }
 
 void put_pixel(t_data *data, int x, int y, int pixel) // put the pixel

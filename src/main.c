@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 01:13:16 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 02:27:59 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,9 +139,6 @@ int	main(int ac, char **av)
 {
 	(void)av;
 	t_data	data;
-	// data.player_pos.x = 2;
-	// data.player_pos.y = 2;
-	// data.player_pos.angle = M_PI / 180;
 	data.value = 0;
 	data.frames = 0;
 	data.clock = 0;
@@ -158,13 +155,10 @@ int	main(int ac, char **av)
 		data.img.addr = mlx_get_data_addr(data.img.ptr, &data.img.pixel_bits,
 			&data.img.size_line, &data.img.endian);
 		render_texture(&data);
-		// raycast(&data);
 		hooks_handler(&data);
 		mlx_hook(data.win, DestroyNotify, KeyReleaseMask,
 			destroy_window, &data);
 		mlx_loop_hook(data.mlx, game, &data);
-		// mlx_key_hook(data.window, on_key, &data);
-		// mlx_loop_hook(data.mlx, init_patrol, &data);
 		mlx_loop(data.mlx);
 	}
 	return (0);

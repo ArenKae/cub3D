@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:58:54 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 01:28:57 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 02:26:05 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	free_tab(char **tab)
 	int	i;
 
 	i = -1;
+	if (tab == NULL)
+		return ;
 	while (tab[++i])
 		free(tab[i]);
 	free(tab);
@@ -41,6 +43,8 @@ void	free_file_info(t_data *data)
 void free_all(t_data *data)
 {
 	free_file_info(data);
+	free_tab(data->map);
+	free(data->text);
 }
 
 void	free_and_error(t_data *data, char **F, char **C)
@@ -54,13 +58,9 @@ int	destroy_window(t_data *data)
 {
 	int	i;
 
-	i = 0;
-	(void)i;
-	// while (data->text[i < 4])
-	// {
-	// 	mlx_destroy_image(data->mlx, data->text[i]->ptr);
-	// 	i++;
-	// }
+	i = -1;
+	while (++i < 4)
+		mlx_destroy_image(data->mlx, data->text[i].ptr);
 	mlx_destroy_image(data->mlx, data->img.ptr);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
