@@ -33,6 +33,7 @@ int			gnl_strchr(const char *s, int c);
 char		*cut_line(char **str, int pos);
 char		*no_new_line(char **str);
 int			int_ft_strchr(const char *s, int c);
+char		*gnl_substr(char const *s, unsigned int start, size_t len);
 char		*get_next_line(int fd);
 
 #endif
