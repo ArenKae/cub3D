@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 02:27:59 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 02:29:25 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,50 +18,6 @@ void	*window_init(t_data *data)
 			WIN_L, WIN_H, "Cub3d");
 	return (data->win);
 }
-
-// int	key_press(int keycode, t_data *data)
-// {
-// 	if (keycode == 27 || keycode == 65307)
-// 		destroy_window(data);
-// 	if (keycode == 119 || keycode == 122)
-// 	{
-// 		data->player_pos.x += (cos(data->player_pos.angle) / 5);
-// 		data->player_pos.y -= (sin(data->player_pos.angle) / 5);
-// 		data->move = 1;
-// 	}
-// 	if (keycode == 115)
-// 	{
-// 		data->player_pos.x -= (cos(data->player_pos.angle) / 5);
-// 		data->player_pos.y += (sin(data->player_pos.angle) / 5);
-// 	}
-// 	if (keycode == 100)
-// 	{
-// 		data->player_pos.x += (sin(data->player_pos.angle) / 5);
-// 		data->player_pos.y += (cos(data->player_pos.angle) / 5);
-// 	}
-// 	if (keycode == 97 || keycode == 113)
-// 	{
-// 		data->player_pos.x -= (sin(data->player_pos.angle) / 5);
-// 		data->player_pos.y -= (cos(data->player_pos.angle) / 5);
-// 	}
-// 	if (keycode == 65363)
-// 	{
-// 		data->player_pos.angle = data->player_pos.angle - (2.5 * M_PI / 180);
-// 		if (data->player_pos.angle >= M_PI * 2)
-// 			data->player_pos.angle = 0;
-// 	}
-// 	if (keycode == 65361)
-// 	{
-// 		data->player_pos.angle = data->player_pos.angle + (2.5 * M_PI / 180);
-// 		if (data->player_pos.angle <= 0)
-// 			data->player_pos.angle = M_PI * 2;
-// 	}
-// 	if (data->player_pos.angle > M_PI * 2)
-// 		data->player_pos.angle = 2.5 * M_PI / 180;
-// 	if (data->player_pos.angle < 2.4 * M_PI / 180)
-// 		data->player_pos.angle = M_PI * 2;
-// 	return (0);
-// }
 
 int	key_press(int keycode, t_data *data)
 {
@@ -84,8 +40,6 @@ int	key_press(int keycode, t_data *data)
 
 int	key_release(int keycode, t_data *data)
 {
-	// if (keycode == 27 || keycode == 65307)
-	// 	destroy_window(data);
 	if (keycode == 119 || keycode == 122)
 		data->move = 0;
 	else if (keycode == 115)
@@ -103,10 +57,8 @@ int	key_release(int keycode, t_data *data)
 
 void	hooks_handler(t_data *data)
 {
-	// mlx_hook(data->win, KeyPress, KeyPressMask, key_press, data);
 	mlx_hook(data->win, KeyPress, KeyPressMask, key_press, data);
 	mlx_hook(data->win, KeyRelease, KeyReleaseMask, key_release, data);
-	// raycast(data);
 }
 
 void	init_structures(t_data *data)

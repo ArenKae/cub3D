@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 02:27:37 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 02:29:39 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,4 @@ void	render_texture(t_data *data)
 	i = 0;
 	(void)i;
 	create_textures(data);
-	//printf("w=%d, h=%d\n", data->text[0]->width, data->text[0]->height);
-	//mlx_put_image_to_window(data->mlx, data->win, data->text[i]->ptr, 50, 50);
 }
