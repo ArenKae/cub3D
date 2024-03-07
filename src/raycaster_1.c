@@ -30,23 +30,20 @@ void	get_wall_side(t_data *data, double ray_angle, int flag)
 	}
 }
 
-void	raycast_angle(t_data *data, int ray)
+void	raycast_angle(t_data *data, int ray, double *ray_inter)
 {
-	double	ray_inter;
-
-	ray_inter = 0.001091;
 	if (ray < 300)
-		ray_inter += 0.000001;
+		*ray_inter += 0.000001;
 	else if (ray > 500)
-		ray_inter -= 0.000001;
-	data->wall.ray_angle -= ray_inter;
+		*ray_inter -= 0.000001;
+	data->wall.ray_angle -= *ray_inter;
 	if (data->wall.ray_angle == 0)
 		data->wall.ray_angle = 0.000001;
 	else if (data->wall.ray_angle < 0)
 		data->wall.ray_angle += M_PI * 2;
 }
 
-void	raycast(t_data *data, int flag, int ray)
+void	raycast(t_data *data, int flag, int ray, double ray_inter)
 {
 	double	h_inter;
 	double	v_inter;
@@ -56,7 +53,7 @@ void	raycast(t_data *data, int flag, int ray)
 	while (++ray < 800)
 	{
 		flag = 0;
-		raycast_angle(data, ray);
+		raycast_angle(data, ray, &ray_inter);
 		h_inter = get_h_inter(data, &x_impact);
 		v_inter = get_v_inter(data, &y_impact);
 		if (v_inter <= h_inter)
@@ -82,7 +79,7 @@ void	raycast_init(t_data *data)
 	data->wall.ray_angle = data->player_pos.angle + 0.516600;
 	if (data->wall.ray_angle >= M_PI * 2)
 		data->wall.ray_angle -= M_PI * 2;
-	raycast(data, 0, -1);
+	raycast(data, 0, -1, 0.001091);
 }
 
 int	game(t_data *data)
