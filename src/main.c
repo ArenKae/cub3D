@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/06 02:58:24 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 01:13:16 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ int	key_press(int keycode, t_data *data)
 
 int	key_release(int keycode, t_data *data)
 {
-	if (keycode == 27 || keycode == 65307)
-		destroy_window(data);
+	// if (keycode == 27 || keycode == 65307)
+	// 	destroy_window(data);
 	if (keycode == 119 || keycode == 122)
 		data->move = 0;
 	else if (keycode == 115)
@@ -126,6 +126,7 @@ void	init_structures(t_data *data)
 	data->move = 0;
 	data->rotate = 0;
 	data->parse.map_flag = 0;
+	data->parse.pos_flag = 0;
 	data->parse.N = 0;
 	data->parse.S = 0;
 	data->parse.E = 0;

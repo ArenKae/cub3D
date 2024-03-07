@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:40:48 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/06 02:29:14 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 01:27:04 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ void	exit_error(char	*msg, int status)
 void	print_error(t_data *data, int msg)
 {
 	if (msg == INVALID_NAME)
-		ft_putstr_fd(RED "Error\nInvalid file name.\n", 2);
+		ft_putstr_fd(RED "Error\nInvalid file name.\n"STOP, 2);
 	if (msg == INVALID_FILE)
-		ft_putstr_fd(RED "Error\nInvalid file.\n", 2);
+		ft_putstr_fd(RED "Error\nInvalid file.\n"STOP, 2);
 	if (msg == INVALID_TEXTURES)
-		ft_putstr_fd(RED "Error\nInvalid texture.\n", 2);
+		ft_putstr_fd(RED "Error\nInvalid texture.\n"STOP, 2);
 	if (msg == INVALID_COLORS)
-		ft_putstr_fd(RED "Error\nInvalid color.\n", 2);
+		ft_putstr_fd(RED "Error\nInvalid color.\n"STOP, 2);
+	free_all(data);
 	exit (EXIT_FAILURE);
-	(void)data;
 }
 
 int	rgb_to_hexa(int *hex, int r, int g, int b)

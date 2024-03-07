@@ -1,17 +1,17 @@
-#include "cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/07 01:02:55 by acosi             #+#    #+#             */
+/*   Updated: 2024/03/07 01:03:53 by acosi            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void    print_cpy_map(char **cpy_map)
-{
-    int i;
+# include "cub3d.h"
 
-    i = 0;
-    while (cpy_map[i])
-    {
-        ft_putstr_fd(cpy_map[i], 1);
-        ft_putchar_fd('\n', 1);
-        i++;
-    }
-}
 
 int     unclosed_map(t_data *data, char **map, int x, int y)
 {

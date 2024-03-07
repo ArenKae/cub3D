@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/06 02:44:13 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 01:29:08 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 #endif
 
 # define RED "\e[31m"
+# define STOP "\e[0m"
 
 enum	textures_index
 {
@@ -180,5 +181,8 @@ void	exit_error(char *msg, int status);
 int		destroy_window(t_data *data);
 void	print_error(t_data * data, int msg);
 int		char_isdigit(char c);
+void	free_tab(char **tab);
+void 	free_all(t_data *data);
+void	free_and_error(t_data *data, char **F, char **C);
 
 #endif

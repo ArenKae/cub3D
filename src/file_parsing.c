@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:19:21 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/06 03:14:55 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 01:43:12 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ char	*trim_spaces(const char* line)
     return str;
 }
 
-void	check_format_path(char *path, char *side, int *SIDE)
+void	check_format_path(char *path, char *side, int *malloc)
 {
 	if (path[0] == side[0] && path[1] == side[1])
 	{
 		if (path[2] == '.' && path[3] == '/')
-			*SIDE = 4;
+			*malloc = 4;
 		else
-			*SIDE = 2;
+			*malloc = 2;
 	}
 }
 
@@ -100,17 +100,17 @@ int	multiple_infos(t_data *data)
 	if (data->parse.N > 1 || data->parse.S > 1 || 
 		data->parse.E > 1 || data->parse.W > 1 || 
 		data->parse.F > 1 || data->parse.C > 1)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+		return (1);
+	return (0);
 }
 
 void	store_info(t_data *data, char *line)
 {
 	char	*tmp;
 	
-	if (line == NULL || trim_spaces(line)[0] == '\n' || trim_spaces(line)[0] == '\0')
-		return ;
 	tmp = trim_spaces(line);
+	if (line == NULL || tmp[0] == '\n' || tmp[0] == '\0')
+		return (free(tmp));
 	check_format_path(tmp, "NO", &data->fileinfo.N);
 	check_format_path(tmp, "SO", &data->fileinfo.S);
 	check_format_path(tmp, "EA", &data->fileinfo.E);
@@ -130,6 +130,7 @@ void	store_info(t_data *data, char *line)
 	else
 	{
 		free(tmp);
+		free(line);
 		print_error(data, INVALID_FILE);
 	}
 	free(tmp);
@@ -169,11 +170,14 @@ int	read_texture(t_data *data, int fd)
 			data->parse.map_flag = 1;
 		else if (line && line[0] == '\n' && data->parse.map_flag == 1)
 			data->parse.map_flag = 2;
+		if (line)
+			free(line);
 		line = get_next_line(fd);
 		data->file->next = malloc(sizeof(t_file));
 		data->file = data->file->next;
 		data->file->line = NULL;
 	}
+	free(line);
 	data->file->next = NULL;
 	data->file = tmp;
 	if (data->parse.map_flag == 1)
@@ -231,12 +235,12 @@ void	convert_colors(t_data *data)
 	F = ft_split(data->fileinfo.F + 1, ',');
 	C = ft_split(data->fileinfo.C + 1, ',');
 	if (!F || !C || F[3] != NULL || C[3] != NULL)
-		print_error(data, INVALID_COLORS);
+		free_and_error(data, F, C);
 	if (check_rgb(F) || check_rgb(C))
-		print_error(data, INVALID_COLORS);
+		free_and_error(data, F, C);
 	if (rgb_to_hexa(&data->fileinfo.F_hex, ft_atoi(F[0]), ft_atoi(F[1]), ft_atoi(F[2]))
 		|| rgb_to_hexa(&data->fileinfo.C_hex, ft_atoi(C[0]), ft_atoi(C[1]), ft_atoi(C[2])))
-		print_error(data, INVALID_COLORS);
+		free_and_error(data, F, C);
 }
 
 void	get_map_size(t_data *data)
@@ -362,8 +366,6 @@ void	init_map(t_data *data, char *filename)
 	get_map_size(data);
 	fill_map(data);
 	free_list(data);
-	printf("pos flag : %d\n", data->parse.pos_flag);
-	print_map(data);
 	if (!check_map_init(data))
 		printf("invalid map!\n");
 	convert_colors(data);
