@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 02:31:52 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 04:02:52 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ void	create_textures(t_data *data)
 		if (data->text[i].ptr == NULL)
 		{
 			free_tab(index);
+			// mlx_destroy_image(data->mlx, data->img.ptr);
+			// mlx_destroy_window(data->mlx, data->win);
+			// mlx_destroy_display(data->mlx);
+			//free(data->mlx);
+			free_mlx(data);
 			print_error(data, INVALID_TEXTURES);
 		}
 		data->text[i].addr = mlx_get_data_addr(data->text[i].ptr,

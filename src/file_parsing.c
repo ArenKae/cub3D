@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:19:21 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 02:48:20 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 04:10:37 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,15 @@ void	malloc_info_2(t_data *data, char *tmp, char c)
 {
 	if (c == 'F')
 	{
+		if (data->fileinfo.F)
+			free(data->fileinfo.F);
 		data->fileinfo.F = ft_strdup(tmp);
 		data->parse.F++;
 	}
 	if (c == 'C')
 	{
+		if (data->fileinfo.C)
+			free(data->fileinfo.C);
 		data->fileinfo.C = ft_strdup(tmp);
 		data->parse.C++;
 	}
@@ -73,21 +77,29 @@ void	malloc_info(t_data *data, char *tmp, char c)
 {
 	if (c == 'N')
 	{
+		if (data->fileinfo.NO)
+			free(data->fileinfo.NO);
 		data->fileinfo.NO = ft_strdup(tmp);
 		data->parse.N++;
 	}
 	if (c == 'S')
 	{
+		if (data->fileinfo.SO)
+			free(data->fileinfo.SO);
 		data->fileinfo.SO = ft_strdup(tmp);
 		data->parse.S++;
 	}
 	if (c == 'E')
 	{
+		if (data->fileinfo.EA)
+			free(data->fileinfo.EA);
 		data->fileinfo.EA = ft_strdup(tmp);
 		data->parse.E++;
 	}
 	if (c == 'W')
 	{
+		if (data->fileinfo.WE)
+			free(data->fileinfo.WE);
 		data->fileinfo.WE = ft_strdup(tmp);
 		data->parse.W++;
 	}
@@ -135,7 +147,10 @@ void	store_info(t_data *data, char *line)
 	}
 	free(tmp);
 	if (multiple_infos(data))
+	{
+		free(line);
 		print_error(data, INVALID_FILE);
+	}
 }
 
 int	missing_info(t_data *data)

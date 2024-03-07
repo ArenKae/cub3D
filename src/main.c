@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 02:34:13 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 03:12:53 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	*window_init(t_data *data)
 {
 	data->win = mlx_new_window(data->mlx,
-			WIN_L, WIN_H, "Cub3d");
+			800, 600, "Cub3d");
 	return (data->win);
 }
 
@@ -105,7 +105,7 @@ int	main(int ac, char **av)
 		if (!data.mlx)
 			return (1);
 		window_init(&data);
-		data.img.ptr = mlx_new_image(data.mlx, WIN_L, WIN_H);
+		data.img.ptr = mlx_new_image(data.mlx, 800, 600);
 		data.img.addr = mlx_get_data_addr(data.img.ptr, &data.img.pixel_bits,
 			&data.img.size_line, &data.img.endian);
 		render_texture(&data);

@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 02:57:57 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 03:13:05 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ void	raycast(t_data *data)
 	data->wall.ray_angle = data->player_pos.angle + 0.516600;
 	if (data->wall.ray_angle >= M_PI * 2)
 		data->wall.ray_angle -= M_PI * 2;
-	while (++ray < WIN_L)
+	while (++ray < 800)
 	{
 		flag = 0;
 		if (ray < 300 && ray > 0)

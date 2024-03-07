@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 03:06:11 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 03:37:57 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ void put_pixel(t_data *data, int x, int y, int pixel) // put the pixel
 		data->img.addr[y * 4 * 800 + x * 4 + 0] = (pixel >> 24);
 		data->img.addr[y * 4 * 800 + x * 4 + 1] = (pixel >> 16) & 0xFF;
 		data->img.addr[y * 4 * 800 + x * 4 + 2] = (pixel >> 8) & 0xFF;
-		data->img.addr[y * 4 * 800 + x * 4 + 4] = (pixel) & 0xFF;
+		data->img.addr[y * 4 * 800 + x * 4 + 3] = (pixel) & 0xFF;
 	}
 	else if (data->img.endian == 0)
 	{
 		data->img.addr[y * 4 * 800 + x * 4 + 0] = (pixel) & 0xFF;
 		data->img.addr[y * 4 * 800 + x * 4 + 1] = (pixel >> 8) & 0xFF;
 		data->img.addr[y * 4 * 800 + x * 4 + 2] = (pixel >> 16) & 0xFF;
-		data->img.addr[y * 4 * 800 + x * 4 + 4] = (pixel >> 24);
+		data->img.addr[y * 4 * 800 + x * 4 + 3] = (pixel >> 24);
 	}
 }
 

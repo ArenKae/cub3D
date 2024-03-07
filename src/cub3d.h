@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 03:04:01 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 04:03:10 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,5 +183,6 @@ int		char_isdigit(char c);
 void	free_tab(char **tab);
 void 	free_all(t_data *data);
 void	free_and_error(t_data *data, char **F, char **C);
+void	free_mlx(t_data *data);
 
 #endif
