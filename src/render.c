@@ -92,6 +92,8 @@ void	render(t_data *data, int ray)
 	double	top;
 	double	bot;
 
+	if (data->wall.distance <= 0.000001)
+		data->wall.distance = 0.000001;
 	data->wall_h = ((600 / data->wall.distance) * 1.1)
 		/ cos(data->player_pos.angle - data->wall.ray_angle);
 	top = (600 / 2) - (data->wall_h / 2);
