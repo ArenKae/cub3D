@@ -79,9 +79,9 @@ nothing_to_be_done:
 
 minilibx:
 	@echo "$(YELLOW)Compiling minilibx... $(DEF_COLOR)"
-	@$(MAKE) -C ./minilibx/ > .mlx_outpout.txt 2>&1
+	@$(MAKE) -C ./minilibx/ > .mlx_output.txt 2>&1
 	@echo " "
-	@if grep -q "Nothing to be done for" .mlx_outpout.txt; then \
+	@if grep -q "Nothing to be done for" .mlx_output.txt; then \
     	echo "$(GREEN)-> Minilibx already compiled!$(DEF_COLOR)"; \
 	else \
     	echo "$(GREEN)-> Minilibx compiled!$(DEF_COLOR)"; \
@@ -99,11 +99,11 @@ clean:
 	@echo "$(YELLOW)Cleaning cub3D... $(DEF_COLOR)"
 	@echo " "
 	@echo "$(YELLOW)Cleaning minilibx... $(DEF_COLOR)"
-	@make clean -C minilibx
+	@make clean -C minilibx > .mlx_output.txt 2>&1
 	@echo "$(CYAN)Minilibx cleaned!$(DEF_COLOR)"
 	@$(MAKE) -C ./src/libft fclean
 	@rm -rf $(OBJ_DIR)
-	@rm -f .mlx_outpout.txt
+	@rm -f .mlx_output.txt
 	@echo " "
 	@if [ "$(fclean_flag)" = "false" ]; then \
 		echo "$(GREEN)-> cub3D object files cleaned!$(DEF_COLOR)"; \
