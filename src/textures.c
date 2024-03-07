@@ -6,11 +6,11 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 16:04:41 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 23:29:43 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3D.h"
 
 void	init_texture_data(t_data *data)
 {

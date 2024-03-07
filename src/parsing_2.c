@@ -6,11 +6,11 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 18:31:49 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 18:32:37 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 23:29:14 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3D.h"
 
 void	malloc_info_2(t_data *data, char *tmp, char c)
 {

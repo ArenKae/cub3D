@@ -6,11 +6,11 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 16:33:00 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 22:51:23 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 23:28:19 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3D.h"
 
 void	exit_error(char	*msg, int status)
 {

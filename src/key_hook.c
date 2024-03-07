@@ -6,11 +6,11 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 16:19:39 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 16:19:57 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 23:28:44 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3D.h"
 
 int	key_press(int keycode, t_data *data)
 {

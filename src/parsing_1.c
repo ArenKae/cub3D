@@ -6,11 +6,11 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:19:21 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 22:52:00 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 23:29:08 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3D.h"
 
 void	read_map(t_data *data, int fd, char *line)
 {

@@ -6,11 +6,11 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 18:57:34 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 18:57:36 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 23:29:01 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3D.h"
 
 void	player_movement(t_data *data)
 {

@@ -6,11 +6,11 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:40:48 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 18:56:29 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 23:29:52 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3D.h"
 
 /*
 	Converts a rgb color code to hexadecimal format for the Mlx.

@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 19:38:59 by keschouf          #+#    #+#             */
-/*   Updated: 2024/03/04 22:38:36 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 23:37:02 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char		*readline(char *str, int fd);
 char		*gnl_strjoin(char *s1, char *s2);
 char		*gnl_strcpy(char *dest, char *src);
 char		*gnl_strdup(char *src);
-char		*ft_substr(char const *s, unsigned int start, size_t len);
 void		*gnl_memmove(void *dst, const void *src, size_t n);
 int			gnl_strchr(const char *s, int c);
 char		*cut_line(char **str, int pos);

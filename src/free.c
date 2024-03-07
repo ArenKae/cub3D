@@ -6,11 +6,11 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:58:54 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 18:15:01 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 23:28:36 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3D.h"
 
 void	free_tab(char **tab)
 {

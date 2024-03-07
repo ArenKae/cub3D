@@ -6,11 +6,11 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:58:54 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 16:34:51 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 23:28:30 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3D.h"
 
 int	destroy_window(t_data *data)
 {
