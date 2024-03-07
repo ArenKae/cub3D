@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 04:02:52 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 16:04:41 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	init_texture_data(t_data *data)
 {
 	int	i;
-	
+
 	i = -1;
 	data->text = malloc(sizeof(t_img) * 4);
 	if (!data->text)
 		return (exit_error("malloc", EXIT_FAILURE));
-	while(++i < 4)
+	while (++i < 4)
 	{
 		data->text[i].ptr = NULL;
 		data->text[i].addr = NULL;
@@ -37,10 +37,10 @@ char	**malloc_textures_index(t_data *data, char **index)
 	index = malloc(sizeof(char *) * 5);
 	if (!index)
 		return (NULL);
-	index[NORTH] = ft_strdup(data->fileinfo.NO + data->fileinfo.N);
-	index[SOUTH] = ft_strdup(data->fileinfo.SO + data->fileinfo.S);
-	index[EAST] = ft_strdup(data->fileinfo.EA + data->fileinfo.E);
-	index[WEST] = ft_strdup(data->fileinfo.WE + data->fileinfo.W);
+	index[NORTH] = ft_strdup(data->fileinfo.no + data->fileinfo.n);
+	index[SOUTH] = ft_strdup(data->fileinfo.so + data->fileinfo.s);
+	index[EAST] = ft_strdup(data->fileinfo.ea + data->fileinfo.e);
+	index[WEST] = ft_strdup(data->fileinfo.we + data->fileinfo.w);
 	index[4] = NULL;
 	return (index);
 }
@@ -49,7 +49,7 @@ void	create_textures(t_data *data)
 {
 	int		i;
 	char	**index;
-	
+
 	i = -1;
 	index = NULL;
 	init_texture_data(data);
@@ -59,19 +59,16 @@ void	create_textures(t_data *data)
 	while (++i < 4)
 	{
 		data->text[i].ptr = mlx_xpm_file_to_image(data->mlx, index[i],
-			&data->text[i].width, &data->text[i].height);
+				&data->text[i].width, &data->text[i].height);
 		if (data->text[i].ptr == NULL)
 		{
 			free_tab(index);
-			// mlx_destroy_image(data->mlx, data->img.ptr);
-			// mlx_destroy_window(data->mlx, data->win);
-			// mlx_destroy_display(data->mlx);
-			//free(data->mlx);
 			free_mlx(data);
 			print_error(data, INVALID_TEXTURES);
 		}
 		data->text[i].addr = mlx_get_data_addr(data->text[i].ptr,
-			&data->text[i].pixel_bits, &data->text[i].size_line, &data->text[i].endian);
+				&data->text[i].pixel_bits, &data->text[i].size_line,
+				&data->text[i].endian);
 	}
 	free_tab(index);
 }

@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:58:54 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 04:03:38 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 16:17:36 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,21 @@ void	free_tab(char **tab)
 
 void	free_file_info(t_data *data)
 {
-	if (data->fileinfo.NO)
-		free(data->fileinfo.NO);
-	if (data->fileinfo.SO)
-		free(data->fileinfo.SO);
-	if (data->fileinfo.EA)
-		free(data->fileinfo.EA);
-	if (data->fileinfo.WE)
-		free(data->fileinfo.WE);
-	if (data->fileinfo.F)
-		free(data->fileinfo.F);
-	if (data->fileinfo.C)
-		free(data->fileinfo.C);
+	if (data->fileinfo.no)
+		free(data->fileinfo.no);
+	if (data->fileinfo.so)
+		free(data->fileinfo.so);
+	if (data->fileinfo.ea)
+		free(data->fileinfo.ea);
+	if (data->fileinfo.we)
+		free(data->fileinfo.we);
+	if (data->fileinfo.f)
+		free(data->fileinfo.f);
+	if (data->fileinfo.c)
+		free(data->fileinfo.c);
 }
 
-void free_all(t_data *data)
+void	free_all(t_data *data)
 {
 	free_file_info(data);
 	free_tab(data->map);

@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 03:12:53 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 16:16:35 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,36 +63,37 @@ void	hooks_handler(t_data *data)
 
 void	init_structures(t_data *data)
 {
-	data->fileinfo.NO = NULL;
-	data->fileinfo.SO = NULL;
-	data->fileinfo.EA = NULL;
-	data->fileinfo.WE = NULL;
-	data->fileinfo.F = NULL;
-	data->fileinfo.C = NULL;
-	data->fileinfo.F_hex = 0;
-	data->fileinfo.C_hex = 0;
-	data->fileinfo.N = 0;
-	data->fileinfo.S = 0;
-	data->fileinfo.E = 0;
-	data->fileinfo.W = 0;
+	data->fileinfo.no = NULL;
+	data->fileinfo.so = NULL;
+	data->fileinfo.ea = NULL;
+	data->fileinfo.we = NULL;
+	data->fileinfo.f = NULL;
+	data->fileinfo.c = NULL;
+	data->fileinfo.f_hex = 0;
+	data->fileinfo.c_hex = 0;
+	data->fileinfo.n = 0;
+	data->fileinfo.s = 0;
+	data->fileinfo.e = 0;
+	data->fileinfo.w = 0;
 	data->move = 0;
 	data->rotate = 0;
 	data->parse.map_flag = 0;
 	data->parse.pos_flag = 0;
-	data->parse.N = 0;
-	data->parse.S = 0;
-	data->parse.E = 0;
-	data->parse.W = 0;
-	data->parse.F = 0;
-	data->parse.C = 0;
+	data->parse.n = 0;
+	data->parse.s = 0;
+	data->parse.e = 0;
+	data->parse.w = 0;
+	data->parse.f = 0;
+	data->parse.c = 0;
 	data->text = NULL;
 	data->map = NULL;
 }
 
 int	main(int ac, char **av)
 {
-	(void)av;
 	t_data	data;
+
+	(void)av;
 	data.value = 0;
 	data.frames = 0;
 	data.clock = 0;
@@ -107,7 +108,7 @@ int	main(int ac, char **av)
 		window_init(&data);
 		data.img.ptr = mlx_new_image(data.mlx, 800, 600);
 		data.img.addr = mlx_get_data_addr(data.img.ptr, &data.img.pixel_bits,
-			&data.img.size_line, &data.img.endian);
+				&data.img.size_line, &data.img.endian);
 		render_texture(&data);
 		hooks_handler(&data);
 		mlx_hook(data.win, DestroyNotify, KeyReleaseMask,

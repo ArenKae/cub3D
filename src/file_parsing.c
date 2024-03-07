@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:19:21 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 04:10:37 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 16:15:46 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,32 @@
 char	*trim_spaces(const char* line)
 {
 	char	*str;
-    int		len;
-    int		i;
+	int		len;
+	int		i;
 	int		j;
-    
+
 	i = -1;
 	j = 0;
-    len = strlen(line);
+	len = strlen(line);
 	while (++i < len)
 	{
 		if (line[i] != ' ' && line[i] != '\t'
-		&& line[i] != '\v' && line[i] != '\f' && line[i] != '\r')
-            j++;
+			&& line[i] != '\v' && line[i] != '\f' && line[i] != '\r')
+			j++;
 	}
-    str = (char*)malloc(sizeof(char) * (j + 1));
-    if (!str)
+	str = (char *)malloc(sizeof(char) * (j + 1));
+	if (!str)
 		return (NULL);
-    j = 0;
+	j = 0;
 	i = -1;
 	while (++i < len)
 	{
-		if (line[i] != ' ' && line[i]!= '\t'
-		&& line[i] != '\v' && line[i] != '\f' && line[i] != '\r')
-            str[j++] = line[i];
+		if (line[i] != ' ' && line[i] != '\t'
+			&& line[i] != '\v' && line[i] != '\f' && line[i] != '\r')
+			str[j++] = line[i];
 	}
-	
-    str[j - 1] = '\0';
-    return str;
+	str[j - 1] = '\0';
+	return (str);
 }
 
 void	check_format_path(char *path, char *side, int *malloc)
@@ -59,17 +58,17 @@ void	malloc_info_2(t_data *data, char *tmp, char c)
 {
 	if (c == 'F')
 	{
-		if (data->fileinfo.F)
-			free(data->fileinfo.F);
-		data->fileinfo.F = ft_strdup(tmp);
-		data->parse.F++;
+		if (data->fileinfo.f)
+			free(data->fileinfo.f);
+		data->fileinfo.f = ft_strdup(tmp);
+		data->parse.f++;
 	}
 	if (c == 'C')
 	{
-		if (data->fileinfo.C)
-			free(data->fileinfo.C);
-		data->fileinfo.C = ft_strdup(tmp);
-		data->parse.C++;
+		if (data->fileinfo.c)
+			free(data->fileinfo.c);
+		data->fileinfo.c = ft_strdup(tmp);
+		data->parse.c++;
 	}
 }
 
@@ -77,41 +76,41 @@ void	malloc_info(t_data *data, char *tmp, char c)
 {
 	if (c == 'N')
 	{
-		if (data->fileinfo.NO)
-			free(data->fileinfo.NO);
-		data->fileinfo.NO = ft_strdup(tmp);
-		data->parse.N++;
+		if (data->fileinfo.no)
+			free(data->fileinfo.no);
+		data->fileinfo.no = ft_strdup(tmp);
+		data->parse.n++;
 	}
 	if (c == 'S')
 	{
-		if (data->fileinfo.SO)
-			free(data->fileinfo.SO);
-		data->fileinfo.SO = ft_strdup(tmp);
-		data->parse.S++;
+		if (data->fileinfo.so)
+			free(data->fileinfo.so);
+		data->fileinfo.so = ft_strdup(tmp);
+		data->parse.s++;
 	}
 	if (c == 'E')
 	{
-		if (data->fileinfo.EA)
-			free(data->fileinfo.EA);
-		data->fileinfo.EA = ft_strdup(tmp);
-		data->parse.E++;
+		if (data->fileinfo.ea)
+			free(data->fileinfo.ea);
+		data->fileinfo.ea = ft_strdup(tmp);
+		data->parse.e++;
 	}
 	if (c == 'W')
 	{
-		if (data->fileinfo.WE)
-			free(data->fileinfo.WE);
-		data->fileinfo.WE = ft_strdup(tmp);
-		data->parse.W++;
+		if (data->fileinfo.we)
+			free(data->fileinfo.we);
+		data->fileinfo.we = ft_strdup(tmp);
+		data->parse.w++;
 	}
 	else
-	malloc_info_2(data, tmp, c);
+		malloc_info_2(data, tmp, c);
 }
 
 int	multiple_infos(t_data *data)
 {
-	if (data->parse.N > 1 || data->parse.S > 1 || 
-		data->parse.E > 1 || data->parse.W > 1 || 
-		data->parse.F > 1 || data->parse.C > 1)
+	if (data->parse.n > 1 || data->parse.s > 1
+		|| data->parse.e > 1 || data->parse.w > 1
+		|| data->parse.f > 1 || data->parse.c > 1)
 		return (1);
 	return (0);
 }
@@ -119,14 +118,14 @@ int	multiple_infos(t_data *data)
 void	store_info(t_data *data, char *line)
 {
 	char	*tmp;
-	
+
 	tmp = trim_spaces(line);
 	if (line == NULL || tmp[0] == '\n' || tmp[0] == '\0')
 		return (free(tmp));
-	check_format_path(tmp, "NO", &data->fileinfo.N);
-	check_format_path(tmp, "SO", &data->fileinfo.S);
-	check_format_path(tmp, "EA", &data->fileinfo.E);
-	check_format_path(tmp, "WE", &data->fileinfo.W);
+	check_format_path(tmp, "NO", &data->fileinfo.n);
+	check_format_path(tmp, "SO", &data->fileinfo.s);
+	check_format_path(tmp, "EA", &data->fileinfo.e);
+	check_format_path(tmp, "WE", &data->fileinfo.w);
 	if (tmp[0] == 'N' && tmp[1] == 'O')
 		malloc_info(data, tmp, 'N');
 	else if (tmp[0] == 'S' && tmp[1] == 'O')
@@ -155,8 +154,8 @@ void	store_info(t_data *data, char *line)
 
 int	missing_info(t_data *data)
 {
-	if (!data->fileinfo.NO || !data->fileinfo.SO || !data->fileinfo.EA
-		|| !data->fileinfo.WE  || !data->fileinfo.F || !data->fileinfo.C)
+	if (!data->fileinfo.no || !data->fileinfo.so || !data->fileinfo.ea
+		|| !data->fileinfo.we || !data->fileinfo.f || !data->fileinfo.c)
 		return (1);
 	return (0);
 }
@@ -181,12 +180,12 @@ int	read_texture(t_data *data, int fd)
 	while (line)
 	{
 		data->file->line = ft_strdup(line);
-        if (line && line[0] != '\n' && data->parse.map_flag == 0)
-            data->parse.map_flag = 1;
-        else if (line && line[0] == '\n' && data->parse.map_flag == 1)
-            data->parse.map_flag = 2;
-        else if (line && line[0] != '\n' && data->parse.map_flag == 2)
-            data->parse.map_flag = 3;
+		if (line && line[0] != '\n' && data->parse.map_flag == 0)
+			data->parse.map_flag = 1;
+		else if (line && line[0] == '\n' && data->parse.map_flag == 1)
+			data->parse.map_flag = 2;
+		else if (line && line[0] != '\n' && data->parse.map_flag == 2)
+			data->parse.map_flag = 3;
 		if (line)
 			free(line);
 		line = get_next_line(fd);
@@ -202,23 +201,24 @@ int	read_texture(t_data *data, int fd)
 	return (0);
 }
 
-int	check_rgb(char **rgb) {
-    int	i;
+int	check_rgb(char **rgb)
+{
+	int	i;
 	int	j;
-	
+
 	i = 0;
-    while (rgb[i] != NULL)
+	while (rgb[i] != NULL)
 	{
 		j = 0;
-        while (rgb[i][j] != '\0')
+		while (rgb[i][j] != '\0')
 		{
-            if (!char_isdigit(rgb[i][j]))
-                return (EXIT_FAILURE);
-            j++;
-        }
-        i++;
-    }
-    return (EXIT_SUCCESS);
+			if (!char_isdigit(rgb[i][j]))
+				return (EXIT_FAILURE);
+			j++;
+		}
+		i++;
+	}
+	return (EXIT_SUCCESS);
 }
 
 int	check_comma(char *str)
@@ -244,30 +244,32 @@ int	check_comma(char *str)
 
 void	convert_colors(t_data *data)
 {
-	char	**F;
-	char	**C;
-	
-	if (check_comma(data->fileinfo.F + 1) || check_comma(data->fileinfo.C + 1))
+	char	**f;
+	char	**c;
+
+	if (check_comma(data->fileinfo.f + 1) || check_comma(data->fileinfo.c + 1))
 		print_error(data, INVALID_COLORS);
-	F = ft_split(data->fileinfo.F + 1, ',');
-	C = ft_split(data->fileinfo.C + 1, ',');
-	if (!F || !C || F[3] != NULL || C[3] != NULL)
-		free_and_error(data, F, C);
-	if (check_rgb(F) || check_rgb(C))
-		free_and_error(data, F, C);
-	if (rgb_to_hexa(&data->fileinfo.F_hex, ft_atoi(F[0]), ft_atoi(F[1]), ft_atoi(F[2]))
-		|| rgb_to_hexa(&data->fileinfo.C_hex, ft_atoi(C[0]), ft_atoi(C[1]), ft_atoi(C[2])))
-		free_and_error(data, F, C);
-	free_tab(C);
-	free_tab(F);
+	f = ft_split(data->fileinfo.f + 1, ',');
+	c = ft_split(data->fileinfo.c + 1, ',');
+	if (!f || !c || f[3] != NULL || c[3] != NULL)
+		free_and_error(data, f, c);
+	if (check_rgb(f) || check_rgb(c))
+		free_and_error(data, f, c);
+	if (rgb_to_hexa(&data->fileinfo.f_hex, ft_atoi(f[0]),
+			ft_atoi(f[1]), ft_atoi(f[2]))
+		|| rgb_to_hexa(&data->fileinfo.c_hex, ft_atoi(c[0]),
+			ft_atoi(c[1]), ft_atoi(c[2])))
+		free_and_error(data, f, c);
+	free_tab(c);
+	free_tab(f);
 }
 
 void	get_map_size(t_data *data)
 {
-	t_file *tmp;
-	int	i;
-	int	j;
-	int	len;
+	t_file	*tmp;
+	int		i;
+	int		j;
+	int		len;
 
 	i = 0;
 	j = 0;
@@ -304,9 +306,9 @@ void	get_player_pos(t_data *data, int y, int x)
 
 void	fill_map(t_data *data)
 {
-	int	i;
-	int	j;
-	t_file *tmp;
+	int		i;
+	int		j;
+	t_file	*tmp;
 
 	j = 0;
 	tmp = data->file;
@@ -318,7 +320,7 @@ void	fill_map(t_data *data)
 			while (data->file->line[i] && data->file->line[i] != '\n')
 			{
 				data->map[j][i] = data->file->line[i];
-				if (data->map[j][i] == 'N' || data->map[j][i] == 'S' || 
+				if (data->map[j][i] == 'N' || data->map[j][i] == 'S' ||
 					data->map[j][i] == 'E' || data->map[j][i] == 'W')
 				{
 					get_player_pos(data, j, i);
@@ -350,7 +352,7 @@ void	print_map(t_data *data)
 
 void	free_list(t_data *data)
 {
-	t_file *tmp;
+	t_file	*tmp;
 
 	tmp = data->file;
 	while (data->file)

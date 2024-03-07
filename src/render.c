@@ -6,13 +6,13 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 03:37:57 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 16:06:08 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void put_wall_pixel(t_data *data, int x, int y)
+void	put_wall_pixel(t_data *data, int x, int y)
 {
 	int	i;
 	int tmp;
@@ -38,7 +38,7 @@ void put_wall_pixel(t_data *data, int x, int y)
 	data->img.addr[y * 4 * 800 + x * 4 + 3] = data->text[i].addr[temp * 4 * (data->text[i].width) + tmp_v * 4 + 3];
 }
 
-void put_pixel(t_data *data, int x, int y, int pixel) // put the pixel
+void	put_pixel(t_data *data, int x, int y, int pixel) // put the pixel
 {
 	if (pixel == -1)
 	{
@@ -70,31 +70,31 @@ void draw_wall(t_data *data, int ray, int top, int bot) // draw the wall
 	}
 }
 
-void put_floor_and_ceil(t_data *data, int ray, int top, int bot) // draw the floor and the ceiling
+void	put_floor_and_ceil(t_data *data, int ray, int top, int bot)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < top)
 	{
-		put_pixel(data, ray, i, data->fileinfo.C_hex); // ceiling
+		put_pixel(data, ray, i, data->fileinfo.c_hex);
 		i++;
 	}
 	i = bot;
 	while (i < 600)
 	{
-		put_pixel(data, ray, i, data->fileinfo.F_hex); // floor
+		put_pixel(data, ray, i, data->fileinfo.f_hex);
 		i++;
 	}
 }
 
-void render(t_data *data, int ray) // render the wall
+void	render(t_data *data, int ray) // render the wall
 {
 	double	top;
 	double	bot;
 
-	data->wall_h = ((600 / data->wall.distance) * 1.1) / 
-		(cos(data->player_pos.angle - data->wall.ray_angle));
+	data->wall_h = ((600 / data->wall.distance) * 1.1)
+		/ cos(data->player_pos.angle - data->wall.ray_angle);
 	top = (600 / 2) - (data->wall_h / 2);
 	bot = (600 / 2) + (data->wall_h / 2);
 	data->wall.top = top;

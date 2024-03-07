@@ -6,12 +6,12 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 04:03:10 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 16:04:27 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include "mlx.h"
 # include <unistd.h>
@@ -30,15 +30,14 @@
 							MACROS
  --------------------------------------------------------------------------- */
 
-# define BUFF_SIZE 512
-#ifndef M_PI
-# define M_PI 3.14159265358979323846
-#endif
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846
+# endif
 
 # define RED "\e[31m"
 # define STOP "\e[0m"
 
-enum	textures_index
+enum	e_textures_index
 {
 	NORTH = 0,
 	SOUTH = 1,
@@ -46,7 +45,7 @@ enum	textures_index
 	WEST = 3,
 };
 
-enum	error_msg
+enum	e_error_msg
 {
 	INVALID_NAME = 0,
 	INVALID_FILE = 1,
@@ -70,62 +69,62 @@ typedef struct s_img
 	int		height;
 }	t_img;
 
-typedef	struct s_pos
+typedef struct s_pos
 {
 	double	x;
 	double	y;
 	double	angle;
 }		t_pos;
 
-typedef	struct s_wall
+typedef struct s_wall
 {
 	char	side;
 	double	distance;
 	double	ray_angle;
-	int	top;
-	int	bot;
+	int		top;
+	int		bot;
 }			t_wall;
 
 typedef struct s_inter
 {
-	double x;
-	double y;
-	double x_step;
-	double y_step;
+	double	x;
+	double	y;
+	double	x_step;
+	double	y_step;
 }			t_inter;
 
 typedef struct s_info
 {
-	char	*NO;
-	char	*SO;
-	char	*EA;
-	char	*WE;
-	char	*F;
-	char	*C;
-	int		F_hex;
-	int		C_hex;
-	int		N;
-	int		S;
-	int		E;
-	int		W;
+	char	*no;
+	char	*so;
+	char	*ea;
+	char	*we;
+	char	*f;
+	char	*c;
+	int		f_hex;
+	int		c_hex;
+	int		n;
+	int		s;
+	int		e;
+	int		w;
 }	t_info;
 
-typedef	struct s_file
+typedef struct s_file
 {
 	char			*line;
 	struct s_file	*next;
 }		t_file;
 
-typedef	struct	s_parse
+typedef struct s_parse
 {
-	int	map_flag;
-	int	pos_flag;
-	int		N;
-	int		S;
-	int		E;
-	int		W;
-	int		F;
-	int		C;
+	int		map_flag;
+	int		pos_flag;
+	int		n;
+	int		s;
+	int		e;
+	int		w;
+	int		f;
+	int		c;
 }		t_parse;
 
 typedef struct s_data
@@ -166,22 +165,23 @@ void	init_map(t_data *data, char *filename);
 
 /*	Raycasting	*/
 void	raycast(t_data *data);
-int	game(t_data *data);
+int		game(t_data *data);
 
 /*	Rendering	*/
-void 	render(t_data *data, int ray);
+void	render(t_data *data, int ray);
 
 /*	Textures	*/
 void	render_texture(t_data *data);
 
-/*	Utils	*/ 
+/*	Utils	*/
+
 int		rgb_to_hexa(int *color, int r, int g, int b);
 void	exit_error(char *msg, int status);
 int		destroy_window(t_data *data);
-void	print_error(t_data * data, int msg);
+void	print_error(t_data *data, int msg);
 int		char_isdigit(char c);
 void	free_tab(char **tab);
-void 	free_all(t_data *data);
+void	free_all(t_data *data);
 void	free_and_error(t_data *data, char **F, char **C);
 void	free_mlx(t_data *data);
 
