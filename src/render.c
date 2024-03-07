@@ -12,37 +12,36 @@
 
 #include "cub3d.h"
 
-void	put_wall_pixel(t_data *data, int x, int y)
+void	put_wall_pixel(t_data *data, int x, int y, int i)
 {
-	int	i;
-	int tmp;
 	double	height;
 	double	tmp_h;
-	double	hit_pos2;
-	int	tmp_v;
-	int	temp;
+	double	hit_pos;
+	int		tmp_v;
+	int		tmp;
 
-	i = int_ft_strchr("NSEW", (int)data->wall.side);
 	height = data->wall_h;
-	tmp = floor(data->hit_pos);
-	hit_pos2 = data->hit_pos;
-	hit_pos2 = hit_pos2 - tmp;
+	hit_pos = data->hit_pos - floor(data->hit_pos);
 	tmp_h = height / (data->text[i].height);
 	if (data->wall.side == 'W' || data->wall.side == 'S')
-		hit_pos2 = 1 - hit_pos2;
-	tmp_v = hit_pos2 * (data->text[i].width);
-	temp = (y - data->wall.top) / tmp_h;
-	data->img.addr[y * 4 * 800 + x * 4 + 0] = data->text[i].addr[temp * 4 * (data->text[i].width) + tmp_v * 4 + 0];
-	data->img.addr[y * 4 * 800 + x * 4 + 1] = data->text[i].addr[temp * 4 * (data->text[i].width) + tmp_v * 4 + 1];
-	data->img.addr[y * 4 * 800 + x * 4 + 2] = data->text[i].addr[temp * 4 * (data->text[i].width) + tmp_v * 4 + 2];
-	data->img.addr[y * 4 * 800 + x * 4 + 3] = data->text[i].addr[temp * 4 * (data->text[i].width) + tmp_v * 4 + 3];
+		hit_pos = 1 - hit_pos;
+	tmp_v = hit_pos * (data->text[i].width);
+	tmp = (y - data->wall.top) / tmp_h;
+	data->img.addr[y * 4 * 800 + x * 4 + 0]
+		= data->text[i].addr[tmp * 4 * (data->text[i].width) + tmp_v * 4 + 0];
+	data->img.addr[y * 4 * 800 + x * 4 + 1]
+		= data->text[i].addr[tmp * 4 * (data->text[i].width) + tmp_v * 4 + 1];
+	data->img.addr[y * 4 * 800 + x * 4 + 2]
+		= data->text[i].addr[tmp * 4 * (data->text[i].width) + tmp_v * 4 + 2];
+	data->img.addr[y * 4 * 800 + x * 4 + 3]
+		= data->text[i].addr[tmp * 4 * (data->text[i].width) + tmp_v * 4 + 3];
 }
 
-void	put_pixel(t_data *data, int x, int y, int pixel) // put the pixel
+void	put_pixel(t_data *data, int x, int y, int pixel)
 {
 	if (pixel == -1)
 	{
-		put_wall_pixel(data, x, y);
+		put_wall_pixel(data, x, y, int_ft_strchr("NSEW", (int)data->wall.side));
 		return ;
 	}
 	if (data->img.endian == 1)
@@ -61,7 +60,7 @@ void	put_pixel(t_data *data, int x, int y, int pixel) // put the pixel
 	}
 }
 
-void draw_wall(t_data *data, int ray, int top, int bot) // draw the wall
+void	draw_wall(t_data *data, int ray, int top, int bot)
 {
 	while (top < bot)
 	{
@@ -88,7 +87,7 @@ void	put_floor_and_ceil(t_data *data, int ray, int top, int bot)
 	}
 }
 
-void	render(t_data *data, int ray) // render the wall
+void	render(t_data *data, int ray)
 {
 	double	top;
 	double	bot;

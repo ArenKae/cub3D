@@ -32,7 +32,7 @@ void		*gnl_memmove(void *dst, const void *src, size_t n);
 int			gnl_strchr(const char *s, int c);
 char		*cut_line(char **str, int pos);
 char		*no_new_line(char **str);
-int         int_ft_strchr(const char *s, int c);
+int			int_ft_strchr(const char *s, int c);
 char		*get_next_line(int fd);
 
 #endif

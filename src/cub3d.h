@@ -166,8 +166,14 @@ void	check_format_path(char *path, char *side, int *malloc);
 int		check_comma(char *str);
 int		check_rgb(char **rgb);
 
+/*	Movement	*/
+void	player_movement(t_data *data);
+void	player_rotation(t_data *data);
+float	get_h_inter(t_data *data, double *x_impact);
+float	get_v_inter(t_data *data, double *y_impact);
+
 /*	Raycasting	*/
-void	raycast(t_data *data);
+void	raycast_init(t_data *data);
 int		game(t_data *data);
 
 /*	Rendering	*/
