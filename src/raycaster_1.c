@@ -41,11 +41,6 @@ void	raycast_angle(t_data *data, int ray, double *ray_inter)
 		data->wall.ray_angle = 0.000001;
 	else if (data->wall.ray_angle == M_PI)
 		data->wall.ray_angle -= 0.000001;
-	// if (data->wall.ray_angle < 3.144868 && data->wall.ray_angle > 3.140082)
-	// {
-	// 	fprintf(stderr, "je suis la\n");
-	// 	data->wall.ray_angle -= 0.001000;
-	// }
 	else if (data->wall.ray_angle < 0)
 		data->wall.ray_angle += M_PI * 2;
 }
