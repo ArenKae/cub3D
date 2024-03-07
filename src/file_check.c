@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 16:56:55 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 17:10:16 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 18:17:43 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	multiple_infos(t_data *data)
 	Check if the texture path begins with "./" or not to get
 	the right malloc size later.
 */
-void	check_format_path(char *path, char *side, int *malloc)
+void	get_format_path(char *path, char *side, int *malloc)
 {
 	if (path[0] == side[0] && path[1] == side[1])
 	{

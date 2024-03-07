@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 16:33:00 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 16:33:29 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 18:15:08 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,18 @@ void	print_error(t_data *data, int msg)
 	if (msg != INVALID_NAME)
 		free_all(data);
 	exit (EXIT_FAILURE);
+}
+
+void	free_tab_error(t_data *data, char **F, char **C)
+{
+	free_tab(F);
+	free_tab(C);
+	print_error(data, INVALID_COLORS);
+}
+
+void	free_and_error(t_data *data, char *s1, char *s2)
+{
+	free(s1);
+	free(s2);
+	print_error(data, INVALID_FILE);
 }

@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 17:07:13 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 18:55:20 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,11 +158,16 @@ typedef struct s_data
 int		check_map_name(t_data *data, char *filename);
 int		check_map_init(t_data *data);
 void	init_map(t_data *data, char *filename);
+void	fill_map(t_data *data);
+void	get_player_pos(t_data *data, int y, int x);
+void	get_map_size(t_data *data);
+void	convert_colors(t_data *data);
+void	store_info(t_data *data, char *line);
 
 /*	File checking	*/
 int		missing_info(t_data *data);
 int		multiple_infos(t_data *data);
-void	check_format_path(char *path, char *side, int *malloc);
+void	get_format_path(char *path, char *side, int *malloc);
 int		check_comma(char *str);
 int		check_rgb(char **rgb);
 
@@ -189,15 +194,17 @@ void	hooks_handler(t_data *data);
 int		rgb_to_hexa(int *color, int r, int g, int b);
 int		char_isdigit(char c);
 char	*trim_spaces(const char *line);
+void	get_player_pos(t_data *data, int y, int x);
 void	exit_error(char *msg, int status);
 void	print_error(t_data *data, int msg);
 
 /*	Memory management	*/
 void	free_tab(char **tab);
 void	free_all(t_data *data);
-void	free_and_error(t_data *data, char **F, char **C);
+void	free_tab_error(t_data *data, char **F, char **C);
 void	free_mlx(t_data *data);
 void	free_list(t_data *data);
+void	free_and_error(t_data *data, char *s1, char *s2);
 int		destroy_window(t_data *data);
 
 #endif

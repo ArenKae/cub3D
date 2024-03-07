@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:40:48 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 17:15:03 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 18:56:29 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,17 @@ char	*trim_spaces(const char *line)
 	}
 	str[j - 1] = '\0';
 	return (str);
+}
+
+/*
+	Get player position and convert the player orientation 
+	to the correct angle when parsing map file.
+*/
+
+void	get_player_pos(t_data *data, int y, int x)
+{
+	data->parse.pos_flag += 1;
+	data->player_pos.x = x + 0.5;
+	data->player_pos.y = y + 0.5;
+	data->player_pos.angle = (int_ft_strchr("ENWS", data->map[y][x]) * 1.5708);
 }

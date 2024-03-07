@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:58:54 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 16:35:08 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 18:15:01 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,6 @@ void	free_all(t_data *data)
 	free_tab(data->map);
 	if (data->text)
 		free(data->text);
-}
-
-void	free_and_error(t_data *data, char **F, char **C)
-{
-	free_tab(F);
-	free_tab(C);
-	print_error(data, INVALID_COLORS);
 }
 
 void	free_list(t_data *data)
