@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 16:40:20 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 17:07:13 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,13 @@ typedef struct s_data
 int		check_map_name(t_data *data, char *filename);
 int		check_map_init(t_data *data);
 void	init_map(t_data *data, char *filename);
+
+/*	File checking	*/
+int		missing_info(t_data *data);
+int		multiple_infos(t_data *data);
+void	check_format_path(char *path, char *side, int *malloc);
+int		check_comma(char *str);
+int		check_rgb(char **rgb);
 
 /*	Raycasting	*/
 void	raycast(t_data *data);

@@ -6,26 +6,21 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:19:21 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 16:39:59 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 17:06:49 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-void	check_format_path(char *path, char *side, int *malloc)
-{
-	if (path[0] == side[0] && path[1] == side[1])
-	{
-		if (path[2] == '.' && path[3] == '/')
-			*malloc = 4;
-		else
-			*malloc = 2;
-	}
-}
-
 void	malloc_info_2(t_data *data, char *tmp, char c)
 {
+	if (c == 'W')
+	{
+		if (data->fileinfo.we)
+			free(data->fileinfo.we);
+		data->fileinfo.we = ft_strdup(tmp);
+		data->parse.w++;
+	}
 	if (c == 'F')
 	{
 		if (data->fileinfo.f)
@@ -65,24 +60,8 @@ void	malloc_info(t_data *data, char *tmp, char c)
 		data->fileinfo.ea = ft_strdup(tmp);
 		data->parse.e++;
 	}
-	if (c == 'W')
-	{
-		if (data->fileinfo.we)
-			free(data->fileinfo.we);
-		data->fileinfo.we = ft_strdup(tmp);
-		data->parse.w++;
-	}
 	else
 		malloc_info_2(data, tmp, c);
-}
-
-int	multiple_infos(t_data *data)
-{
-	if (data->parse.n > 1 || data->parse.s > 1
-		|| data->parse.e > 1 || data->parse.w > 1
-		|| data->parse.f > 1 || data->parse.c > 1)
-		return (1);
-	return (0);
 }
 
 void	store_info(t_data *data, char *line)
@@ -120,14 +99,6 @@ void	store_info(t_data *data, char *line)
 		free(line);
 		print_error(data, INVALID_FILE);
 	}
-}
-
-int	missing_info(t_data *data)
-{
-	if (!data->fileinfo.no || !data->fileinfo.so || !data->fileinfo.ea
-		|| !data->fileinfo.we || !data->fileinfo.f || !data->fileinfo.c)
-		return (1);
-	return (0);
 }
 
 int	read_texture(t_data *data, int fd)
@@ -169,47 +140,6 @@ int	read_texture(t_data *data, int fd)
 	if (data->parse.map_flag != 3)
 		return (1);
 	return (0);
-}
-
-int	check_rgb(char **rgb)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (rgb[i] != NULL)
-	{
-		j = 0;
-		while (rgb[i][j] != '\0')
-		{
-			if (!char_isdigit(rgb[i][j]))
-				return (EXIT_FAILURE);
-			j++;
-		}
-		i++;
-	}
-	return (EXIT_SUCCESS);
-}
-
-int	check_comma(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] == ',')
-		return (EXIT_FAILURE);
-	i = -1;
-	while (str[++i])
-	{
-		if (str[i] == ',' && str[i + 1] == ',')
-			return (EXIT_FAILURE);
-	}
-	i = 0;
-	while (str[i])
-		i++;
-	if (str[i - 1] == ',')
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
 }
 
 void	convert_colors(t_data *data)

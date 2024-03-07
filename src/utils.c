@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:40:48 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 16:41:30 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 16:44:50 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ int	char_isdigit(char c)
 	return (c >= '0' && c <= '9');
 }
 
+void	init_iterator(int *i, int *j)
+{
+	*i = -1;
+	*j = 0;
+}
+
 char	*trim_spaces(const char *line)
 {
 	char	*str;
@@ -38,8 +44,7 @@ char	*trim_spaces(const char *line)
 	int		i;
 	int		j;
 
-	i = -1;
-	j = 0;
+	init_iterator(&i, &j);
 	len = strlen(line);
 	while (++i < len)
 	{
@@ -50,8 +55,7 @@ char	*trim_spaces(const char *line)
 	str = (char *)malloc(sizeof(char) * (j + 1));
 	if (!str)
 		return (NULL);
-	j = 0;
-	i = -1;
+	init_iterator(&i, &j);
 	while (++i < len)
 	{
 		if (line[i] != ' ' && line[i] != '\t'
