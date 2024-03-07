@@ -6,11 +6,15 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:40:48 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 16:44:50 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 17:15:03 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+/*
+	Converts a rgb color code to hexadecimal format for the Mlx.
+*/
 
 int	rgb_to_hexa(int *hex, int r, int g, int b)
 {
@@ -36,6 +40,10 @@ void	init_iterator(int *i, int *j)
 	*i = -1;
 	*j = 0;
 }
+
+/*
+	Trim every spaces or tabs in the file for easier parsing.
+*/
 
 char	*trim_spaces(const char *line)
 {
