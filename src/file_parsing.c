@@ -159,6 +159,7 @@ int	read_texture(t_data *data, int fd)
 		free(line);
 	}
 	data->file = malloc(sizeof(t_file));
+	data->file->line = NULL;
 	tmp = data->file;
 	line = get_next_line(fd);
 	while (line)
@@ -171,6 +172,7 @@ int	read_texture(t_data *data, int fd)
 		line = get_next_line(fd);
 		data->file->next = malloc(sizeof(t_file));
 		data->file = data->file->next;
+		data->file->line = NULL;
 	}
 	data->file->next = NULL;
 	data->file = tmp;
@@ -281,8 +283,10 @@ void	fill_map(t_data *data)
 {
 	int	i;
 	int	j;
+	t_file *tmp;
 
 	j = 0;
+	tmp = data->file;
 	while (data->file->next)
 	{
 		if (data->file->line[0] != '\n')
@@ -305,6 +309,7 @@ void	fill_map(t_data *data)
 		data->file = data->file->next;
 	}
 	data->map[j] = NULL;
+	data->file = tmp;
 }
 
 void	print_map(t_data *data)
@@ -320,6 +325,31 @@ void	print_map(t_data *data)
 	}
 }
 
+void	free_list(t_data *data)
+{
+	t_file *tmp;
+
+	tmp = data->file;
+	while (data->file)
+	{
+		if (data->file->line)
+			free(data->file->line);
+		tmp = data->file->next;
+		free(data->file);
+		data->file = tmp;
+	}
+}
+
+void	print_list(t_data *data)
+{
+	printf("je suis la\n");
+	while (data->file)
+	{
+		ft_putstr_fd(data->file->line, 1);
+		data->file = data->file->next;
+	}
+}
+
 void	init_map(t_data *data, char *filename)
 {
 	int	fd;
@@ -331,6 +361,7 @@ void	init_map(t_data *data, char *filename)
 		printf("error\n");
 	get_map_size(data);
 	fill_map(data);
+	free_list(data);
 	printf("pos flag : %d\n", data->parse.pos_flag);
 	print_map(data);
 	if (!check_map_init(data))
