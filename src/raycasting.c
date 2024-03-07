@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 02:50:06 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 02:57:57 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,7 @@ void	raycast(t_data *data)
 	while (++ray < WIN_L)
 	{
 		flag = 0;
-		if (ray < 300)
+		if (ray < 300 && ray > 0)
 			ray_inter += 0.000001;
 		else if (ray > 500)
 			ray_inter -= 0.000001;
@@ -242,8 +242,6 @@ void	raycast(t_data *data)
 int	game(t_data *data)
 {
 	data->clock += 1;
-	// player_movement(data);
-	// player_rotation(data);
 	if (data->clock == 500)
 	{
 		player_movement(data);

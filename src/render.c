@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 02:25:10 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 03:06:11 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void put_wall_pixel(t_data *data, int x, int y)
 		hit_pos2 = 1 - hit_pos2;
 	tmp_v = hit_pos2 * (data->text[i].width);
 	temp = (y - data->wall.top) / tmp_h;
-	data->img.addr[y * 4 * WIN_L + x * 4 + 0] = data->text[i].addr[temp * 4 * (data->text[i].width) + tmp_v * 4 + 0];
-	data->img.addr[y * 4 * WIN_L + x * 4 + 1] = data->text[i].addr[temp * 4 * (data->text[i].width) + tmp_v * 4 + 1];
-	data->img.addr[y * 4 * WIN_L + x * 4 + 2] = data->text[i].addr[temp * 4 * (data->text[i].width) + tmp_v * 4 + 2];
-	data->img.addr[y * 4 * WIN_L + x * 4 + 3] = data->text[i].addr[temp * 4 * (data->text[i].width) + tmp_v * 4 + 3];
+	data->img.addr[y * 4 * 800 + x * 4 + 0] = data->text[i].addr[temp * 4 * (data->text[i].width) + tmp_v * 4 + 0];
+	data->img.addr[y * 4 * 800 + x * 4 + 1] = data->text[i].addr[temp * 4 * (data->text[i].width) + tmp_v * 4 + 1];
+	data->img.addr[y * 4 * 800 + x * 4 + 2] = data->text[i].addr[temp * 4 * (data->text[i].width) + tmp_v * 4 + 2];
+	data->img.addr[y * 4 * 800 + x * 4 + 3] = data->text[i].addr[temp * 4 * (data->text[i].width) + tmp_v * 4 + 3];
 }
 
 void put_pixel(t_data *data, int x, int y, int pixel) // put the pixel
@@ -47,17 +47,17 @@ void put_pixel(t_data *data, int x, int y, int pixel) // put the pixel
 	}
 	if (data->img.endian == 1)
 	{
-		data->img.addr[y * 4 * WIN_L + x * 4 + 0] = (pixel >> 24);
-		data->img.addr[y * 4 * WIN_L + x * 4 + 1] = (pixel >> 16) & 0xFF;
-		data->img.addr[y * 4 * WIN_L + x * 4 + 2] = (pixel >> 8) & 0xFF;
-		data->img.addr[y * 4 * WIN_L + x * 4 + 4] = (pixel) & 0xFF;
+		data->img.addr[y * 4 * 800 + x * 4 + 0] = (pixel >> 24);
+		data->img.addr[y * 4 * 800 + x * 4 + 1] = (pixel >> 16) & 0xFF;
+		data->img.addr[y * 4 * 800 + x * 4 + 2] = (pixel >> 8) & 0xFF;
+		data->img.addr[y * 4 * 800 + x * 4 + 4] = (pixel) & 0xFF;
 	}
 	else if (data->img.endian == 0)
 	{
-		data->img.addr[y * 4 * WIN_L + x * 4 + 0] = (pixel) & 0xFF;
-		data->img.addr[y * 4 * WIN_L + x * 4 + 1] = (pixel >> 8) & 0xFF;
-		data->img.addr[y * 4 * WIN_L + x * 4 + 2] = (pixel >> 16) & 0xFF;
-		data->img.addr[y * 4 * WIN_L + x * 4 + 4] = (pixel >> 24);
+		data->img.addr[y * 4 * 800 + x * 4 + 0] = (pixel) & 0xFF;
+		data->img.addr[y * 4 * 800 + x * 4 + 1] = (pixel >> 8) & 0xFF;
+		data->img.addr[y * 4 * 800 + x * 4 + 2] = (pixel >> 16) & 0xFF;
+		data->img.addr[y * 4 * 800 + x * 4 + 4] = (pixel >> 24);
 	}
 }
 
@@ -81,7 +81,7 @@ void put_floor_and_ceil(t_data *data, int ray, int top, int bot) // draw the flo
 		i++;
 	}
 	i = bot;
-	while (i < WIN_H)
+	while (i < 600)
 	{
 		put_pixel(data, ray, i, data->fileinfo.F_hex); // floor
 		i++;
@@ -93,16 +93,16 @@ void render(t_data *data, int ray) // render the wall
 	double	top;
 	double	bot;
 
-	data->wall_h = ((WIN_H / data->wall.distance) * 1.1) / 
+	data->wall_h = ((600 / data->wall.distance) * 1.1) / 
 		(cos(data->player_pos.angle - data->wall.ray_angle));
-	top = (WIN_H / 2) - (data->wall_h / 2);
-	bot = (WIN_H / 2) + (data->wall_h / 2);
+	top = (600 / 2) - (data->wall_h / 2);
+	bot = (600 / 2) + (data->wall_h / 2);
 	data->wall.top = top;
 	data->wall.bot = bot;
 	if (top < 0)
 		top = 0;
-	if (bot > WIN_H)
-		bot = WIN_H;
+	if (bot > 600)
+		bot = 600;
 	put_floor_and_ceil(data, ray, top, bot);
 	draw_wall(data, ray, top, bot);
 }
