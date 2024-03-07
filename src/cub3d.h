@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 16:23:48 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 16:40:20 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,16 +172,19 @@ void	render_texture(t_data *data);
 /*	Keys and hook	*/
 void	hooks_handler(t_data *data);
 
-/*	Utils	*/
-
+/*	Utils & error management	*/
 int		rgb_to_hexa(int *color, int r, int g, int b);
-void	exit_error(char *msg, int status);
-int		destroy_window(t_data *data);
-void	print_error(t_data *data, int msg);
 int		char_isdigit(char c);
+char	*trim_spaces(const char *line);
+void	exit_error(char *msg, int status);
+void	print_error(t_data *data, int msg);
+
+/*	Memory management	*/
 void	free_tab(char **tab);
 void	free_all(t_data *data);
 void	free_and_error(t_data *data, char **F, char **C);
 void	free_mlx(t_data *data);
+void	free_list(t_data *data);
+int		destroy_window(t_data *data);
 
 #endif

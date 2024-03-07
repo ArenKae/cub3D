@@ -6,42 +6,12 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:19:21 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 16:15:46 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 16:39:59 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*trim_spaces(const char* line)
-{
-	char	*str;
-	int		len;
-	int		i;
-	int		j;
-
-	i = -1;
-	j = 0;
-	len = strlen(line);
-	while (++i < len)
-	{
-		if (line[i] != ' ' && line[i] != '\t'
-			&& line[i] != '\v' && line[i] != '\f' && line[i] != '\r')
-			j++;
-	}
-	str = (char *)malloc(sizeof(char) * (j + 1));
-	if (!str)
-		return (NULL);
-	j = 0;
-	i = -1;
-	while (++i < len)
-	{
-		if (line[i] != ' ' && line[i] != '\t'
-			&& line[i] != '\v' && line[i] != '\f' && line[i] != '\r')
-			str[j++] = line[i];
-	}
-	str[j - 1] = '\0';
-	return (str);
-}
 
 void	check_format_path(char *path, char *side, int *malloc)
 {
@@ -335,34 +305,6 @@ void	fill_map(t_data *data)
 	}
 	data->map[j] = NULL;
 	data->file = tmp;
-}
-
-void	print_map(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (data->map[i])
-	{
-		ft_putstr_fd(data->map[i], 1);
-		ft_putchar_fd('\n', 1);
-		i++;
-	}
-}
-
-void	free_list(t_data *data)
-{
-	t_file	*tmp;
-
-	tmp = data->file;
-	while (data->file)
-	{
-		if (data->file->line)
-			free(data->file->line);
-		tmp = data->file->next;
-		free(data->file);
-		data->file = tmp;
-	}
 }
 
 void	init_map(t_data *data, char *filename)
