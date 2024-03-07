@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 02:29:39 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 02:31:52 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,5 @@ void	create_textures(t_data *data)
 
 void	render_texture(t_data *data)
 {
-	int	i;
-	
-	i = 0;
-	(void)i;
 	create_textures(data);
 }

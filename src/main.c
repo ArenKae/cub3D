@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:31:23 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 02:29:25 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 02:34:13 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	init_structures(t_data *data)
 	data->parse.W = 0;
 	data->parse.F = 0;
 	data->parse.C = 0;
+	data->text = NULL;
+	data->map = NULL;
 }
 
 int	main(int ac, char **av)

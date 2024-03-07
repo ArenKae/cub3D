@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:19:21 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 02:06:28 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 02:48:20 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,10 +166,12 @@ int	read_texture(t_data *data, int fd)
 	while (line)
 	{
 		data->file->line = ft_strdup(line);
-		if (line && line[0] != '\n' && data->parse.map_flag == 0)
-			data->parse.map_flag = 1;
-		else if (line && line[0] == '\n' && data->parse.map_flag == 1)
-			data->parse.map_flag = 2;
+        if (line && line[0] != '\n' && data->parse.map_flag == 0)
+            data->parse.map_flag = 1;
+        else if (line && line[0] == '\n' && data->parse.map_flag == 1)
+            data->parse.map_flag = 2;
+        else if (line && line[0] != '\n' && data->parse.map_flag == 2)
+            data->parse.map_flag = 3;
 		if (line)
 			free(line);
 		line = get_next_line(fd);
@@ -180,7 +182,7 @@ int	read_texture(t_data *data, int fd)
 	free(line);
 	data->file->next = NULL;
 	data->file = tmp;
-	if (data->parse.map_flag == 1)
+	if (data->parse.map_flag != 3)
 		return (1);
 	return (0);
 }
@@ -346,16 +348,6 @@ void	free_list(t_data *data)
 	}
 }
 
-void	print_list(t_data *data)
-{
-	printf("je suis la\n");
-	while (data->file)
-	{
-		ft_putstr_fd(data->file->line, 1);
-		data->file = data->file->next;
-	}
-}
-
 void	init_map(t_data *data, char *filename)
 {
 	int	fd;
@@ -364,7 +356,10 @@ void	init_map(t_data *data, char *filename)
 	if (fd < 0)
 		return (exit_error("open", EXIT_FAILURE));
 	if (!read_texture(data, fd))
-		printf("error\n");
+	{
+		free_list(data);
+		print_error(data, INVALID_MAP);
+	}
 	get_map_size(data);
 	fill_map(data);
 	free_list(data);

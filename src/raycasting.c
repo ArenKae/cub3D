@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/04 22:26:07 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/07 02:50:06 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,8 +215,8 @@ void	raycast(t_data *data)
 		else if (ray > 500)
 			ray_inter -= 0.000001;
 		data->wall.ray_angle -= ray_inter;
-		// if (data->wall.ray_angle == 0)
-		// 	data->wall.ray_angle = 0.000001; //prevent segfault if angle=0 (no tangent)
+		if (data->wall.ray_angle == 0)
+			data->wall.ray_angle = 0.000001; //prevent segfault if angle=0 (no tangent)
 		if (data->wall.ray_angle < 0)
 			data->wall.ray_angle += M_PI * 2;
 		h_inter = get_h_inter(data, &x_impact);
