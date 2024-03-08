@@ -32,12 +32,11 @@ $(NAME) :
 clean :
 	@echo "$(YELLOW)Cleaning libft... $(DEF_COLOR)"
 	@rm -f $(OBJ)
-	@rm -f $(BONUS_OBJ)
-	@echo "$(BLUE)libft object files cleaned!$(DEF_COLOR)"
+	@echo "$(CYAN)libft object files cleaned!$(DEF_COLOR)"
 
 fclean : clean
 	@rm -f $(NAME)
-	@echo "$(BLUE)libft archive cleaned!$(DEF_COLOR)"
+	@echo "$(CYAN)libft archive cleaned!$(DEF_COLOR)"
 
 re : fclean all
 

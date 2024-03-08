@@ -8,6 +8,7 @@ BLUE = \033[0;94m
 MAGENTA = \033[0;95m
 CYAN = \033[0;96m
 WHITE = \033[0;97m
+RESET = \033[0m
 
 ### VARIABLES ###
 
@@ -46,15 +47,16 @@ $(OBJF):
 # The option -o indicates the name of the outpout, the option -c indicates the source that is used.
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEADER) | $(OBJF)
-	@echo "$(YELLOW)Compiling $<...$(DEF_COLOR)"
+	@printf "$(YELLOW)Generating cub3D objects... %-33.33s\r$(RESET)" $@
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-# Compiling all objets files (.o) to a file "NAME" :
+# Compiling all objets files (.o) to a file "NAME" : $(RESET)"\r"
 $(NAME) : $(OBJ)
+	@printf "\n"
 	@$(MAKE) -C ./src/libft
 	@$(CC) $(CFLAGS) $^ $(MLX_FLAGS) -o $@ ./src/libft/libft.a
 	@echo " "
-	@echo "$(GREEN)-> cub3D compiled!$(DEF_COLOR)"
+	@echo "$(GREEN)>>> cub3D compiled!$(DEF_COLOR)"
 	@echo " "
 	@$(eval update_flag := true)
 
@@ -67,14 +69,14 @@ $(OBJ_DIR)%.o : $(BONUS_DIR)%.c $(HEADER) | $(OBJF)
 $(NAME_BONUS) : $(OBJ)
 	@$(CC) $(CFLAGS) $^ $(MLX_FLAGS) -o $@
 	@echo " "
-	@echo "$(GREEN)-> cub3D_bonus compiled!$(DEF_COLOR)"
+	@echo "$(GREEN)>>> cub3D_bonus compiled!$(DEF_COLOR)"
 	@echo " "
 
 ### RULES ##
 
 nothing_to_be_done:
 	@if [ "$(update_flag)" = "false" ]; then \
-		echo "$(GREEN)-> make: Nothing to be done for 'all'.$(DEF_COLOR)"; \
+		echo "$(GREEN)>>> make: Nothing to be done for 'all'.$(DEF_COLOR)"; \
 	fi
 
 minilibx:
@@ -82,9 +84,9 @@ minilibx:
 	@$(MAKE) -C ./minilibx/ > .mlx_output.txt 2>&1
 	@echo " "
 	@if grep -q "Nothing to be done for" .mlx_output.txt; then \
-    	echo "$(GREEN)-> Minilibx already compiled!$(DEF_COLOR)"; \
+    	echo "$(CYAN)Minilibx already compiled!$(DEF_COLOR)"; \
 	else \
-    	echo "$(GREEN)-> Minilibx compiled!$(DEF_COLOR)"; \
+    	echo "$(CYAN)Minilibx compiled!$(DEF_COLOR)"; \
 	fi
 	@echo " "
 
@@ -106,10 +108,10 @@ clean:
 	@rm -f .mlx_output.txt
 	@echo " "
 	@if [ "$(fclean_flag)" = "false" ]; then \
-		echo "$(GREEN)-> cub3D object files cleaned!$(DEF_COLOR)"; \
+		echo "$(GREEN)>>> cub3D object files cleaned!$(DEF_COLOR)"; \
     fi
 	@if [ "$(fclean_flag)" = "true" ]; then \
-		echo "$(GREEN)-> cub3D object files & executables cleaned!$(DEF_COLOR)"; \
+		echo "$(GREEN)>>> cub3D object files & executables cleaned!$(DEF_COLOR)"; \
     fi
 	@echo " "
 
@@ -118,7 +120,7 @@ fclean: do_fclean clean
 	@rm -f $(NAME_BONUS)
 
 re:	fclean minilibx all
-	@echo "$(BLUE)-> Cleaned and rebuilt everything for cub3D!$(DEF_COLOR)"
+	@echo "$(GREEN)>>> Cleaned and rebuilt everything for cub3D!$(DEF_COLOR)"
 
 # Phony targets are used to differenciate makefile rules from system files.
 .PHONY: all clean fclean re minilibx bonus

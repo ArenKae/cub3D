@@ -3,6 +3,7 @@ Makefile.gen
 minilibx/test/mlx-test
 minilibx/obj
 .mlx_outpout.txt
+.mlx_output.txt
 
 ## Editor
 .vscode/*
@@ -25,6 +26,7 @@ libft.a
 *.a
 *.out
 cub3d
+cub3D
 
 # MEMO : delete folder from remote :
 # git rm -r --cached folder_name
