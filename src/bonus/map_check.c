@@ -6,11 +6,27 @@
 /*   By: acosi <acosi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 22:30:32 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/08 11:22:40 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/08 13:04:14 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+/*
+	Checks if a file named only ".cub" is used.
+*/
+
+int	unamed_cub(char *str)
+{
+	int	i;
+	
+	i = ft_strlen(str);
+	if (i > 4 && str[i - 1] == 'b' && str[i - 2] == 'u' && str[i - 3] == 'c' && str[i - 4] == '.' && str[i - 5] == '/')
+		return (1);
+	else if (i == 4 && str[i - 1] == 'b' && str[i - 2] == 'u' && str[i - 3] == 'c' && str[i - 4] == '.')
+		return (1);
+	return (0);
+}
 
 /*
 	Checks that the first argument passed to 
@@ -21,18 +37,23 @@ int	check_map_name(t_data *data, char *map)
 {
 	size_t	i;
 	size_t	j;
-	char	*s2;
+	char	*str;
 
 	i = 0;
 	j = 0;
-	s2 = ".cub";
+	str = ".cub";
+	if (unamed_cub(map))
+	{
+		print_error(data, INVALID_NAME);
+		return (EXIT_FAILURE);
+	}
 	while (map[i])
 	{
-		while (map[i] == s2[j])
+		while (map[i] == str[j])
 		{
 			j++;
 			i++;
-			if (s2[j] == '\0' && i == ft_strlen(map))
+			if (str[j] == '\0' && i == ft_strlen(map))
 				return (EXIT_SUCCESS);
 		}
 		i++;
