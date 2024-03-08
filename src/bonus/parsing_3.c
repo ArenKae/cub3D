@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 18:00:34 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/08 11:22:50 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/08 13:33:59 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	copy_map_info(t_data *data, int i, int j)
 		get_player_pos(data, j, i);
 		data->map[j][i] = '0';
 	}
+	else if (data->map[j][i] == ' ')
+		data->map[j][i] = '1';
 }
 
 void	fill_map(t_data *data)

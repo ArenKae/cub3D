@@ -6,27 +6,11 @@
 /*   By: acosi <acosi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 22:30:32 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/08 13:04:14 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/08 13:46:32 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-/*
-	Checks if a file named only ".cub" is used.
-*/
-
-int	unamed_cub(char *str)
-{
-	int	i;
-	
-	i = ft_strlen(str);
-	if (i > 4 && str[i - 1] == 'b' && str[i - 2] == 'u' && str[i - 3] == 'c' && str[i - 4] == '.' && str[i - 5] == '/')
-		return (1);
-	else if (i == 4 && str[i - 1] == 'b' && str[i - 2] == 'u' && str[i - 3] == 'c' && str[i - 4] == '.')
-		return (1);
-	return (0);
-}
 
 /*
 	Checks that the first argument passed to 
@@ -49,15 +33,12 @@ int	check_map_name(t_data *data, char *map)
 	}
 	while (map[i])
 	{
-		while (map[i] == str[j])
-		{
-			j++;
-			i++;
-			if (str[j] == '\0' && i == ft_strlen(map))
-				return (EXIT_SUCCESS);
-		}
 		i++;
 	}
+	i--;
+		if (map[i] == 'b' && map[i - 1] == 'u'
+			&& map[i - 2] == 'c' && map[i - 3] == '.')
+				return (EXIT_SUCCESS);
 	print_error(data, INVALID_NAME);
 	return (EXIT_FAILURE);
 }
@@ -79,6 +60,27 @@ int	unclosed_map(t_data *data, char **map, int x, int y)
 	return (0);
 }
 
+int	check_map_characters(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (data->map[y])
+	{
+		x = 0;
+		while (data->map[y][x])
+		{
+			if (data->map[y][x] != '1' && data->map[y][x] != '0'
+				&& data->map[y][x] != ' ')
+				return (0);
+			x++;
+		}
+		y++;
+	}
+	return (1);
+}
+
 int	check_map(t_data *data)
 {
 	int	x;
@@ -97,7 +99,7 @@ int	check_map(t_data *data)
 		}
 		y++;
 	}
-	return (1);
+	return (check_map_characters(data));
 }
 
 int	check_map_init(t_data *data)

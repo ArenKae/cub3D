@@ -27,6 +27,7 @@ libft.a
 *.out
 cub3d
 cub3D
+cub3D_bonus
 
 # MEMO : delete folder from remote :
 # git rm -r --cached folder_name

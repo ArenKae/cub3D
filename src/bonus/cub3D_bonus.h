@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/08 11:56:46 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/08 13:30:21 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,7 @@ char	*trim_spaces(const char *line);
 void	get_player_pos(t_data *data, int y, int x);
 void	exit_error(char *msg, int status);
 void	print_error(t_data *data, int msg);
+int		unamed_cub(char *str);
 
 /*	Memory management	*/
 void	free_tab(char **tab);

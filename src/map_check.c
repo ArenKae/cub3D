@@ -6,32 +6,11 @@
 /*   By: acosi <acosi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 22:30:32 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/08 13:04:19 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/08 13:50:21 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-/*
-	Checks if a file named only ".cub" is used.
-*/
-
-int	unamed_cub(char *str)
-{
-	int	i;
-	
-	i = ft_strlen(str);
-	if (i > 4 && str[i - 1] == 'b' && str[i - 2] == 'u' && str[i - 3] == 'c' && str[i - 4] == '.' && str[i - 5] == '/')
-		return (1);
-	else if (i == 4 && str[i - 1] == 'b' && str[i - 2] == 'u' && str[i - 3] == 'c' && str[i - 4] == '.')
-		return (1);
-	return (0);
-}
-
-/*
-	Checks that the first argument passed to 
-	the program is a valid.cub file.
-*/
 
 /*
 	Checks that the first argument passed to 
@@ -123,7 +102,6 @@ int	check_map(t_data *data)
 		}
 		y++;
 	}
-	// return (1);
 	return (check_map_characters(data));
 }
 
