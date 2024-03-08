@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
+/*   By: acosi <acosi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 15:40:48 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/07 23:29:52 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/08 10:18:27 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*trim_spaces(const char *line)
 	int		j;
 
 	init_iterator(&i, &j);
-	len = strlen(line);
+	len = ft_strlen(line);
 	while (++i < len)
 	{
 		if (line[i] != ' ' && line[i] != '\t'
