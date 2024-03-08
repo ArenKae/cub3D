@@ -87,7 +87,7 @@ void	raycast_init(t_data *data)
 int	game(t_data *data)
 {
 	data->clock += 1;
-	if (data->clock == 500)
+	if (data->clock == 200)
 	{
 		player_movement(data);
 		player_rotation(data);
