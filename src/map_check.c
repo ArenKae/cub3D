@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 22:30:32 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/08 13:50:21 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/08 14:12:33 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 int	check_map_name(t_data *data, char *map)
 {
 	size_t	i;
-	char	*s2;
+	char	*str;
 
 	i = 0;
-	s2 = ".cub";
+	str = ".cub";
 	if (unamed_cub(map))
 	{
 		print_error(data, INVALID_NAME);
@@ -31,8 +31,8 @@ int	check_map_name(t_data *data, char *map)
 	}
 	while (map[i])
 	{
-		if (!ft_strncmp(&map[i], s2, 5))
-				return (EXIT_SUCCESS);
+		if (!ft_strncmp(&map[i], str, 5))
+			return (EXIT_SUCCESS);
 		i++;
 	}
 	print_error(data, INVALID_NAME);

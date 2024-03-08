@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 22:30:32 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/08 13:46:32 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/08 14:12:27 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,10 @@ int	check_map_name(t_data *data, char *map)
 	}
 	while (map[i])
 	{
+		if (!ft_strncmp(&map[i], str, 5))
+			return (EXIT_SUCCESS);
 		i++;
 	}
-	i--;
-		if (map[i] == 'b' && map[i - 1] == 'u'
-			&& map[i - 2] == 'c' && map[i - 3] == '.')
-				return (EXIT_SUCCESS);
 	print_error(data, INVALID_NAME);
 	return (EXIT_FAILURE);
 }
