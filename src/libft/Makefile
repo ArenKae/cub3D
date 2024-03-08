@@ -9,7 +9,7 @@ MAGENTA = \033[0;95m
 CYAN = \033[0;96m
 WHITE = \033[0;97m
 
-SRC = ft_atoi.c ft_split.c ft_putchar_fd.c ft_putstr_fd.c ft_strdup.c ft_strlen.c get_next_line.c get_next_line_utils.c
+SRC = ft_atoi.c ft_split.c ft_putchar_fd.c ft_putstr_fd.c ft_strdup.c ft_strlen.c ft_strncmp.c get_next_line.c get_next_line_utils.c
 
 CC = gcc
 
