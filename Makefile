@@ -18,6 +18,7 @@ CC = gcc
 CFLAGS += -Wall -Werror -Wextra -I minilibx
 MLX_FLAGS = -L./minilibx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 HEADER 	= cub3D.h
+HEADER_BONUS = src/bonus/cub3D.h
 OBJF = .cache_exists	# needed to create obj/ directory
 .DEFAULT_GOAL := all	# make = make all
 update_flag := false
@@ -62,15 +63,18 @@ $(NAME) : $(OBJ)
 
 ### BONUS ###
 
-$(OBJ_DIR)%.o : $(BONUS_DIR)%.c $(HEADER) | $(OBJF)
-	@echo "$(YELLOW)Compiling $<...$(DEF_COLOR)"
+$(OBJ_DIR)%.o : $(SRC_DIR)%.c $(BONUS_DIR)%.c $(HEADER_BONUS) | $(OBJF)
+	@printf "$(YELLOW)Generating cub3D objects... %-33.33s\r$(RESET)" $@
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME_BONUS) : $(OBJ)
-	@$(CC) $(CFLAGS) $^ $(MLX_FLAGS) -o $@
+	@printf "\n"
+	@$(MAKE) -C ./src/libft
+	@$(CC) $(CFLAGS) $^ $(MLX_FLAGS) -o $@ ./src/libft/libft.a
 	@echo " "
 	@echo "$(GREEN)>>> cub3D_bonus compiled!$(DEF_COLOR)"
 	@echo " "
+	@$(eval update_flag := true)
 
 ### RULES ##
 
