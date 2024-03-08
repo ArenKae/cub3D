@@ -20,11 +20,9 @@
 int	check_map_name(t_data *data, char *map)
 {
 	size_t	i;
-	size_t	j;
 	char	*s2;
 
 	i = 0;
-	j = 0;
 	s2 = ".cub";
 	if (unamed_cub(map))
 	{
@@ -33,13 +31,8 @@ int	check_map_name(t_data *data, char *map)
 	}
 	while (map[i])
 	{
-		while (map[i] == s2[j])
-		{
-			j++;
-			i++;
-			if (s2[j] == '\0' && i == ft_strlen(map))
+		if (!ft_strncmp(&map[i], s2, 5))
 				return (EXIT_SUCCESS);
-		}
 		i++;
 	}
 	print_error(data, INVALID_NAME);
