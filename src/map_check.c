@@ -84,6 +84,27 @@ int	unclosed_map(t_data *data, char **map, int x, int y)
 	return (0);
 }
 
+int	check_map_characters(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (data->map[y])
+	{
+		x = 0;
+		while (data->map[y][x])
+		{
+			if (data->map[y][x] != '1' && data->map[y][x] != '0'
+				&& data->map[y][x] != ' ')
+				return (0);
+			x++;
+		}
+		y++;
+	}
+	return (1);
+}
+
 int	check_map(t_data *data)
 {
 	int	x;
@@ -102,7 +123,8 @@ int	check_map(t_data *data)
 		}
 		y++;
 	}
-	return (1);
+	// return (1);
+	return (check_map_characters(data));
 }
 
 int	check_map_init(t_data *data)

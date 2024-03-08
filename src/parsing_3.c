@@ -81,6 +81,8 @@ void	copy_map_info(t_data *data, int i, int j)
 		get_player_pos(data, j, i);
 		data->map[j][i] = '0';
 	}
+	else if (data->map[j][i] == ' ')
+		data->map[j][i] = '1';
 }
 
 void	fill_map(t_data *data)
