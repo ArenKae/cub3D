@@ -17,8 +17,8 @@ NAME_BONUS = cub3D_bonus
 CC = gcc
 CFLAGS += -Wall -Werror -Wextra -I minilibx
 MLX_FLAGS = -L./minilibx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
-HEADER 	= cub3D.h
-HEADER_BONUS = src/bonus/cub3D.h
+HEADER 	= src/cub3D.h
+HEADER_BONUS = src/bonus/cub3D_bonus.h
 OBJF = .cache_exists	# needed to create obj/ directory
 .DEFAULT_GOAL := all	# make = make all
 update_flag := false
@@ -36,8 +36,16 @@ SRC = main.c \
 		movement.c key_hook.c \
 		utils.c free.c free_mlx.c error.c
 
+SRC_BONUS = main.c \
+		parsing_1.c parsing_2.c parsing_3.c main.c \
+		file_check.c map_check.c \
+		raycaster_1.c raycaster_2.c textures.c render.c \
+		movement_bonus.c key_hook.c \
+		utils.c free.c free_mlx.c error.c
+
 # Object Files
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
+OBJ_BONUS = $(addprefix $(OBJ_DIR), $(SRC_BONUS:.c=.o))
 
 ### COMPILATION ###
 
@@ -63,11 +71,11 @@ $(NAME) : $(OBJ)
 
 ### BONUS ###
 
-$(OBJ_DIR)%.o : $(SRC_DIR)%.c $(BONUS_DIR)%.c $(HEADER_BONUS) | $(OBJF)
-	@printf "$(YELLOW)Generating cub3D objects... %-33.33s\r$(RESET)" $@
+$(OBJ_DIR)%.o : $(BONUS_DIR)%.c $(HEADER_BONUS) | $(OBJF)
+	@printf "$(YELLOW)Generating cub3D_bonus objects... %-33.33s\r$(RESET)" $@
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME_BONUS) : $(OBJ)
+$(NAME_BONUS) : $(OBJ_BONUS)
 	@printf "\n"
 	@$(MAKE) -C ./src/libft
 	@$(CC) $(CFLAGS) $^ $(MLX_FLAGS) -o $@ ./src/libft/libft.a
@@ -95,6 +103,8 @@ minilibx:
 	@echo " "
 
 all: minilibx $(NAME) nothing_to_be_done
+
+bonus: minilibx $(NAME_BONUS) nothing_to_be_done
 	
 # Flag to check if 'clean' is executed alone or as a dependency of 'fclean'
 fclean_flag := false

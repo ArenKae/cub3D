@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/08 11:54:31 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/08 11:23:04 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	put_wall_pixel(t_data *data, int x, int y, int i)
 	height = data->wall_h;
 	hit_pos = data->hit_pos - floor(data->hit_pos);
 	tmp_h = height / (data->text[i].height);
-	if (data->wall.side == 'S' || data->wall.side == 'W')
+	if (data->wall.side == 'N' || data->wall.side == 'E')
 		hit_pos = 1 - hit_pos;
 	tmp_v = hit_pos * (data->text[i].width);
 	tmp = (y - data->wall.top) / tmp_h;

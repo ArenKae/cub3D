@@ -6,7 +6,7 @@
 /*   By: acosi <acosi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:00:42 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/08 11:54:13 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/08 11:22:54 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ void	get_wall_side(t_data *data, double ray_angle, int flag)
 	if (flag == 0)
 	{
 		if (ray_angle > (M_PI / 2) && ray_angle < (3 * M_PI) / 2)
-			data->wall.side = 'W';
-		else
 			data->wall.side = 'E';
+		else
+			data->wall.side = 'W';
 	}
 	else
 	{
 		if (ray_angle > 0 && ray_angle < M_PI)
-			data->wall.side = 'N';
-		else
 			data->wall.side = 'S';
+		else
+			data->wall.side = 'N';
 	}
 }
 

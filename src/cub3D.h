@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acosi <acosi@student.42nice.fr>            +#+  +:+       +#+        */
+/*   By: acosi <acosi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:30:53 by acosi             #+#    #+#             */
-/*   Updated: 2024/03/08 01:09:36 by acosi            ###   ########.fr       */
+/*   Updated: 2024/03/08 11:41:34 by acosi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <math.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
-# include "src/libft/libft.h"
-# include "src/libft/get_next_line.h"
+# include "libft/libft.h"
+# include "libft/get_next_line.h"
 
 /* -----------------------------------------------------------------*
 							MACROS
