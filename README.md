@@ -12,8 +12,8 @@ Cub3D is a team project where we need to create a dynamic view inside a 3D maze.
 </p>
 
 ### 💻 This project was developed on Ubuntu 24.04.2 LTS.
-
-> **_NOTE:_**  I added some really bad drawings in the "cours/" directory that helped me understand how raycasting works. Maybe one day I'll redo them properly to explain theses notions in a pedagogical way.
+<br/><br/>
+> **_NOTE:_**  I added some really bad drawings in the "cours" directory that helped me understand how raycasting works. Maybe one day I'll redo them properly to explain theses notions in a pedagogical way.
 
 ## Status
 Finished 03/08/2024.
