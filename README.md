@@ -13,6 +13,8 @@ Cub3D is a team project where we need to create a dynamic view inside a 3D maze.
 
 ### 💻 This project was developed on Ubuntu 24.04.2 LTS.
 
+> **_NOTE:_**  I added some really bad drawings in the "cours/" directory that helped me understand how raycasting works. Maybe one day I'll redo them properly to explain theses notions in a pedagogical way.
+
 ## Status
 Finished 03/08/2024.
 
@@ -28,5 +30,3 @@ sudo apt install xauth xorg openbox libxext-dev libbsd-dev
 - Clone the repository and use ```make``` or ```make bonus``` to compile with or without the bonus part.
 
 - Launch the program using ```./cub3D maps/your_map.cub``` or ```./cub3D_bonus maps/bonus_map.cub```. You can use either WASD or ZQSD to move the player, and the left/right arrow keys to rotate the camera.
-
-> **_NOTE:_**  I added some really bad drawings in the "cours/" directory that helped me understand how raycasting works. Maybe one day I'll redo them properly to explain theses notions in a pedagogical way.
