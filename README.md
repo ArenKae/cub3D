@@ -6,9 +6,9 @@
 
 ## A small raycaster FPS game
 Cub3D is a team project where we need to create a dynamic view inside a 3D maze. Using the [MiniLibX library](https://github.com/42Paris/minilibx-linux), we must implement raycasting in the style of the famous [Wolfenstein 3D](http://users.atw.hu/wolf3d/) game, the first true FPS in videogame history.
-
+<br>
 <p align="center">
-  <img src="https://github.com/ArenKae/ArenKae/blob/main/screens/cub3d%20demo.gif" alt="cub3D demo gif" width="500" height="409">
+  <img src="https://github.com/ArenKae/ArenKae/blob/main/screens/cub3d%20demo.gif" alt="cub3D demo gif">
 </p>
 
 ### 💻 This project was developed on Ubuntu 24.04.2 LTS.
@@ -22,7 +22,7 @@ Grade: 105/100
 
 - First, install the following dependencies to allow the Minilibx to compile :
 ```
-sudo apt-get install xauth xorg openbox libxext-dev libbsd-dev
+sudo apt install xauth xorg openbox libxext-dev libbsd-dev
 ```
 
 - Clone the repository and use ```make``` or ```make bonus``` to compile with or without the bonus part.
