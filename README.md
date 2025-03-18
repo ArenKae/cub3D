@@ -27,4 +27,4 @@ sudo apt install xauth xorg openbox libxext-dev libbsd-dev
 
 - Clone the repository and use ```make``` or ```make bonus``` to compile with or without the bonus part.
 
-- Launch the program using ```./cub3D map/your_map.cub``` or ```./cub3D_bonus map/bonus_map.cub```. You can use either WASD or ZQSD to move the player, and the left/right arrow keys to rotate the camera.
+- Launch the program using ```./cub3D maps/your_map.cub``` or ```./cub3D_bonus maps/bonus_map.cub```. You can use either WASD or ZQSD to move the player, and the left/right arrow keys to rotate the camera.
