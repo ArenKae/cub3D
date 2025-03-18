@@ -59,7 +59,7 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEADER) | $(OBJF)
 	@printf "$(YELLOW)Generating cub3D objects... %-33.33s\r$(RESET)" $@
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-# Compiling all objets files (.o) to a file "NAME" : $(RESET)"\r"
+# Compiling all objets files (.o) to a file "NAME" :
 $(NAME) : $(OBJ)
 	@printf "\n"
 	@$(MAKE) -C ./src/libft
