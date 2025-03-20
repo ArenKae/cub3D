@@ -16,9 +16,8 @@ Cub3D is a team project where we need to create a dynamic view inside a 3D maze.
 > **_NOTE:_**  I made some really bad drawings in the "cours" directory that helped me understand how raycasting works. Maybe one day I'll redo them properly to explain theses notions in a pedagogical way.
 
 ## Status
-Finished 03/08/2024.
-
-Grade: 105/100
+✅ Completed on: 03/08/2024
+🏆 Grade: 105/100
 
 ## Usage
 
