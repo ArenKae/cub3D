@@ -17,6 +17,7 @@ Cub3D is a team project where we need to create a dynamic view inside a 3D maze.
 
 ## Status
 ✅ Completed on: 03/08/2024
+</br>
 🏆 Grade: 105/100
 
 ## Usage
